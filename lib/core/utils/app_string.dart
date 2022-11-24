@@ -8,5 +8,6 @@ class AppString {
   static const String image = 'image';
   static const String status = 'status';
   static const String message = 'message';
+  static const String password = 'password';
 
 }

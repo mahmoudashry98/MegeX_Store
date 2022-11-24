@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:e_commerce_app/core/network/api/end_point.dart';
-import 'package:e_commerce_app/core/errors/network_exceptions.dart';
+
+import 'package:e_commerce_app/core/network/end_point.dart';
 import 'package:flutter/material.dart';
+import '../../../features/auth/data/model/auth.dart';
+import '../../errors/exceptions.dart';
 
 abstract class DioHelper {
   Future<dynamic> post({
@@ -32,7 +34,7 @@ class DioImpl extends DioHelper {
     ),
   );
   @override
-  Future get({
+  Future<dynamic> get({
     String? base,
     required String endPoint,
     data,
@@ -64,7 +66,7 @@ class DioImpl extends DioHelper {
   }
 
   @override
-  Future post({
+  Future<dynamic> post({
     String? base,
     required String endPoint,
     data,
@@ -98,30 +100,42 @@ class DioImpl extends DioHelper {
 }
 
 extension on DioHelper {
-  
   Future request({
     required Future<Response> Function() call,
   }) async {
     try {
-      final r = await call.call();
-      debugPrint("Response_Data => ${r.data}");
-      debugPrint("Response_Code => ${r.statusCode}");
-      return r.data;
+      final response = await call.call();
+      debugPrint("Response_Data => ${response.data}");
+      debugPrint("Response_Code => ${response.statusCode}");
+      if (response.statusCode == 200 && response.data['status'] == true) {
+        return AuthModel.fromJson(response.data);
+      } else if (response.statusCode == 200 &&
+          response.data['status'] == false) {
+        return PrimaryServerException(
+          message: response.data,
+          status: response.data,
+        );
+      }
+      // if (r.data[AppString.status] == false) {
+      //   throw StatusModel(
+      //     status: r.data[AppString.status],
+      //     message: r.data[AppString.message],
+      //   );
+      // }
+      return response.data;
     } on DioError catch (e) {
       debugPrint("Error_Message => ${e.message}");
       debugPrint("Error => ${e.error.toString()}");
       debugPrint("Error_Type => ${e.type.toString()}");
       throw PrimaryServerException(
-        code: 100,
-        error: 'error Message',
-        message: ' message hello from primary exception',
+        message: 'error',
+        status: false,
       );
     } catch (e) {
-      PrimaryServerException exception = e as PrimaryServerException;
+      //PrimaryServerException exception = e as PrimaryServerException;
       throw PrimaryServerException(
-        code: exception.code,
-        error: exception.error,
-        message: exception.message,
+        message: 'this is an error',
+        status: false,
       );
     }
   }

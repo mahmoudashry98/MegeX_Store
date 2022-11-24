@@ -5,6 +5,7 @@ import '../../domain/usecase/login.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final LoginUseCase loginUseCase;
+
   AuthCubit({
     required this.loginUseCase,
   }) : super(AuthInitialState());
@@ -12,7 +13,11 @@ class AuthCubit extends Cubit<AuthState> {
   static AuthCubit get(context) => BlocProvider.of<AuthCubit>(context);
   Auth? loginModel;
 
-  void login({required String email, required String password}) async {
+  void login({
+    required String email,
+    required String password,
+  }) async {
+   // StatusModel? statusModel;
     emit(LoginLoadingState());
     var response = await loginUseCase(
       LoginParameters(
@@ -20,15 +25,17 @@ class AuthCubit extends Cubit<AuthState> {
         password: password,
       ),
     );
-    response.fold((l) {
-      emit(
-        LoginErrorState(exception: l),
-      );
-    }, (r) {
-      loginModel = r;
-      emit(LoginLoadedState());
-      // token = r.apiToken;
-      // CachedHelper.saveData(key: 'token', value: r.apiToken);
-    },);
+    response.fold(
+      (l) {
+        print('.................$l');
+        emit(LoginErrorState(
+         exception: l,
+        ));
+      },
+      (r) {
+        loginModel = r;
+        emit(LoginLoadedState());
+      },
+    );
   }
 }

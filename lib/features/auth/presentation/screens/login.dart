@@ -11,9 +11,8 @@ class LoginScreen extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is LoginErrorState) {
-          debugPrint(state.exception.message.toString());
-          debugPrint(state.exception.error.toString());
-          debugPrint(state.exception.code.toString());
+          debugPrint(state.exception.toString());
+          debugPrint(state.exception.toString());
         }
       },
       builder: (context, state) {
