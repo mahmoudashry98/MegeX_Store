@@ -15,7 +15,7 @@ class LoginErrorState extends AuthState {
 
 class LoginLoadedState extends AuthState {
   final String message;
-  LoginLoadedState({this.message = ''});
+  LoginLoadedState({required this.message});
 }
 
 ///RegisterState

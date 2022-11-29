@@ -5,14 +5,17 @@ class AuthModel extends Auth {
   const AuthModel({
     required super.status,
     required super.message,
-    required super.userData,
+    super.userData,
   });
+
   factory AuthModel.fromJson(Map<String, dynamic> json) {
     return AuthModel(
       status: json[AppString.status],
       message: json[AppString.message],
-      userData: UserDataModel.fromJson(json[AppString.data]),
+      userData: json[AppString.data]!= null? UserDataModel.fromJson(json[AppString.data]):null,
     );
+
+    
   }
 }
 
@@ -25,7 +28,6 @@ class UserDataModel extends UserData {
     required super.phone,
     super.image,
   });
-
   factory UserDataModel.fromJson(Map<String, dynamic> json) {
     return UserDataModel(
       name: json[AppString.name],

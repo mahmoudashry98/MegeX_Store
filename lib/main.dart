@@ -10,16 +10,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/utils/app_colors.dart';
 
 void main() {
-   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      // navigation bar color
-      statusBarColor: AppColors.primaryColor, // status bar color
-    ),
-  );
+  // SystemUiOverlayStyle(
+  //   //statusBarBrightness: Brightness.light,
+  //   statusBarColor: AppColors.backgroundColor
+  // );
   WidgetsFlutterBinding.ensureInitialized();
 
   Bloc.observer = MyBlocObserver();
   ServicesLocator().init();
-  runApp( DevicePreview(builder: (context) => MyApp()));
+  runApp(DevicePreview(builder: (context) => MyApp()));
 }
-

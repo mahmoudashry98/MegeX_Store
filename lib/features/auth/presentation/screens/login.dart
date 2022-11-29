@@ -1,6 +1,8 @@
+import 'package:e_commerce_app/core/utils/app_colors.dart';
 import 'package:e_commerce_app/features/auth/presentation/cubit/cubit.dart';
 import 'package:e_commerce_app/features/auth/presentation/cubit/state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -11,12 +13,22 @@ class LoginScreen extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is LoginErrorState) {
-          debugPrint(state.exception.toString());
-          debugPrint(state.exception.toString());
+          debugPrint('message Error: ${state.exception.message}');
+          // debugPrint('${state.status}');
+        }
+           if (state is LoginLoadedState) {
+          debugPrint('message success: ${state.message}');
+          // debugPrint('${state.status}');
         }
       },
       builder: (context, state) {
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: AppColors.whiteColor,
+          statusBarBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.dark,
+        ));
         return Scaffold(
+          backgroundColor: AppColors.whiteColor,
           body: Center(
               child: TextButton(
                   onPressed: () {

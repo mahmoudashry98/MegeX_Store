@@ -17,7 +17,6 @@ class AuthCubit extends Cubit<AuthState> {
     required String email,
     required String password,
   }) async {
-   // StatusModel? statusModel;
     emit(LoginLoadingState());
     var response = await loginUseCase(
       LoginParameters(
@@ -27,14 +26,15 @@ class AuthCubit extends Cubit<AuthState> {
     );
     response.fold(
       (l) {
-        print('.................$l');
         emit(LoginErrorState(
-         exception: l,
+         exception: l
         ));
       },
       (r) {
         loginModel = r;
-        emit(LoginLoadedState());
+        emit(LoginLoadedState(
+          message: r.message
+        ));
       },
     );
   }

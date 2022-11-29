@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 
 import 'package:e_commerce_app/core/network/end_point.dart';
+import 'package:e_commerce_app/core/utils/app_string.dart';
 import 'package:flutter/material.dart';
-import '../../../features/auth/data/model/auth.dart';
 import '../../errors/exceptions.dart';
 
 abstract class DioHelper {
@@ -101,41 +101,35 @@ class DioImpl extends DioHelper {
 
 extension on DioHelper {
   Future request({
-    required Future<Response> Function() call,
+    required Future<dynamic> Function() call,
   }) async {
     try {
       final response = await call.call();
       debugPrint("Response_Data => ${response.data}");
       debugPrint("Response_Code => ${response.statusCode}");
-      if (response.statusCode == 200 && response.data['status'] == true) {
-        return AuthModel.fromJson(response.data);
-      } else if (response.statusCode == 200 &&
-          response.data['status'] == false) {
-        return PrimaryServerException(
-          message: response.data,
-          status: response.data,
+      if (response.data['status'] == false) {
+        throw PrimaryServerException(
+          message: response.data[AppString.message],
+          error: '',
+          code: response.statusCode,
         );
       }
-      // if (r.data[AppString.status] == false) {
-      //   throw StatusModel(
-      //     status: r.data[AppString.status],
-      //     message: r.data[AppString.message],
-      //   );
-      // }
       return response.data;
     } on DioError catch (e) {
       debugPrint("Error_Message => ${e.message}");
       debugPrint("Error => ${e.error.toString()}");
       debugPrint("Error_Type => ${e.type.toString()}");
       throw PrimaryServerException(
-        message: 'error',
-        status: false,
+        message: 'message hello from primary exception',
+        error: 'error message',
+        code: 100,
       );
     } catch (e) {
-      //PrimaryServerException exception = e as PrimaryServerException;
+      PrimaryServerException exception = e as PrimaryServerException;
       throw PrimaryServerException(
-        message: 'this is an error',
-        status: false,
+        message: exception.message,
+        error: exception.error,
+        code: 201,
       );
     }
   }

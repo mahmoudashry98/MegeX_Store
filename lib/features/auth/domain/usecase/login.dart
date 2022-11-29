@@ -1,18 +1,21 @@
 import 'package:dartz/dartz.dart';
+import 'package:e_commerce_app/core/base_usecase/base_usecase.dart';
 import 'package:e_commerce_app/core/errors/exceptions.dart';
+import 'package:e_commerce_app/features/auth/data/model/auth.dart';
 import 'package:e_commerce_app/features/auth/domain/entities/auth.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../data/repository/auth_repository.dart';
 
 
-class LoginUseCase{
+class LoginUseCase extends BaseUseCase<Auth, LoginParameters>{
   final AuthBaseRepository authBaseRepository;
 
   LoginUseCase({required this.authBaseRepository});
 
-  Future<Either<dynamic, Auth>> call(LoginParameters loginParameters) async {
-    return await authBaseRepository.login(parameters: loginParameters);
+  @override
+  Future<Either<PrimaryServerException, Auth>> call(LoginParameters parameters) async {
+    return await authBaseRepository.login(parameters: parameters);
   }
 }
 

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:e_commerce_app/config/router/app_rout.dart';
 import 'package:e_commerce_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../core/utils/app_asstes_path.dart';
 
@@ -27,13 +28,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(((timeStamp) => {
-      _startDelay()
-    }));
+    WidgetsBinding.instance
+        .addPostFrameCallback(((timeStamp) => {_startDelay()}));
   }
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor:AppColors.primaryColor,
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.dark,
+      ));
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       body: Center(
