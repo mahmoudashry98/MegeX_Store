@@ -1,5 +1,8 @@
 import 'package:e_commerce_app/core/network/end_point.dart';
 import 'package:e_commerce_app/features/auth/data/model/auth.dart';
+import 'package:e_commerce_app/features/auth/data/model/logout.dart';
+import 'package:e_commerce_app/features/auth/domain/usecase/logout.dart';
+import 'package:e_commerce_app/features/auth/domain/usecase/profile.dart';
 import 'package:e_commerce_app/features/auth/domain/usecase/register.dart';
 
 import '../../../../core/network/remote/dio_helper.dart';
@@ -8,7 +11,9 @@ import '../../domain/usecase/login.dart';
 
 abstract class BaseAuthRemoteDataSource {
   Future<dynamic> login({required LoginParameters loginParameters});
-  Future<AuthModel> register({required RegisterParameters registerParameters});
+  Future<dynamic> register({required RegisterParameters registerParameters});
+  Future<dynamic> logout({required LogoutParameters logoutParameters});
+  Future<dynamic> getProfile({required ProfileParameters profileParameters});
 }
 
 class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
@@ -20,18 +25,20 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
   }) async {
     final response = await dioHelper.post(
       endPoint: EndPoint.login,
+      lang: 'en',
       data: {
         AppString.email: loginParameters.email,
         AppString.password: loginParameters.password,
       },
     );
-    final authModel = AuthModel.fromJson(response);
-    return authModel;
+    final loginModel = AuthModel.fromJson(response);
+    return loginModel;
   }
 
   @override
-  Future<AuthModel> register(
-      {required RegisterParameters registerParameters}) async {
+  Future<dynamic> register({
+    required RegisterParameters registerParameters,
+  }) async {
     var response = await dioHelper.post(
       endPoint: EndPoint.register,
       data: {
@@ -41,6 +48,28 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
         AppString.password: registerParameters.password,
       },
     );
-    return response;
+    final registerModel = AuthModel.fromJson(response);
+    return registerModel;
+  }
+
+  @override
+  Future<dynamic> logout({required LogoutParameters logoutParameters}) async {
+    var response = await dioHelper.post(
+      endPoint: EndPoint.logout,
+      token: logoutParameters.token,
+    );
+    final logoutModel = LogoutModel.fromJson(response);
+    return logoutModel;
+  }
+
+  @override
+  Future<dynamic> getProfile(
+      {required ProfileParameters profileParameters}) async {
+    var response = await dioHelper.get(
+        endPoint: EndPoint.profile, token: profileParameters.token);
+         print('wwwwwwwwwwwww$response');
+    final profileModel = AuthModel.fromJson(response);
+   print('wwwwwwwwwwwww$profileModel');
+    return profileModel;
   }
 }

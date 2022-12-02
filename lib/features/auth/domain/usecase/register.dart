@@ -1,16 +1,18 @@
 import 'package:dartz/dartz.dart';
-import 'package:e_commerce_app/core/errors/network_exceptions.dart';
 import 'package:e_commerce_app/features/auth/domain/entities/auth.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../../core/base_usecase/base_usecase.dart';
+import '../../../../core/errors/exceptions.dart';
 import '../../data/repository/auth_repository.dart';
 
-class RegisterUseCase {
+class RegisterUseCase extends BaseUseCase<Auth, RegisterParameters>{
   final AuthBaseRepository authBaseRepository;
 
   RegisterUseCase({required this.authBaseRepository});
 
-  Future<Either<NetworkExceptions, Auth>> call(
+  @override
+  Future<Either<PrimaryServerException, Auth>> call(
       RegisterParameters parameters) async {
     return await authBaseRepository.register(parameters: parameters);
   }

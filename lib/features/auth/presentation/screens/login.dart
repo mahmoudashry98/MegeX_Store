@@ -16,7 +16,23 @@ class LoginScreen extends StatelessWidget {
           debugPrint('message Error: ${state.exception.message}');
           // debugPrint('${state.status}');
         }
-           if (state is LoginLoadedState) {
+        if (state is LoginLoadedState) {
+          debugPrint('message success: ${state.message}');
+          // debugPrint('${state.status}');
+        }
+        if (state is RegisterErrorState) {
+          debugPrint('message Error: ${state.exception.message}');
+          // debugPrint('${state.status}');
+        }
+        if (state is RegisterLoadedState) {
+          debugPrint('message success: ${state.message}');
+          // debugPrint('${state.status}');
+        }
+        if (state is LogoutErrorState) {
+          debugPrint('message Error: ${state.exception.message}');
+          // debugPrint('${state.status}');
+        }
+        if (state is LogoutLoadedState) {
           debugPrint('message success: ${state.message}');
           // debugPrint('${state.status}');
         }
@@ -28,17 +44,51 @@ class LoginScreen extends StatelessWidget {
           statusBarIconBrightness: Brightness.dark,
         ));
         return Scaffold(
-          backgroundColor: AppColors.whiteColor,
-          body: Center(
-              child: TextButton(
-                  onPressed: () {
-                    AuthCubit.get(context).login(
-                      email: 'mahmoud.osama@gmail.com',
-                      password: '123456',
-                    );
-                  },
-                  child: Text('Login'))),
-        );
+            backgroundColor: AppColors.whiteColor,
+            body: Center(
+              child: Column(
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        AuthCubit.get(context).login(
+                          email: 'mahmoud.osama@gmail.com',
+                          password: '123456',
+                        );
+                      },
+                      child: const Text('Login')),
+                  TextButton(
+                      onPressed: () {
+                        AuthCubit.get(context).register(
+                          name: 'omar ashry',
+                          email: 'omar.ashry919@gmail.com',
+                          phone: '01111123119',
+                          password: '123456',
+                        );
+                      },
+                      child: const Text('register')),
+                  TextButton(
+                      onPressed: () {
+                        var loginModel = AuthCubit.get(context).loginModel;
+                        AuthCubit.get(context).logout(
+                          token:
+                               'zKAxwbRhEv352EcnTnf3HXxx9X3wRndD5YT8zN43GErIGWxwKdD7UKQDURnpg57DSNjeSn',
+                          //loginModel!.userData!.token,
+                        );
+                      },
+                      child: const Text('logout')),
+                  TextButton(
+                      onPressed: () {
+                        var loginModel = AuthCubit.get(context).loginModel;
+                        //print('/////////${loginModel!.userData!.token}');
+                        AuthCubit.get(context).getProfile(
+                          token: 'q57I4lWQeZ22EuVmO5XwFJvqsjUindCZ9nUhsJIBTBxZpsRIm9RWPZdEmw5V7IShBULbBp',
+                          //loginModel!.userData!.token,
+                        );
+                      },
+                      child: const Text('Get Profile')),
+                ],
+              ),
+            ));
       },
     );
   }

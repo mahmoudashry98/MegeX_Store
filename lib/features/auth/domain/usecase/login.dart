@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app/core/base_usecase/base_usecase.dart';
 import 'package:e_commerce_app/core/errors/exceptions.dart';
-import 'package:e_commerce_app/features/auth/data/model/auth.dart';
 import 'package:e_commerce_app/features/auth/domain/entities/auth.dart';
 import 'package:equatable/equatable.dart';
 

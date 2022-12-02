@@ -11,7 +11,7 @@ class AuthModel extends Auth {
   factory AuthModel.fromJson(Map<String, dynamic> json) {
     return AuthModel(
       status: json[AppString.status],
-      message: json[AppString.message],
+      message: json[AppString.message]??'empty',
       userData: json[AppString.data]!= null? UserDataModel.fromJson(json[AppString.data]):null,
     );
 

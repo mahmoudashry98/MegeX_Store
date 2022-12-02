@@ -8,6 +8,7 @@ import '../../errors/exceptions.dart';
 abstract class DioHelper {
   Future<dynamic> post({
     String? base,
+    String? lang,
     required String endPoint,
     dynamic data,
     dynamic query,
@@ -17,6 +18,7 @@ abstract class DioHelper {
 
   Future<dynamic> get({
     String? base,
+    String? lang,
     required String endPoint,
     dynamic data,
     dynamic query,
@@ -36,6 +38,7 @@ class DioImpl extends DioHelper {
   @override
   Future<dynamic> get({
     String? base,
+    String? lang,
     required String endPoint,
     data,
     query,
@@ -47,10 +50,11 @@ class DioImpl extends DioHelper {
       dio.options.connectTimeout = timeout;
     }
     dio.options.headers = {
+      if (lang != null) 'lang': 'en',
       if (isMultipart) 'Content-Type': 'multipart/form-data',
       if (!isMultipart) 'Content-Type': 'application/json',
       if (!isMultipart) 'Accept': 'application/json',
-      if (token != null) 'token': token,
+      if (token != null) 'Authorization': token,
     };
     debugPrint('URL => ${dio.options.baseUrl + endPoint}');
     debugPrint('Header => ${dio.options.headers.toString()}');
@@ -61,6 +65,7 @@ class DioImpl extends DioHelper {
       call: () async => await dio.get(
         endPoint,
         queryParameters: query,
+        
       ),
     );
   }
@@ -68,6 +73,7 @@ class DioImpl extends DioHelper {
   @override
   Future<dynamic> post({
     String? base,
+    String? lang,
     required String endPoint,
     data,
     query,
@@ -79,10 +85,11 @@ class DioImpl extends DioHelper {
       dio.options.connectTimeout = timeout;
     }
     dio.options.headers = {
+      if (lang != null) 'lang': 'ar',
       if (isMultipart) 'Content-Type': 'multipart/form-data',
       if (!isMultipart) 'Content-Type': 'application/json',
       if (!isMultipart) 'Accept': 'application/json',
-      if (token != null) 'token': token,
+      if (token != null) 'Authorization': token,
     };
     debugPrint('URL => ${dio.options.baseUrl + endPoint}');
     debugPrint('Header => ${dio.options.headers.toString()}');
@@ -109,14 +116,14 @@ extension on DioHelper {
       debugPrint("Response_Code => ${response.statusCode}");
       if (response.data['status'] == false) {
         throw PrimaryServerException(
-          message: response.data[AppString.message],
+          message: response.data[AppString.message.toString()],
           error: '',
           code: response.statusCode,
         );
       }
       return response.data;
     } on DioError catch (e) {
-      debugPrint("Error_Message => ${e.message}");
+      debugPrint("Error_Message => ${e.message.toString()}");
       debugPrint("Error => ${e.error.toString()}");
       debugPrint("Error_Type => ${e.type.toString()}");
       throw PrimaryServerException(
@@ -127,7 +134,7 @@ extension on DioHelper {
     } catch (e) {
       PrimaryServerException exception = e as PrimaryServerException;
       throw PrimaryServerException(
-        message: exception.message,
+        message: exception.message.toString(),
         error: exception.error,
         code: 201,
       );
