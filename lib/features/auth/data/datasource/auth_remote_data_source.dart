@@ -66,10 +66,10 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
   Future<dynamic> getProfile(
       {required ProfileParameters profileParameters}) async {
     var response = await dioHelper.get(
-        endPoint: EndPoint.profile, token: profileParameters.token);
-         print('wwwwwwwwwwwww$response');
+      endPoint: EndPoint.profile,
+      token: profileParameters.token,
+    );
     final profileModel = AuthModel.fromJson(response);
-   print('wwwwwwwwwwwww$profileModel');
     return profileModel;
   }
 }

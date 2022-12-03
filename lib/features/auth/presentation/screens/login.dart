@@ -71,7 +71,7 @@ class LoginScreen extends StatelessWidget {
                         var loginModel = AuthCubit.get(context).loginModel;
                         AuthCubit.get(context).logout(
                           token:
-                               'zKAxwbRhEv352EcnTnf3HXxx9X3wRndD5YT8zN43GErIGWxwKdD7UKQDURnpg57DSNjeSn',
+                               'n4hrBcXuJ5gA0553qFmncaajyxrPMOjuQuR6Ya2AonRaj1s5p1Aew5URymKxDoPMyPvmAI',
                           //loginModel!.userData!.token,
                         );
                       },

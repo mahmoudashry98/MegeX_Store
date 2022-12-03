@@ -8,13 +8,14 @@ import '../../../../core/errors/exceptions.dart';
 import '../../../../core/network/remote/dio_helper.dart';
 import '../../domain/usecase/login.dart';
 import '../datasource/auth_remote_data_source.dart';
+import '../model/logout.dart';
 
 abstract class AuthBaseRepository {
   Future<Either<PrimaryServerException, Auth>> login(
       {required LoginParameters parameters});
   Future<Either<PrimaryServerException, Auth>> register(
       {required RegisterParameters parameters});
-  Future<Either<PrimaryServerException, Auth>> logout(
+  Future<Either<PrimaryServerException, LogoutModel>> logout(
       {required LogoutParameters parameters});
   Future<Either<PrimaryServerException, Auth>> getProfile(
       {required ProfileParameters parameters});
@@ -65,7 +66,7 @@ class AuthRepository extends AuthBaseRepository {
   }
 
   @override
-  Future<Either<PrimaryServerException, Auth>> logout(
+  Future<Either<PrimaryServerException, LogoutModel>> logout(
       {required LogoutParameters parameters}) async {
     try {
       var response =
@@ -83,14 +84,13 @@ class AuthRepository extends AuthBaseRepository {
     }
   }
 
-   @override
+  @override
   Future<Either<PrimaryServerException, Auth>> getProfile({
     required ProfileParameters parameters,
   }) async {
     try {
-      var reponse =
-          await baseAuthRemoteDataSource.getProfile(profileParameters: parameters);
-          print('object$reponse');
+      var reponse = await baseAuthRemoteDataSource.getProfile(
+          profileParameters: parameters);
       return Right(reponse);
     } catch (e) {
       PrimaryServerException exception = e as PrimaryServerException;
@@ -103,6 +103,4 @@ class AuthRepository extends AuthBaseRepository {
       );
     }
   }
-
-
 }

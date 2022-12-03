@@ -65,7 +65,6 @@ class DioImpl extends DioHelper {
       call: () async => await dio.get(
         endPoint,
         queryParameters: query,
-        
       ),
     );
   }
@@ -116,7 +115,7 @@ extension on DioHelper {
       debugPrint("Response_Code => ${response.statusCode}");
       if (response.data['status'] == false) {
         throw PrimaryServerException(
-          message: response.data[AppString.message.toString()],
+          message: response.data[AppString.message].toString(),
           error: '',
           code: response.statusCode,
         );
@@ -134,7 +133,7 @@ extension on DioHelper {
     } catch (e) {
       PrimaryServerException exception = e as PrimaryServerException;
       throw PrimaryServerException(
-        message: exception.message.toString(),
+        message: 'Message ServerException:${[exception.message].toString()}',
         error: exception.error,
         code: 201,
       );
