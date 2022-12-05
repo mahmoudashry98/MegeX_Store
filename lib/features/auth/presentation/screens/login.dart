@@ -6,7 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  final Animation<double>? transitionAnimation;
+  const LoginScreen({
+    super.key,
+    this.transitionAnimation,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,48 +49,61 @@ class LoginScreen extends StatelessWidget {
         ));
         return Scaffold(
             backgroundColor: AppColors.whiteColor,
-            body: Center(
-              child: Column(
-                children: [
-                  TextButton(
-                      onPressed: () {
-                        AuthCubit.get(context).login(
-                          email: 'mahmoud.osama@gmail.com',
-                          password: '123456',
-                        );
-                      },
-                      child: const Text('Login')),
-                  TextButton(
-                      onPressed: () {
-                        AuthCubit.get(context).register(
-                          name: 'omar ashry',
-                          email: 'omar.ashry919@gmail.com',
-                          phone: '01111123119',
-                          password: '123456',
-                        );
-                      },
-                      child: const Text('register')),
-                  TextButton(
-                      onPressed: () {
-                        var loginModel = AuthCubit.get(context).loginModel;
-                        AuthCubit.get(context).logout(
-                          token:
-                               'n4hrBcXuJ5gA0553qFmncaajyxrPMOjuQuR6Ya2AonRaj1s5p1Aew5URymKxDoPMyPvmAI',
-                          //loginModel!.userData!.token,
-                        );
-                      },
-                      child: const Text('logout')),
-                  TextButton(
-                      onPressed: () {
-                        var loginModel = AuthCubit.get(context).loginModel;
-                        //print('/////////${loginModel!.userData!.token}');
-                        AuthCubit.get(context).getProfile(
-                          token: 'q57I4lWQeZ22EuVmO5XwFJvqsjUindCZ9nUhsJIBTBxZpsRIm9RWPZdEmw5V7IShBULbBp',
-                          //loginModel!.userData!.token,
-                        );
-                      },
-                      child: const Text('Get Profile')),
-                ],
+            body: AnimatedBuilder(
+              animation: transitionAnimation!,
+              builder: (context, child) {
+                return SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(1,0),
+                    end: const Offset(0,0)
+                  ).animate(transitionAnimation!),
+                  child: child,
+                );
+              },
+              child: Center(
+                child: Column(
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          AuthCubit.get(context).login(
+                            email: 'mahmoud.osama@gmail.com',
+                            password: '1234567',
+                          );
+                        },
+                        child: const Text('Login')),
+                    TextButton(
+                        onPressed: () {
+                          AuthCubit.get(context).register(
+                            name: 'omar ashry',
+                            email: 'omar.ashry919@gmail.com',
+                            phone: '01111123119',
+                            password: '123456',
+                          );
+                        },
+                        child: const Text('register')),
+                    TextButton(
+                        onPressed: () {
+                          var loginModel = AuthCubit.get(context).loginModel;
+                          AuthCubit.get(context).logout(
+                            token:
+                                'n4hrBcXuJ5gA0553qFmncaajyxrPMOjuQuR6Ya2AonRaj1s5p1Aew5URymKxDoPMyPvmAI',
+                            //loginModel!.userData!.token,
+                          );
+                        },
+                        child: const Text('logout')),
+                    TextButton(
+                        onPressed: () {
+                          var loginModel = AuthCubit.get(context).loginModel;
+                          //print('/////////${loginModel!.userData!.token}');
+                          AuthCubit.get(context).getProfile(
+                            token:
+                                'q57I4lWQeZ22EuVmO5XwFJvqsjUindCZ9nUhsJIBTBxZpsRIm9RWPZdEmw5V7IShBULbBp',
+                            //loginModel!.userData!.token,
+                          );
+                        },
+                        child: const Text('Get Profile')),
+                  ],
+                ),
               ),
             ));
       },

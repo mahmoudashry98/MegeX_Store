@@ -1,7 +1,7 @@
 import 'package:e_commerce_app/config/router/app_rout.dart';
-import 'package:e_commerce_app/features/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'config/services/services_locator.dart';
 import 'config/theme/app_theme.dart';
@@ -18,11 +18,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<AuthCubit>(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: appTheme(),
-        routes: routes,
-        
+      child: ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: appTheme(),
+            routes: routes,
+          );
+        },
       ),
     );
   }
