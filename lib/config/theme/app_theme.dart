@@ -1,6 +1,5 @@
 import 'package:e_commerce_app/core/utils/app_colors.dart';
 import 'package:e_commerce_app/core/utils/app_fonts.dart';
-import 'package:e_commerce_app/core/utils/app_style.dart';
 import 'package:e_commerce_app/core/utils/app_values.dart';
 import 'package:flutter/material.dart';
 
@@ -25,10 +24,6 @@ ThemeData appTheme() {
         color: AppColors.balckColor,
         elevation: AppSize.s4,
         shadowColor: AppColors.primaryColor,
-        titleTextStyle: getBoldStyle(
-          fontSize: AppFontSize.s18,
-          color: AppColors.whiteColor,
-        ),
       ),
 
       //button theme
@@ -42,10 +37,6 @@ ThemeData appTheme() {
       //elevated button
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          textStyle: getBoldStyle(
-            color: AppColors.primaryColor,
-            fontSize: AppFontSize.s20,
-          ),
           backgroundColor: AppColors.primaryColor,
           primary: AppColors.primaryColor,
           shape: RoundedRectangleBorder(
@@ -56,31 +47,11 @@ ThemeData appTheme() {
         ),
       ),
 
-      //text theme
-      textTheme: TextTheme(
-        headline1: getSemiBoldStyle(
-            fontSize: AppFontSize.s16, color: AppColors.whiteColor),
-        subtitle1: getMediumStyle(
-            color: AppColors.lightGrey, fontSize: AppFontSize.s14),
-        caption: getRegularStyle(color: AppColors.lightGrey),
-        bodyText1: getRegularStyle(color: AppColors.grey),
-      ),
 
       //inputDecoration theme (textFormFiled)
       inputDecorationTheme: InputDecorationTheme(
         //content padding
         contentPadding: const EdgeInsets.all(AppPadding.p8),
-
-        //hint style
-        hintStyle: getSemiBoldStyle(
-            color: AppColors.hintColor, fontSize: AppFontSize.s17),
-
-        //label style
-        labelStyle: getSemiBoldStyle(
-            color: AppColors.labelColor, fontSize: AppFontSize.s15),
-
-        //error style
-        errorStyle: getSemiBoldStyle(color: AppColors.errorColor),
 
         //enable border
         enabledBorder: OutlineInputBorder(

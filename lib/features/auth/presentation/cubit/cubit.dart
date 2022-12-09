@@ -3,6 +3,7 @@ import 'package:e_commerce_app/features/auth/domain/usecase/logout.dart';
 import 'package:e_commerce_app/features/auth/domain/usecase/profile.dart';
 import 'package:e_commerce_app/features/auth/domain/usecase/register.dart';
 import 'package:e_commerce_app/features/auth/presentation/cubit/state.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/model/logout.dart';
 import '../../domain/usecase/login.dart';
@@ -21,6 +22,20 @@ class AuthCubit extends Cubit<AuthState> {
   }) : super(AuthInitialState());
 
   static AuthCubit get(context) => BlocProvider.of<AuthCubit>(context);
+
+  IconData suffix = Icons.visibility_outlined;
+
+  bool isPassword = true;
+
+  void changePasswordVisibility() {
+    isPassword = !isPassword;
+
+    suffix =
+        isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
+
+    emit(ChangePasswordVisibilityState());
+  }
+
   Auth? loginModel;
 
   void login({
