@@ -11,4 +11,6 @@ class AppColors {
   static Color balckColor = const Color(0xff000000);
   static Color whiteColor = const Color(0xffFFFFFF);
   static Color errorColor = const Color(0xffFF0000);
+  static Color circleColor = const Color(0xffFAB8C3);
+  static Color facebookBlueColor = const Color(0xff4267B2);
 }

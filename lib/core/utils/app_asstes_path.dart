@@ -16,6 +16,10 @@ const String iconAssetsRoot = "assets/icons/";
 String emailIcons = _getAssetsIconPath('Email.png');
 String lockIcons = _getAssetsIconPath('Lock.png');
 String showIcons = _getAssetsIconPath('Show.png');
+String phoneIcons = _getAssetsIconPath('phone.png');
+String profileIcons = _getAssetsIconPath('Profile.png');
+String faceBookIcons = _getAssetsIconPath('facebook-256.png');
+String googleIcons = _getAssetsIconPath('google-icon.svg');
 
 
 String _getAssetsImagePath(String fileName) {

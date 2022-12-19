@@ -3,10 +3,13 @@ import 'package:e_commerce_app/features/auth/domain/usecase/logout.dart';
 import 'package:e_commerce_app/features/auth/domain/usecase/profile.dart';
 import 'package:e_commerce_app/features/auth/domain/usecase/register.dart';
 import 'package:e_commerce_app/features/auth/presentation/cubit/state.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import '../../data/model/logout.dart';
 import '../../domain/usecase/login.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final LoginUseCase loginUseCase;
@@ -36,8 +39,56 @@ class AuthCubit extends Cubit<AuthState> {
     emit(ChangePasswordVisibilityState());
   }
 
-  Auth? loginModel;
+  final googleSignIn = GoogleSignIn();
 
+  GoogleSignInAccount? _user;
+  GoogleSignInAccount get user => _user!;
+
+  Future signInWithgoogleLogin() async {
+    emit(LoginWithGoogleLoadingState());
+    try {
+      final googleUser = await googleSignIn.signIn();
+      if (googleUser == null) return;
+      _user = googleUser;
+
+      final gooleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        idToken: gooleAuth.idToken,
+        accessToken: gooleAuth.accessToken,
+      );
+      await FirebaseAuth.instance.signInWithCredential(credential);
+    } catch (e) {
+      e.toString();
+    }
+
+    emit(LoginWithGoogleLoadedState());
+  }
+
+
+  Future<UserCredential> signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance
+        .login(permissions: ['email', 'public_profile', 'user_birthday']);
+
+    // Create a credential from the access token
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+    final userData = await FacebookAuth.instance.getUserData();
+   
+
+    // Once signed in, return the UserCredential
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+  }
+
+  Future logOut() async {
+    await FacebookAuth.instance.logOut();
+    print('$logout');
+   // await googleSignIn.disconnect();
+    FirebaseAuth.instance.signOut();
+  }
+
+  Auth? loginModel;
   void login({
     required String email,
     required String password,

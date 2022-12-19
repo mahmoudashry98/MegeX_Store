@@ -9,23 +9,21 @@ environment:
   sdk: '>=2.18.2 <3.0.0'
 
 dependencies:
-  build_runner: ^2.3.2
+  animate_do: ^3.0.2
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   device_preview: ^1.1.0
   dio: ^4.0.6
   equatable: ^2.0.5
+  firebase_auth: ^4.2.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
+  flutter_facebook_auth: ^5.0.6
   flutter_screenutil: ^5.6.0
-  freezed: ^2.2.1
-  freezed_annotation: ^2.2.0
+  flutter_svg: ^1.1.6
   get_it: ^7.2.0
-  json_annotation: ^4.7.0
-  json_serializable: ^6.5.4
-  retrofit: ^3.3.1
-  retrofit_generator: ^4.2.0
+  google_sign_in: ^5.4.2
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -49,7 +47,7 @@ flutter:
         - asset: assets/fonts/Raleway-Black.ttf
           weight: 900
         - asset: assets/fonts/Raleway-SemiBold.ttf
-          weight: 600       
+          weight: 600
         - asset: assets/fonts/Raleway-Bold.ttf
           weight: 700
         - asset: assets/fonts/Raleway-Light.ttf
@@ -57,8 +55,8 @@ flutter:
         - asset: assets/fonts/Raleway-Medium.ttf
           weight: 500
         - asset: assets/fonts/Raleway-Regular.ttf
-          weight: 400                                                     
+          weight: 400
         - asset: assets/fonts/Raleway-Thin.ttf
-          weight: 100                                                            
+          weight: 100
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

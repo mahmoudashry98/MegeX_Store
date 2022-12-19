@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:e_commerce_app/config/router/app_rout.dart';
 import 'package:e_commerce_app/core/utils/app_string.dart';
 import 'package:e_commerce_app/core/utils/media_query_values.dart';
@@ -27,34 +28,41 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CustomText(
-              text: AppString.findYourGadget,
-              size: 35.sp,
-              fontWeight: FontWeight.bold,
-              color: AppColors.whiteColor,
-              
+            FadeInDown(
+              duration: const Duration(seconds: 3),
+              child: CustomText(
+                text: AppString.findYourGadget,
+                size: 35.sp,
+                fontWeight: FontWeight.bold,
+                color: AppColors.whiteColor,
+                textAlign: TextAlign.center,
+              ),
             ),
-            SizedBox(
-              height: 300.sp,
-              child: Image(
-                image: AssetImage(splashImage),
+            ElasticIn(
+              duration: const Duration(seconds: 3),
+              child: SizedBox(
+                height: 300.sp,
+                child: Image(
+                  image: AssetImage(splashImage),
+                ),
               ),
             ),
             SizedBox(
               height: context.height / 20,
             ),
-            CustomButton(
-              text: AppString.getStarted,
-              color: AppColors.whiteColor,
-              textColor: AppColors.primaryColor,
-              onTap: () => Navigator.of(context).pushReplacement(
-                PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) {
-                    return LoginScreen(
-                      transitionAnimation: animation,
-                    );
-                  },
-                  transitionDuration: const Duration(milliseconds: 500),
+            FadeInUp(
+              duration: const Duration(seconds: 3),
+              child: CustomButton(
+                text: AppString.getStarted,
+                color: AppColors.whiteColor,
+                textColor: AppColors.primaryColor,
+                onTap: () => Navigator.of(context).pushReplacement(
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) {
+                      return const LoginScreen();
+                    },
+                    transitionDuration: const Duration(milliseconds: 1200),
+                  ),
                 ),
               ),
             ),

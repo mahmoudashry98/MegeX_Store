@@ -8,6 +8,10 @@ class AuthInitialState extends AuthState {}
 //VisibilityState
 class ChangePasswordVisibilityState extends AuthState {}
 
+///LoginWithGoogle
+class LoginWithGoogleLoadingState extends AuthState {}
+class LoginWithGoogleLoadedState extends AuthState {}
+
 ///LoginState
 class LoginLoadingState extends AuthState {}
 
