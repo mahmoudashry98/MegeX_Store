@@ -33,6 +33,7 @@ class DioImpl extends DioHelper {
       baseUrl: EndPoint.baseUrl,
       receiveDataWhenStatusError: true,
       connectTimeout: 5000,
+      
     ),
   );
   @override
@@ -84,7 +85,7 @@ class DioImpl extends DioHelper {
       dio.options.connectTimeout = timeout;
     }
     dio.options.headers = {
-      if (lang != null) 'lang': 'ar',
+      if (lang != null) 'lang': 'en',
       if (isMultipart) 'Content-Type': 'multipart/form-data',
       if (!isMultipart) 'Content-Type': 'application/json',
       if (!isMultipart) 'Accept': 'application/json',
@@ -133,7 +134,7 @@ extension on DioHelper {
     } catch (e) {
       PrimaryServerException exception = e as PrimaryServerException;
       throw PrimaryServerException(
-        message: 'Message ServerException:${[exception.message].toString()}',
+        message: exception.message.toString(),
         error: exception.error,
         code: 201,
       );

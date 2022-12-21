@@ -30,6 +30,7 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
         AppString.email: loginParameters.email,
         AppString.password: loginParameters.password,
       },
+
     );
     final loginModel = AuthModel.fromJson(response);
     return loginModel;
@@ -41,6 +42,7 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
   }) async {
     var response = await dioHelper.post(
       endPoint: EndPoint.register,
+      
       data: {
         AppString.name: registerParameters.name,
         AppString.phone: registerParameters.phone,

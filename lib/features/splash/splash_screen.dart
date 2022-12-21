@@ -32,7 +32,7 @@ class SplashScreen extends StatelessWidget {
               duration: const Duration(seconds: 3),
               child: CustomText(
                 text: AppString.findYourGadget,
-                size: 35.sp,
+                size: 40.sp,
                 fontWeight: FontWeight.bold,
                 color: AppColors.whiteColor,
                 textAlign: TextAlign.center,

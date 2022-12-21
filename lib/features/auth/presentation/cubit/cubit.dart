@@ -43,11 +43,16 @@ class AuthCubit extends Cubit<AuthState> {
 
   GoogleSignInAccount? _user;
   GoogleSignInAccount get user => _user!;
+  final googleloged = null;
+  final facebookloged = null;
 
-  Future signInWithgoogleLogin() async {
+  Future signInWithGoogle() async {
     emit(LoginWithGoogleLoadingState());
     try {
       final googleUser = await googleSignIn.signIn();
+
+      googleUser == googleloged;
+      print('GoogleUser: $googleloged');
       if (googleUser == null) return;
       _user = googleUser;
 
@@ -64,9 +69,9 @@ class AuthCubit extends Cubit<AuthState> {
     emit(LoginWithGoogleLoadedState());
   }
 
-
   Future<UserCredential> signInWithFacebook() async {
-    // Trigger the sign-in flow
+    emit(LoginWithFacebookLoadingState());
+
     final LoginResult loginResult = await FacebookAuth.instance
         .login(permissions: ['email', 'public_profile', 'user_birthday']);
 
@@ -75,21 +80,34 @@ class AuthCubit extends Cubit<AuthState> {
         FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
     final userData = await FacebookAuth.instance.getUserData();
-   
-
+    userData == facebookloged;
+    print('GoogleUser: $googleloged');
+    print('User:$userData');
     // Once signed in, return the UserCredential
+    emit(LoginWithFacebookLoadedState());
     return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 
   Future logOut() async {
-    await FacebookAuth.instance.logOut();
-    print('$logout');
-   // await googleSignIn.disconnect();
-    FirebaseAuth.instance.signOut();
+    try {
+      emit(LogoutSocialLoadingState());
+      if (googleloged != null) {
+        await googleSignIn.disconnect();
+      } else {
+        await FacebookAuth.instance.logOut();
+      }
+
+      //if(facebookLog != null){}
+      FirebaseAuth.instance.signOut();
+
+      emit(LogoutSocialLoadedState());
+    } catch (e) {
+      emit(LogoutSocialErrorState(message: e.toString()));
+    }
   }
 
   Auth? loginModel;
-  void login({
+  Future login({
     required String email,
     required String password,
   }) async {

@@ -10,7 +10,24 @@ class ChangePasswordVisibilityState extends AuthState {}
 
 ///LoginWithGoogle
 class LoginWithGoogleLoadingState extends AuthState {}
+
 class LoginWithGoogleLoadedState extends AuthState {}
+
+///LoginWithFacebook
+class LoginWithFacebookLoadingState extends AuthState {}
+
+class LoginWithFacebookLoadedState extends AuthState {}
+
+///logoutSocial
+class LogoutSocialLoadingState extends AuthState {}
+
+class LogoutSocialLoadedState extends AuthState {}
+
+class LogoutSocialErrorState extends AuthState {
+  final String message;
+
+  LogoutSocialErrorState({required this.message});
+}
 
 ///LoginState
 class LoginLoadingState extends AuthState {}

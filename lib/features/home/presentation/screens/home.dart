@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:e_commerce_app/core/utils/app_colors.dart';
 import 'package:e_commerce_app/core/widgets/custom_text.dart';
 import 'package:e_commerce_app/features/auth/presentation/cubit/cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../config/router/app_rout.dart';
 import '../../../../core/utils/app_string.dart';
 import '../../../../core/widgets/custom_button.dart';
 
@@ -54,8 +57,12 @@ class HomeScreen extends StatelessWidget {
             text: AppString.logOut,
             color: AppColors.whiteColor,
             textColor: AppColors.primaryColor,
-            onTap: () {
-              AuthCubit.get(context).logOut();
+            onTap: () async {
+              await AuthCubit.get(context).logOut();
+              Navigator.pushReplacementNamed(
+                context,
+                AppRouts.loginScreen,
+              );
             },
           ),
         ],
