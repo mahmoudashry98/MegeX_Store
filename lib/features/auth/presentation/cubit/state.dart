@@ -12,11 +12,22 @@ class ChangePasswordVisibilityState extends AuthState {}
 class LoginWithGoogleLoadingState extends AuthState {}
 
 class LoginWithGoogleLoadedState extends AuthState {}
+class LoginWithGoogleErrorState extends AuthState {
+  final String message;
+
+  LoginWithGoogleErrorState({required this.message});
+}
 
 ///LoginWithFacebook
 class LoginWithFacebookLoadingState extends AuthState {}
 
 class LoginWithFacebookLoadedState extends AuthState {}
+
+class LoginWithFacebookErrorState extends AuthState {
+  final String message;
+
+  LoginWithFacebookErrorState({required this.message});
+}
 
 ///logoutSocial
 class LogoutSocialLoadingState extends AuthState {}

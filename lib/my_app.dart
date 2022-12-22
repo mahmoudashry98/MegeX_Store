@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<AuthCubit>()..logOut(),
+      create: (context) => sl<AuthCubit>(),
       child: ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,

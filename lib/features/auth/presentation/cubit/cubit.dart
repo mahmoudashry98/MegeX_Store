@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import '../../../../config/router/app_rout.dart';
 import '../../data/model/logout.dart';
 import '../../domain/usecase/login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -43,16 +44,14 @@ class AuthCubit extends Cubit<AuthState> {
 
   GoogleSignInAccount? _user;
   GoogleSignInAccount get user => _user!;
-  final googleloged = null;
-  final facebookloged = null;
 
-  Future signInWithGoogle() async {
+  var facebookUser;
+
+  Future signInWithGoogle(context) async {
     emit(LoginWithGoogleLoadingState());
     try {
       final googleUser = await googleSignIn.signIn();
-
-      googleUser == googleloged;
-      print('GoogleUser: $googleloged');
+      print('GoogleUser: $googleUser');
       if (googleUser == null) return;
       _user = googleUser;
 
@@ -62,43 +61,46 @@ class AuthCubit extends Cubit<AuthState> {
         accessToken: gooleAuth.accessToken,
       );
       await FirebaseAuth.instance.signInWithCredential(credential);
+      Navigator.pushReplacementNamed(
+        context,
+        AppRouts.homeScreen,
+      );
+      emit(LoginWithGoogleLoadedState());
     } catch (e) {
-      e.toString();
+      emit(LoginWithGoogleErrorState(
+          message: 'errorrrrrrrrrrr ${e.toString()}'));
     }
-
-    emit(LoginWithGoogleLoadedState());
   }
 
-  Future<UserCredential> signInWithFacebook() async {
+  Future signInWithFacebook(context) async {
     emit(LoginWithFacebookLoadingState());
+    try {
+      final LoginResult loginResult = await FacebookAuth.instance
+          .login(permissions: ['email', 'public_profile', 'user_birthday']);
 
-    final LoginResult loginResult = await FacebookAuth.instance
-        .login(permissions: ['email', 'public_profile', 'user_birthday']);
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
-    // Create a credential from the access token
-    final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+      final userData = await FacebookAuth.instance.getUserData();
+      facebookUser = userData;
+      // print('GoogleUser: $facebookUser');
+      print('Userssssss:$userData');
+      print('Uswe:$facebookUser');
 
-    final userData = await FacebookAuth.instance.getUserData();
-    userData == facebookloged;
-    print('GoogleUser: $googleloged');
-    print('User:$userData');
-    // Once signed in, return the UserCredential
-    emit(LoginWithFacebookLoadedState());
-    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+      emit(LoginWithFacebookLoadedState());
+      FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+      Navigator.pushReplacementNamed(
+        context,
+        AppRouts.homeScreen,
+      );
+    } catch (e) {
+      emit(LoginWithFacebookErrorState(message: e.toString()));
+    }
   }
 
   Future logOut() async {
     try {
       emit(LogoutSocialLoadingState());
-      if (googleloged != null) {
-        await googleSignIn.disconnect();
-      } else {
-        await FacebookAuth.instance.logOut();
-      }
-
-      //if(facebookLog != null){}
-      FirebaseAuth.instance.signOut();
 
       emit(LogoutSocialLoadedState());
     } catch (e) {
@@ -107,7 +109,8 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Auth? loginModel;
-  Future login({
+  Future<void> login(
+    context, {
     required String email,
     required String password,
   }) async {
@@ -124,12 +127,17 @@ class AuthCubit extends Cubit<AuthState> {
       },
       (r) {
         loginModel = r;
+        Navigator.pushReplacementNamed(
+          context,
+          AppRouts.homeScreen,
+        );
         emit(LoginLoadedState(message: r.message));
       },
     );
   }
 
-  void register({
+  Future<void> register(
+    context, {
     required String name,
     required String email,
     required String phone,
@@ -148,30 +156,46 @@ class AuthCubit extends Cubit<AuthState> {
       },
       (r) {
         loginModel = r;
+        Navigator.pushReplacementNamed(
+          context,
+          AppRouts.homeScreen,
+        );
         emit(RegisterLoadedState(message: r.message));
       },
     );
   }
 
   LogoutModel? logoutModel;
-  void logout({
-    required String token,
-  }) async {
+  Future<void> logout(context) async {
     emit(LogoutLoadingState());
-    var response = await logoutUseCase(
-      LogoutParameters(
-        token: token,
-      ),
-    );
-    response.fold(
-      (l) {
-        emit(LogoutErrorState(exception: l));
-      },
-      (r) {
-        logoutModel = r;
-        emit(LogoutLoadedState(message: r.message));
-      },
-    );
+    if (_user != null) {
+      await googleSignIn.disconnect();
+      FirebaseAuth.instance.signOut();
+      _user = null;
+    } else if (facebookUser != null) {
+      await FacebookAuth.instance.logOut();
+      FirebaseAuth.instance.signOut();
+      facebookUser = null;
+    } else {
+      var response = await logoutUseCase(
+        LogoutParameters(
+          token: loginModel!.userData!.token,
+        ),
+      );
+      response.fold(
+        (l) {
+          emit(LogoutErrorState(exception: l));
+        },
+        (r) {
+          logoutModel = r;
+          Navigator.pushReplacementNamed(
+            context,
+            AppRouts.loginScreen,
+          );
+          emit(LogoutLoadedState(message: r.message));
+        },
+      );
+    }
   }
 
   Auth? profileModel;

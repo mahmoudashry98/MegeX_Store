@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:972055505055:android:88a200b2b6cf44bb269aaa",
+        "mobilesdk_app_id": "1:972055505055:android:3eeadbaa75880a1e269aaa",
         "android_client_info": {
-          "package_name": "com.example.e_commerce_app"
+          "package_name": "com.megax.store"
         }
       },
       "oauth_client": [
         {
-          "client_id": "972055505055-j7073v8s4jnjou5cui1fc0tuf4t7njgh.apps.googleusercontent.com",
+          "client_id": "972055505055-5d3gh9a884t3rg1q7edcakhhq945dt6e.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.e_commerce_app",
+            "package_name": "com.megax.store",
             "certificate_hash": "7fb521ab80005f6388f1c862178666b613dfcdb0"
           }
         },

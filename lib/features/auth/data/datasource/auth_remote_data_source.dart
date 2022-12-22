@@ -42,7 +42,7 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
   }) async {
     var response = await dioHelper.post(
       endPoint: EndPoint.register,
-      
+      lang: 'en',
       data: {
         AppString.name: registerParameters.name,
         AppString.phone: registerParameters.phone,
