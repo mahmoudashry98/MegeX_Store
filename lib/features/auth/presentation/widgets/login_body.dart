@@ -82,7 +82,7 @@ class LoginBody extends StatelessWidget {
                           hintText: AppString.hintEmail,
                           hintStyle: TextStyle(
                             color: AppColors.balckColor,
-                            fontSize: 12.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w700,
                           ),
                           maxLines: 1,

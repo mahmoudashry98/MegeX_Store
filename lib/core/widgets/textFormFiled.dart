@@ -14,14 +14,17 @@ Widget defaultTextFormField({
   FormFieldValidator<String>? validate,
   TextInputType? keyboardType,
   ValueChanged<String>? onSubmit,
+  ValueChanged? onChanged,
   bool isPassword = false,
   IconData? suffix,
   VoidCallback? suffixPressed,
 }) {
   return TextFormField(
+    autovalidateMode: AutovalidateMode.onUserInteraction,
     controller: controller,
     obscureText: isPassword,
     keyboardType: keyboardType,
+    onChanged: onChanged,
     cursorColor: AppColors.primaryColor,
     onFieldSubmitted: onSubmit,
     decoration: InputDecoration(

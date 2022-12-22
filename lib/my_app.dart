@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:e_commerce_app/config/router/app_rout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +25,11 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return MaterialApp(
+            useInheritedMediaQuery: true,
+            locale: DevicePreview.locale(context),
+            builder: DevicePreview.appBuilder,
+            //theme: ThemeData.light(),
+            darkTheme: ThemeData.dark(),
             debugShowCheckedModeBanner: false,
             theme: appTheme(),
             routes: routes,
