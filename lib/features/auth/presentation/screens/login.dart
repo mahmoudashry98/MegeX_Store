@@ -107,15 +107,6 @@ class LoginScreen extends StatelessWidget {
             child: CustomScrollView(
               slivers: [
                 const HeaderWidget(headerName: AppString.welcomeBack),
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      SizedBox(
-                        height: context.height / 200,
-                      ),
-                    ],
-                  ),
-                ),
                 LoginBody(
                   formKey: formKey,
                   emailController: emailController,

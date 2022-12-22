@@ -36,7 +36,7 @@ class LoginBody extends StatelessWidget {
           delegate: SliverChildListDelegate([
             FadeInLeft(
               child: Container(
-                height: context.height / 1.1,
+                height: context.height / 1.23,
                 decoration: BoxDecoration(
                   color: AppColors.whiteColor,
                   borderRadius: const BorderRadius.only(
@@ -45,7 +45,7 @@ class LoginBody extends StatelessWidget {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(AppPadding.p24),
+                  padding: const EdgeInsets.all(AppPadding.p18),
                   child: Form(
                     key: formKey,
                     child: Column(
@@ -57,7 +57,7 @@ class LoginBody extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                         ),
                         SizedBox(
-                          height: context.height * 0.03,
+                          height: context.height / 60,
                         ),
                         Row(
                           children: [
@@ -74,7 +74,7 @@ class LoginBody extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          height: context.height * 0.0002,
+                          height: context.height * 0.0001,
                         ),
                         defaultTextFormField(
                           controller: emailController,
@@ -97,7 +97,7 @@ class LoginBody extends StatelessWidget {
                           },
                         ),
                         SizedBox(
-                          height: context.height / 30,
+                          height: context.height / 90,
                         ),
                         Row(
                           children: [
@@ -114,7 +114,7 @@ class LoginBody extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          height: context.height / 200,
+                          height: context.height * 0.0001,
                         ),
                         defaultTextFormField(
                           isPassword: AuthCubit.get(context).isPassword,
@@ -153,7 +153,7 @@ class LoginBody extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: context.height * 0.03,
+                          height: context.height * 0.02,
                         ),
                         Center(
                           child: Column(
@@ -198,7 +198,7 @@ class LoginBody extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                height: context.height / 30,
+                                height: context.height / 70,
                               ),
                               CustomText(
                                 text: AppString.signWithSocialAccount,
@@ -207,7 +207,7 @@ class LoginBody extends StatelessWidget {
                                 fontWeight: FontWeight.w700,
                               ),
                               SizedBox(
-                                height: context.height / 60,
+                                height: context.height / 90,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

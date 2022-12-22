@@ -44,7 +44,7 @@ class RegisterBody extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    height: context.height,
+                    height: context.height / 1.13,
                     decoration: BoxDecoration(
                       color: AppColors.whiteColor,
                       borderRadius: const BorderRadius.only(
@@ -65,7 +65,7 @@ class RegisterBody extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                             ),
                             SizedBox(
-                              height: context.height * 0.012,
+                              height: context.height / 90,
                             ),
                             Row(
                               children: [
@@ -82,7 +82,7 @@ class RegisterBody extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              height: context.height * 0.0002,
+                              height: context.height * 0.0001,
                             ),
                             defaultTextFormField(
                               controller: nameController,
@@ -103,7 +103,7 @@ class RegisterBody extends StatelessWidget {
                               },
                             ),
                             SizedBox(
-                              height: context.height * 0.012,
+                              height: context.height / 100,
                             ),
                             Row(
                               children: [
@@ -120,7 +120,7 @@ class RegisterBody extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              height: context.height * 0.0002,
+                              height: context.height * 0.0001,
                             ),
                             defaultTextFormField(
                               controller: emailController,
@@ -143,7 +143,7 @@ class RegisterBody extends StatelessWidget {
                               },
                             ),
                             SizedBox(
-                              height: context.height * 0.012,
+                              height: context.height / 100,
                             ),
                             Row(
                               children: [
@@ -160,7 +160,7 @@ class RegisterBody extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              height: context.height * 0.0002,
+                              height: context.height * 0.0001,
                             ),
                             defaultTextFormField(
                               controller: phoneController,
@@ -181,7 +181,7 @@ class RegisterBody extends StatelessWidget {
                               },
                             ),
                             SizedBox(
-                              height: context.height * 0.012,
+                              height: context.height / 100,
                             ),
                             Row(
                               children: [
@@ -226,7 +226,7 @@ class RegisterBody extends StatelessWidget {
                               suffix: AuthCubit.get(context).suffix,
                             ),
                             SizedBox(
-                              height: context.height * 0.04,
+                              height: context.height * 0.02,
                             ),
                             Center(
                               child: Column(
@@ -259,7 +259,7 @@ class RegisterBody extends StatelessWidget {
                                           ),
                                         ),
                                   SizedBox(
-                                    height: context.height / 50,
+                                    height: context.height * 0.01,
                                   ),
                                   InkWell(
                                     onTap: () => Navigator.popAndPushNamed(

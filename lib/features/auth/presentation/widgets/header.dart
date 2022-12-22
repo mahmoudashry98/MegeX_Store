@@ -20,15 +20,15 @@ class HeaderWidget extends StatelessWidget {
       pinned: false,
       floating: false,
       delegate: SliverAppBarDelegate(
-        minHeight: context.height * 0.324,
-        maxHeight: context.height * 0.011,
+        minHeight: context.height * 0.22,
+        maxHeight: context.height * 0.001,
         child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.only(
                 left: AppPadding.p12,
-                top: AppPadding.p22,
                 right: AppPadding.p12,
+                top: AppPadding.p8,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -39,40 +39,37 @@ class HeaderWidget extends StatelessWidget {
                   ZoomIn(
                     child: CircleAvatar(
                       backgroundColor: AppColors.circleColor,
-                      radius: 25,
+                      radius: 20.sp,
                     ),
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 35.sp),
-              child: FadeInRight(
-                child: Column(
-                  children: [
-                    CustomText(
-                      text:headerName,
-                      size: 40.sp,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.whiteColor,
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: 30.sp,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: AppPadding.p16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Image(
-                              image: AssetImage(ellipse20),
-                            ),
-                          ],
-                        ),
+            FadeInRight(
+              child: Column(
+                children: [
+                  CustomText(
+                    text: headerName,
+                    size: 40.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.whiteColor,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 30.sp,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: AppPadding.p16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Image(
+                            image: AssetImage(ellipse20),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
