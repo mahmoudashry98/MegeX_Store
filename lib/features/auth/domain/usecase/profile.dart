@@ -6,21 +6,20 @@ import 'package:equatable/equatable.dart';
 
 import '../../data/repository/auth_repository.dart';
 
-
-class GetProfileUseCase extends BaseUseCase<Auth, ProfileParameters>{
+class GetProfileUseCase extends BaseUseCase<AuthEntities, ProfileParameters> {
   final AuthBaseRepository authBaseRepository;
 
   GetProfileUseCase({required this.authBaseRepository});
 
   @override
-  Future<Either<PrimaryServerException, Auth>> call(ProfileParameters parameters) async {
+  Future<Either<PrimaryServerException, AuthEntities>> call(
+      ProfileParameters parameters) async {
     return await authBaseRepository.getProfile(parameters: parameters);
   }
 }
 
 class ProfileParameters extends Equatable {
   final String token;
-  
 
   const ProfileParameters({required this.token});
 

@@ -6,13 +6,13 @@ import '../../../../core/base_usecase/base_usecase.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../data/repository/auth_repository.dart';
 
-class RegisterUseCase extends BaseUseCase<Auth, RegisterParameters>{
+class RegisterUseCase extends BaseUseCase<AuthEntities, RegisterParameters> {
   final AuthBaseRepository authBaseRepository;
 
   RegisterUseCase({required this.authBaseRepository});
 
   @override
-  Future<Either<PrimaryServerException, Auth>> call(
+  Future<Either<PrimaryServerException, AuthEntities>> call(
       RegisterParameters parameters) async {
     return await authBaseRepository.register(parameters: parameters);
   }
@@ -32,5 +32,5 @@ class RegisterParameters extends Equatable {
   });
 
   @override
-  List<Object> get props => [email, password,name,phone];
+  List<Object> get props => [email, password, name, phone];
 }

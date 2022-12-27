@@ -27,7 +27,7 @@ class RegisterScreen extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-                if (state is RegisterErrorState) {
+        if (state is RegisterErrorState) {
           showDialog(
             context: context,
             builder: (context) {
@@ -96,6 +96,7 @@ class RegisterScreen extends StatelessWidget {
           body: Padding(
             padding: const EdgeInsets.only(top: 8),
             child: CustomScrollView(
+              shrinkWrap: true,
               slivers: [
                 const HeaderWidget(
                   headerName: AppString.signUpAndEnjoy,

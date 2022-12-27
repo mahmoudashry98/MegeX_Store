@@ -1,7 +1,7 @@
 import 'package:e_commerce_app/core/utils/app_string.dart';
 import 'package:e_commerce_app/features/auth/domain/entities/auth.dart';
 
-class AuthModel extends Auth {
+class AuthModel extends AuthEntities {
   const AuthModel({
     required super.status,
     required super.message,
@@ -11,11 +11,11 @@ class AuthModel extends Auth {
   factory AuthModel.fromJson(Map<String, dynamic> json) {
     return AuthModel(
       status: json[AppString.status],
-      message: json[AppString.message]??'empty',
-      userData: json[AppString.data]!= null? UserDataModel.fromJson(json[AppString.data]):null,
+      message: json[AppString.message] ?? 'empty',
+      userData: json[AppString.data] != null
+          ? UserDataModel.fromJson(json[AppString.data])
+          : null,
     );
-
-    
   }
 }
 

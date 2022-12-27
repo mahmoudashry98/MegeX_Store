@@ -5,6 +5,7 @@ class EndPoint{
   static const String register = 'register';
   static const String logout = 'logout';
   static const String profile = 'profile';
+  static const String home = 'home';
 }
 
 String? token;

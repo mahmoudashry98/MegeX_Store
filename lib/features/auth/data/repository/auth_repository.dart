@@ -5,19 +5,18 @@ import 'package:e_commerce_app/features/auth/domain/usecase/profile.dart';
 import 'package:e_commerce_app/features/auth/domain/usecase/register.dart';
 
 import '../../../../core/errors/exceptions.dart';
-import '../../../../core/network/remote/dio_helper.dart';
 import '../../domain/usecase/login.dart';
 import '../datasource/auth_remote_data_source.dart';
 import '../model/logout.dart';
 
 abstract class AuthBaseRepository {
-  Future<Either<PrimaryServerException, Auth>> login(
+  Future<Either<PrimaryServerException, AuthEntities>> login(
       {required LoginParameters parameters});
-  Future<Either<PrimaryServerException, Auth>> register(
+  Future<Either<PrimaryServerException, AuthEntities>> register(
       {required RegisterParameters parameters});
   Future<Either<PrimaryServerException, LogoutModel>> logout(
       {required LogoutParameters parameters});
-  Future<Either<PrimaryServerException, Auth>> getProfile(
+  Future<Either<PrimaryServerException, AuthEntities>> getProfile(
       {required ProfileParameters parameters});
 }
 
@@ -27,7 +26,7 @@ class AuthRepository extends AuthBaseRepository {
   AuthRepository(this.baseAuthRemoteDataSource);
 
   @override
-  Future<Either<PrimaryServerException, Auth>> login({
+  Future<Either<PrimaryServerException, AuthEntities>> login({
     required LoginParameters parameters,
   }) async {
     try {
@@ -47,7 +46,7 @@ class AuthRepository extends AuthBaseRepository {
   }
 
   @override
-  Future<Either<PrimaryServerException, Auth>> register(
+  Future<Either<PrimaryServerException, AuthEntities>> register(
       {required RegisterParameters parameters}) async {
     try {
       var reponse = await baseAuthRemoteDataSource.register(
@@ -85,7 +84,7 @@ class AuthRepository extends AuthBaseRepository {
   }
 
   @override
-  Future<Either<PrimaryServerException, Auth>> getProfile({
+  Future<Either<PrimaryServerException, AuthEntities>> getProfile({
     required ProfileParameters parameters,
   }) async {
     try {

@@ -44,7 +44,7 @@ class RegisterBody extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    height: context.height / 1.13,
+                    height: context.height,
                     decoration: BoxDecoration(
                       color: AppColors.whiteColor,
                       borderRadius: const BorderRadius.only(

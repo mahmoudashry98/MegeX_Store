@@ -36,7 +36,7 @@ class LoginBody extends StatelessWidget {
           delegate: SliverChildListDelegate([
             FadeInLeft(
               child: Container(
-                height: context.height / 1.23,
+                height: context.height,
                 decoration: BoxDecoration(
                   color: AppColors.whiteColor,
                   borderRadius: const BorderRadius.only(

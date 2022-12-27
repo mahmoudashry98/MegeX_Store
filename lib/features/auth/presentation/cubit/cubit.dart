@@ -98,17 +98,9 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future logOut() async {
-    try {
-      emit(LogoutSocialLoadingState());
 
-      emit(LogoutSocialLoadedState());
-    } catch (e) {
-      emit(LogoutSocialErrorState(message: e.toString()));
-    }
-  }
-
-  Auth? loginModel;
+  AuthEntities? loginModel;
+  
   Future<void> login(
     context, {
     required String email,
@@ -166,6 +158,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   LogoutModel? logoutModel;
+
   Future<void> logout(context) async {
     emit(LogoutLoadingState());
     if (_user != null) {
@@ -198,8 +191,9 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Auth? profileModel;
-  void getProfile({
+  AuthEntities? profileModel;
+
+  Future<void> getProfile({
     required String token,
   }) async {
     emit(GetProfileLoadingState());

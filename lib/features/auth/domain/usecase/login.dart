@@ -6,13 +6,13 @@ import 'package:equatable/equatable.dart';
 
 import '../../data/repository/auth_repository.dart';
 
-class LoginUseCase extends BaseUseCase<Auth, LoginParameters> {
+class LoginUseCase extends BaseUseCase<AuthEntities, LoginParameters> {
   final AuthBaseRepository authBaseRepository;
 
   LoginUseCase({required this.authBaseRepository});
 
   @override
-  Future<Either<PrimaryServerException, Auth>> call(
+  Future<Either<PrimaryServerException, AuthEntities>> call(
       LoginParameters parameters) async {
     return await authBaseRepository.login(parameters: parameters);
   }
