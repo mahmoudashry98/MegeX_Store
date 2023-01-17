@@ -16,20 +16,23 @@ class HomeEntities extends Equatable {
       ];
 }
 
-class HomeDataEntities {
+class HomeDataEntities extends Equatable {
   final List<ProductEntities> products;
-
   const HomeDataEntities({
     required this.products,
   });
+
+  @override
+  List<Object?> get props => [products];
 }
 
 class ProductEntities extends Equatable {
   final int id;
-  final double price;
-  final double oldPrice;
+  final dynamic price;
+  final dynamic oldPrice;
   final int discount;
   final String image;
+  final List<String> images;
   final String name;
   final String description;
   final bool inFavorites;
@@ -41,6 +44,7 @@ class ProductEntities extends Equatable {
     required this.oldPrice,
     required this.discount,
     required this.image,
+    required this.images,
     required this.name,
     required this.description,
     required this.inFavorites,
@@ -54,6 +58,7 @@ class ProductEntities extends Equatable {
         oldPrice,
         discount,
         image,
+        images,
         name,
         description,
         inCart,

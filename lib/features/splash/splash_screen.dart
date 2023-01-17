@@ -4,6 +4,8 @@ import 'package:e_commerce_app/core/utils/app_string.dart';
 import 'package:e_commerce_app/core/utils/media_query_values.dart';
 import 'package:e_commerce_app/core/widgets/custom_text.dart';
 import 'package:e_commerce_app/features/auth/presentation/screens/login.dart';
+import 'package:e_commerce_app/features/home/presentation/cubit/cubit.dart';
+import 'package:e_commerce_app/features/home/presentation/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -56,14 +58,17 @@ class SplashScreen extends StatelessWidget {
                 text: AppString.getStarted,
                 color: AppColors.whiteColor,
                 textColor: AppColors.primaryColor,
-                onTap: () => Navigator.of(context).pushReplacement(
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) {
-                      return const LoginScreen();
-                    },
-                    transitionDuration: const Duration(milliseconds: 1200),
-                  ),
-                ),
+                onTap: () async {
+                  await HomeCubit.get(context).getHomeData();
+                  await Navigator.of(context).pushReplacement(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) {
+                        return const HomeScreen();
+                      },
+                      transitionDuration: const Duration(milliseconds: 1200),
+                    ),
+                  );
+                },
               ),
             ),
             SizedBox(

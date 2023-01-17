@@ -6,8 +6,8 @@ class HomeInitialState extends HomeState {}
 ///GetHomeDataState
 class GetHomeDataLoadingState extends HomeState {}
 class GetHomeDataErrorState extends HomeState {
-  // final PrimaryServerException exception;
+  final String messageError;
 
-  // GetHomeDataErrorState({required this.exception});
+  GetHomeDataErrorState({required this.messageError});
 }
 class GetHomeDataLoadedState extends HomeState {}

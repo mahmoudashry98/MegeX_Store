@@ -14,15 +14,18 @@ class HomeRepository extends HomeBaseRepository {
   HomeRepository(this.baseHomeRemoteDataSource);
   @override
   Future<Either<PrimaryServerException, HomeEntities>> getHomeData() async {
+
+    //print('object$response');
+      
     try {
-      var response = await baseHomeRemoteDataSource.getHomeData();
+    var response = await baseHomeRemoteDataSource.getHomeData();
       return Right(response);
     } catch (e) {
       //PrimaryServerException exception = e as PrimaryServerException;
 
       return Left(
         PrimaryServerException(
-          code: 212,
+          code: 216,
           message: 'exception.message',
           error: '',
         ),

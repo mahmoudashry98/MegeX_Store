@@ -14,10 +14,5 @@ void main() async {
 
   Bloc.observer = MyBlocObserver();
   ServicesLocator().init();
-  runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => MyApp(), // Wrap your app
-    ),
-  );
+  runApp(MyApp());
 }

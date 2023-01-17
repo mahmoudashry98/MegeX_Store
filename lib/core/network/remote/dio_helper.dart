@@ -28,14 +28,17 @@ abstract class DioHelper {
 }
 
 class DioImpl extends DioHelper {
+  // ignore: prefer_typing_uninitialized_variables
+  //static String? baseUrl;
   final Dio dio = Dio(
     BaseOptions(
-      baseUrl: EndPoint.baseUrl,
+      baseUrl: EndPoint.baseUrl2,
       receiveDataWhenStatusError: true,
       connectTimeout: 5000,
-      
     ),
   );
+  
+  
   @override
   Future<dynamic> get({
     String? base,
@@ -112,8 +115,8 @@ extension on DioHelper {
   }) async {
     try {
       final response = await call.call();
-      debugPrint("Response_Data => ${response.data}");
-      debugPrint("Response_Code => ${response.statusCode}");
+      debugPrint("Response_Data => ${response.data}--------------------");
+      debugPrint("Response_Code => ${response.statusCode}----------------");
       if (response.data['status'] == false) {
         throw PrimaryServerException(
           message: response.data[AppString.message].toString(),

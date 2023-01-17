@@ -8,8 +8,7 @@ class HomeCubit extends Cubit<HomeState> {
   final GetHomeDataUseCase getHomeDataUseCase;
   HomeCubit({required this.getHomeDataUseCase}) : super(HomeInitialState());
 
-    static HomeCubit get(context) => BlocProvider.of<HomeCubit>(context);
-
+  static HomeCubit get(context) => BlocProvider.of<HomeCubit>(context);
 
   HomeEntities? homeDataModel;
 
@@ -19,11 +18,16 @@ class HomeCubit extends Cubit<HomeState> {
     var response = await getHomeDataUseCase(const NoParemeters());
 
     response.fold(
-      (l) => emit(GetHomeDataErrorState()),
+      (l) {
+        print('Error ${l.message}');
+        emit(GetHomeDataErrorState(messageError: l.message));
+      },
       (r) {
         homeDataModel = r;
+        //print('ProductModel $homeDataModel');
         emit(GetHomeDataLoadedState());
       },
     );
+
   }
 }
