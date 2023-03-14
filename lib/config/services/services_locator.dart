@@ -1,5 +1,9 @@
 import 'package:e_commerce_app/features/auth/domain/usecase/profile.dart';
 import 'package:e_commerce_app/features/auth/domain/usecase/register.dart';
+import 'package:e_commerce_app/features/caregories/data/datasource/category_remote_data_source.dart';
+import 'package:e_commerce_app/features/caregories/data/repository/category_base_repository.dart';
+import 'package:e_commerce_app/features/caregories/domain/usecase/category_usecase.dart';
+import 'package:e_commerce_app/features/caregories/presentation/cubit/cubit.dart';
 import 'package:e_commerce_app/features/home/data/repository/home.dart';
 import 'package:get_it/get_it.dart';
 
@@ -34,18 +38,26 @@ class ServicesLocator {
       ),
     );
 
+    sl.registerFactory(
+      () => CategoriesCubit(
+        getCategoryStateUseCase: sl(),
+      ),
+    );
+
     ///Use cases
     sl.registerLazySingleton(() => LoginUseCase(authBaseRepository: sl()));
     sl.registerLazySingleton(() => RegisterUseCase(authBaseRepository: sl()));
     sl.registerLazySingleton(() => LogoutUseCase(authBaseRepository: sl()));
     sl.registerLazySingleton(() => GetProfileUseCase(authBaseRepository: sl()));
-    sl.registerLazySingleton(
-        () => GetHomeDataUseCase(homeBaseRepository: sl()));
+    sl.registerLazySingleton(() => GetHomeDataUseCase(homeBaseRepository: sl()));
+    sl.registerLazySingleton(() => GetCategoryUseCase(categoryBaseRepository: sl()));
 
     ///BaseRepository
     sl.registerLazySingleton<AuthBaseRepository>(() => AuthRepository(sl()));
 
     sl.registerLazySingleton<HomeBaseRepository>(() => HomeRepository(sl()));
+
+    sl.registerLazySingleton<CategoryBaseRepository>(() => CategoryRepository(sl()));
 
     ///BaseRemotDataSource
     sl.registerLazySingleton<DioHelper>(() => DioImpl());
@@ -53,5 +65,7 @@ class ServicesLocator {
         () => AuthRemoteDataSource(dioHelper: sl()));
     sl.registerLazySingleton<BaseHomeRemoteDataSource>(
         () => HomeRemoteDataSource(dioHelper: sl()));
+    sl.registerLazySingleton<BaseCategoryRemoteDataSource>(
+        () => CategoryRemoteDataSource(dioHelper: sl()));
   }
 }

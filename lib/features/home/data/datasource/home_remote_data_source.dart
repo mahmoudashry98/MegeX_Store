@@ -13,7 +13,10 @@ class HomeRemoteDataSource extends BaseHomeRemoteDataSource {
   HomeRemoteDataSource({required this.dioHelper});
   @override
   Future<dynamic> getHomeData() async {
-    final response = await dioHelper.get(endPoint: EndPoint.product);
+    final response = await dioHelper.get(
+      //base: EndPoint.baseUrl1,
+      endPoint: EndPoint.product,
+    );
     print("TTTTTTTT$response+++++");
     final homeModel = HomeModel.fromJson(response);
     print('ProductModel${homeModel.data}');

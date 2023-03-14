@@ -26,7 +26,7 @@ class HomeRepository extends HomeBaseRepository {
       return Left(
         PrimaryServerException(
           code: 216,
-          message: 'exception.message',
+          message: 'Home message exception',
           error: '',
         ),
       );

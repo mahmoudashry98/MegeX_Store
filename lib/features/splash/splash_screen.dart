@@ -59,11 +59,10 @@ class SplashScreen extends StatelessWidget {
                 color: AppColors.whiteColor,
                 textColor: AppColors.primaryColor,
                 onTap: () async {
-                  await HomeCubit.get(context).getHomeData();
                   await Navigator.of(context).pushReplacement(
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) {
-                        return const HomeScreen();
+                        return const LoginScreen();
                       },
                       transitionDuration: const Duration(milliseconds: 1200),
                     ),

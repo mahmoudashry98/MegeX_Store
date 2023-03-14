@@ -7,9 +7,9 @@ import '../../errors/exceptions.dart';
 
 abstract class DioHelper {
   Future<dynamic> post({
-    String? base,
     String? lang,
     required String endPoint,
+    //required String base,
     dynamic data,
     dynamic query,
     String? token,
@@ -17,9 +17,9 @@ abstract class DioHelper {
   });
 
   Future<dynamic> get({
-    String? base,
     String? lang,
     required String endPoint,
+    //required String base,
     dynamic data,
     dynamic query,
     String? token,
@@ -28,22 +28,19 @@ abstract class DioHelper {
 }
 
 class DioImpl extends DioHelper {
-  // ignore: prefer_typing_uninitialized_variables
-  //static String? baseUrl;
   final Dio dio = Dio(
     BaseOptions(
-      baseUrl: EndPoint.baseUrl2,
+      //baseUrl: EndPoint.baseUrl1,
       receiveDataWhenStatusError: true,
       connectTimeout: 5000,
     ),
   );
-  
-  
+
   @override
   Future<dynamic> get({
-    String? base,
     String? lang,
     required String endPoint,
+    //required String base,
     data,
     query,
     String? token,
@@ -75,9 +72,9 @@ class DioImpl extends DioHelper {
 
   @override
   Future<dynamic> post({
-    String? base,
     String? lang,
     required String endPoint,
+    //required String base,
     data,
     query,
     String? token,

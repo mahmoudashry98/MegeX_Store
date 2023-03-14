@@ -24,6 +24,7 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
     required LoginParameters loginParameters,
   }) async {
     final response = await dioHelper.post(
+      //base: EndPoint.baseUrl1,
       endPoint: EndPoint.login,
       lang: 'en',
       data: {
@@ -41,6 +42,7 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
     required RegisterParameters registerParameters,
   }) async {
     var response = await dioHelper.post(
+      //base: EndPoint.baseUrl1,
       endPoint: EndPoint.register,
       lang: 'en',
       data: {
@@ -57,6 +59,7 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
   @override
   Future<dynamic> logout({required LogoutParameters logoutParameters}) async {
     var response = await dioHelper.post(
+      //base: EndPoint.baseUrl1,
       endPoint: EndPoint.logout,
       token: logoutParameters.token,
     );
@@ -68,6 +71,7 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
   Future<dynamic> getProfile(
       {required ProfileParameters profileParameters}) async {
     var response = await dioHelper.get(
+      //base: EndPoint.baseUrl1,
       endPoint: EndPoint.profile,
       token: profileParameters.token,
     );

@@ -10,6 +10,22 @@ class HomeCubit extends Cubit<HomeState> {
 
   static HomeCubit get(context) => BlocProvider.of<HomeCubit>(context);
 
+//CurrentIndex
+  int currentIndex = 0;
+
+//List of Item in TabBar
+  List<String> items = [
+    'Wearable',
+    'Laptops',
+    'Phones',
+    'Drones',
+  ];
+
+  void changeTabBar(int index) {
+    currentIndex = index;
+    emit(ChangeTabBarState());
+  }
+
   HomeEntities? homeDataModel;
 
   Future<void> getHomeData() async {
@@ -28,6 +44,5 @@ class HomeCubit extends Cubit<HomeState> {
         emit(GetHomeDataLoadedState());
       },
     );
-
   }
 }

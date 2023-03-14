@@ -9,27 +9,29 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'config/services/services_locator.dart';
 import 'config/theme/app_theme.dart';
 import 'features/auth/presentation/cubit/cubit.dart';
-import 'features/splash/splash_screen.dart';
+import 'features/caregories/presentation/cubit/cubit.dart';
+
 
 class MyApp extends StatelessWidget {
-  MyApp._internal();
+  MyApp.internal();
 
-  static final MyApp _instance = MyApp._internal();
+  static final MyApp instance = MyApp.internal();
 
-  factory MyApp() => _instance;
+  factory MyApp() => instance;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
+        BlocProvider<AuthCubit>(
           create: (context) => sl<AuthCubit>(),
         ),
-
-        BlocProvider(
-          create: (context) => sl<HomeCubit>(),
+        BlocProvider<HomeCubit>(
+          create: (context) => sl<HomeCubit>()..getHomeData(),
         ),
-        
+        BlocProvider<CategoriesCubit>(
+          create: (context) => sl<CategoriesCubit>()..getCategoriesData(),
+        ),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 690),
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: appTheme(),
             routes: routes,
-            //home: const SplashScreen(),
+            //home: const HomeScreen(),
           );
         },
       ),

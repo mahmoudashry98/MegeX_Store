@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import '../../../../config/router/app_rout.dart';
+import '../../../caregories/presentation/cubit/cubit.dart';
+import '../../../home/presentation/cubit/cubit.dart';
 import '../../data/model/logout.dart';
 import '../../domain/usecase/login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -117,9 +119,11 @@ class AuthCubit extends Cubit<AuthState> {
       (l) {
         emit(LoginErrorState(exception: l));
       },
-      (r) {
+      (r) async{
         loginModel = r;
-        Navigator.pushReplacementNamed(
+        await HomeCubit.get(context).getHomeData();
+        await CategoriesCubit.get(context).getCategoriesData();
+        await Navigator.pushReplacementNamed(
           context,
           AppRouts.homeScreen,
         );
