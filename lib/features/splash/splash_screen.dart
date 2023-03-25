@@ -1,11 +1,8 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:e_commerce_app/config/router/app_rout.dart';
 import 'package:e_commerce_app/core/utils/app_string.dart';
 import 'package:e_commerce_app/core/utils/media_query_values.dart';
 import 'package:e_commerce_app/core/widgets/custom_text.dart';
 import 'package:e_commerce_app/features/auth/presentation/screens/login.dart';
-import 'package:e_commerce_app/features/home/presentation/cubit/cubit.dart';
-import 'package:e_commerce_app/features/home/presentation/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

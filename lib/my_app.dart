@@ -40,10 +40,8 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return MaterialApp(
             useInheritedMediaQuery: true,
-            // locale: DevicePreview.locale(context),
-            // builder: DevicePreview.appBuilder,
-            //theme: ThemeData.light(),
-            darkTheme: ThemeData.dark(),
+             builder: DevicePreview.appBuilder,
+            locale: DevicePreview.locale(context),
             debugShowCheckedModeBanner: false,
             theme: appTheme(),
             routes: routes,

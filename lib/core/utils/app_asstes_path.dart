@@ -8,6 +8,7 @@ const String iconAssetsRoot = "assets/icons/";
  String ellipse20 = _getAssetsImagePath('Ellipse 20.png');
  String ellipse21 = _getAssetsImagePath('Ellipse 21.png');
  String categoryElctronics = _getAssetsImagePath('Elctronics.png');
+ String prodectImage = _getAssetsImagePath('product.png');
 
 
 

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import '../../../../config/router/app_rout.dart';
+import '../../../../core/network/local/shared/shared_preferences.dart';
 import '../../../caregories/presentation/cubit/cubit.dart';
 import '../../../home/presentation/cubit/cubit.dart';
 import '../../data/model/logout.dart';
@@ -15,6 +16,7 @@ import '../../domain/usecase/login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthCubit extends Cubit<AuthState> {
+  //final SharedPreferencesRepository? sharedPreferencesRepository;
   final LoginUseCase loginUseCase;
   final RegisterUseCase registerUseCase;
   final LogoutUseCase logoutUseCase;
@@ -25,6 +27,7 @@ class AuthCubit extends Cubit<AuthState> {
     required this.registerUseCase,
     required this.logoutUseCase,
     required this.getProfileUseCase,
+     //this.sharedPreferencesRepository
   }) : super(AuthInitialState());
 
   static AuthCubit get(context) => BlocProvider.of<AuthCubit>(context);
@@ -32,6 +35,16 @@ class AuthCubit extends Cubit<AuthState> {
   IconData suffix = Icons.visibility_outlined;
 
   bool isPassword = true;
+
+  //SharedPreferences
+
+  // Future<void> saveData(String data) async {
+  //   await sharedPreferencesRepository.saveString('data_key', data);
+  // }
+
+  // Future<String?> loadData() async {
+  //   return sharedPreferencesRepository.getString('data_key');
+  // }
 
   void changePasswordVisibility() {
     isPassword = !isPassword;

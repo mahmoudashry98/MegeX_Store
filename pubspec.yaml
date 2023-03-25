@@ -10,6 +10,7 @@ environment:
 
 dependencies:
   animate_do: ^3.0.2
+  cached_network_image: ^3.2.3
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   device_preview: ^1.1.0
@@ -24,6 +25,7 @@ dependencies:
   flutter_svg: ^1.1.6
   get_it: ^7.2.0
   google_sign_in: ^5.4.2
+  shared_preferences: ^2.0.18
 
 dev_dependencies:
   flutter_lints: ^2.0.0

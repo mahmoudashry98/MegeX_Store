@@ -13,5 +13,7 @@ void main() async {
 
   Bloc.observer = MyBlocObserver();
   ServicesLocator().init();
-  runApp(MyApp());
+  runApp(DevicePreview(
+    builder: ((context) =>  MyApp()),
+  ));
 }
