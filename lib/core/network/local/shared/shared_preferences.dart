@@ -1,23 +1,33 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class SharedPreferencesRepository {
-  Future<void> saveString(String key, String value);
-  Future<String?> getString(String key);
-}
+class CacheHelper {
+  static SharedPreferences? sharedPreferences;
 
-
-class SharedPreferencesRepositoryImpl implements SharedPreferencesRepository {
-  final SharedPreferences sharedPreferences;
-
-  SharedPreferencesRepositoryImpl({required this.sharedPreferences});
-
-  @override
-  Future<void> saveString(String key, String value) async {
-    await sharedPreferences.setString(key, value);
+  static init() async {
+    sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  @override
-  Future<String?> getString(String key) async {
-    return sharedPreferences.getString(key);
+  static dynamic getData({
+    required String key,
+  }) {
+    return sharedPreferences!.get(key);
+  }
+
+    static dynamic removeData({
+    required String key,
+  }) {
+    return sharedPreferences!.remove(key);
+  }
+
+  static Future<bool> saveData({
+    required String key,
+    required dynamic value,
+  }) async {
+    if (value is String) return await sharedPreferences!.setString(key, value);
+    if (value is int) return await sharedPreferences!.setInt(key, value);
+    if (value is bool) return await sharedPreferences!.setBool(key, value);
+
+    return await sharedPreferences!.setDouble(key, value);
   }
 }

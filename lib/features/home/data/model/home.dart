@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:e_commerce_app/features/home/domain/entities/home.dart';
 
 import '../../../../core/utils/app_string.dart';
@@ -13,12 +15,15 @@ class HomeModel extends HomeEntities {
       );
 }
 
+final random = Random();
+
 class HomeDataModel extends HomeDataEntities {
   const HomeDataModel({
     required super.products,
   });
 
   factory HomeDataModel.fromJson(Map<String, dynamic> json) => HomeDataModel(
+    
     //products: json["products"] == null ? [] : List<ProductEntities>.from(json["products"]!.map((x) => ProductModel.fromJson(x))),
         products: List<ProductEntities>.from(
             json[AppString.products].map((x) => ProductModel.fromJson(x))),

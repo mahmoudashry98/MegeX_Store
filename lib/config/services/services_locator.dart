@@ -7,7 +7,6 @@ import 'package:e_commerce_app/features/caregories/presentation/cubit/cubit.dart
 import 'package:e_commerce_app/features/home/data/repository/home.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../core/network/local/shared/shared_preferences.dart';
 import '../../core/network/remote/dio_helper.dart';
 import '../../features/auth/data/datasource/auth_remote_data_source.dart';
 import '../../features/auth/data/repository/auth_repository.dart';

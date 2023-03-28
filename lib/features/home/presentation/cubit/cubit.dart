@@ -1,8 +1,17 @@
+import 'dart:math';
+
 import 'package:e_commerce_app/core/base_usecase/base_usecase.dart';
+import 'package:e_commerce_app/features/home/data/model/home.dart';
 import 'package:e_commerce_app/features/home/domain/entities/home.dart';
 import 'package:e_commerce_app/features/home/domain/usecase/home.dart';
 import 'package:e_commerce_app/features/home/presentation/cubit/state.dart';
+import 'package:e_commerce_app/features/home/presentation/screens/cart.dart';
+import 'package:e_commerce_app/features/home/presentation/screens/favourite.dart';
+import 'package:e_commerce_app/features/home/presentation/screens/home.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../auth/presentation/screens/profile.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final GetHomeDataUseCase getHomeDataUseCase;
@@ -10,8 +19,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   static HomeCubit get(context) => BlocProvider.of<HomeCubit>(context);
 
-//CurrentIndex
-  int currentIndex = 0;
+//tabCurrentIndex
+  int tabCurrentIndex = 0;
+
+//CurrentBottomNavIndex
+  int bottomNavCurrentIndex = 0;
 
 //List of Item in TabBar
   List<String> items = [
@@ -21,12 +33,37 @@ class HomeCubit extends Cubit<HomeState> {
     'Drones',
   ];
 
+  List<Widget> bottomScreens = [
+    const HomeScreen(),
+    const FavouriteScreen(),
+    const ProfileScreen(),
+    const CartScreen(),
+  ];
+
+  //BottomNav
+  void changeBottomNav(int index) {
+    bottomNavCurrentIndex = index;
+    emit(ChangeBottomNavBarState());
+  }
+
   void changeTabBar(int index) {
-    currentIndex = index;
+    tabCurrentIndex = index;
     emit(ChangeTabBarState());
   }
 
   HomeEntities? homeDataModel;
+
+  ProductEntities? productModel;
+
+  void shuffleList(List<ProductModel> list) {
+    final random = Random();
+    for (var i = list.length - 1; i > 0; i--) {
+      var j = random.nextInt(i + 1);
+      var temp = list[i];
+      list[i] = list[j];
+      list[j] = temp;
+    }
+  }
 
   Future<void> getHomeData() async {
     emit(GetHomeDataLoadingState());

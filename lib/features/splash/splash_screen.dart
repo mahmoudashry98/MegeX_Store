@@ -1,8 +1,12 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:e_commerce_app/core/network/local/shared/shared_preferences.dart';
 import 'package:e_commerce_app/core/utils/app_string.dart';
 import 'package:e_commerce_app/core/utils/media_query_values.dart';
 import 'package:e_commerce_app/core/widgets/custom_text.dart';
+import 'package:e_commerce_app/features/auth/presentation/cubit/cubit.dart';
 import 'package:e_commerce_app/features/auth/presentation/screens/login.dart';
+import 'package:e_commerce_app/features/caregories/presentation/cubit/cubit.dart';
+import 'package:e_commerce_app/features/home/presentation/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,11 +14,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/utils/app_asstes_path.dart';
 import '../../core/utils/app_colors.dart';
 import '../../core/widgets/custom_button.dart';
+import '../home/presentation/screens/layout.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
   @override
   Widget build(BuildContext context) {
+    var token = CacheHelper.getData(key: 'token');
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: AppColors.primaryColor,
       statusBarBrightness: Brightness.light,
@@ -56,14 +62,27 @@ class SplashScreen extends StatelessWidget {
                 color: AppColors.whiteColor,
                 textColor: AppColors.primaryColor,
                 onTap: () async {
-                  await Navigator.of(context).pushReplacement(
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) {
-                        return const LoginScreen();
-                      },
-                      transitionDuration: const Duration(milliseconds: 1200),
-                    ),
-                  );
+                  await CategoriesCubit.get(context).getCategoriesData();
+
+                  if (token == null) {
+                    await Navigator.of(context).pushReplacement(
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) {
+                          return const LoginScreen();
+                        },
+                        transitionDuration: const Duration(milliseconds: 1200),
+                      ),
+                    );
+                  } else {
+                    await Navigator.of(context).pushReplacement(
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) {
+                          return const LayoutScreen();
+                        },
+                        transitionDuration: const Duration(milliseconds: 1200),
+                      ),
+                    );
+                  }
                 },
               ),
             ),

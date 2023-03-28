@@ -1,9 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:e_commerce_app/core/network/local/shared/shared_preferences.dart';
 import 'package:e_commerce_app/core/utils/app_colors.dart';
 import 'package:e_commerce_app/core/widgets/custom_text.dart';
 import 'package:e_commerce_app/features/auth/presentation/cubit/cubit.dart';
-import 'package:e_commerce_app/features/home/presentation/cubit/cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userModel = AuthCubit.get(context).loginModel;
+    var userModel = AuthCubit.get(context).userLoginModel;
     var facebookUser = AuthCubit.get(context).facebookUser;
     var googleUser = FirebaseAuth.instance.currentUser;
 
@@ -74,7 +74,7 @@ class ProfileScreen extends StatelessWidget {
                         color: AppColors.whiteColor,
                       )
                     : CustomText(
-                        text: userModel!.userData!.name,
+                        text:  userModel!.userData!.name,
                         color: AppColors.whiteColor,
                       ),
             googleUser != null
@@ -99,6 +99,8 @@ class ProfileScreen extends StatelessWidget {
               color: AppColors.whiteColor,
               textColor: AppColors.primaryColor,
               onTap: () async {
+                await CacheHelper.removeData(key: 'token');
+
                 await AuthCubit.get(context).logout(
                   context,
                 );
@@ -107,17 +109,6 @@ class ProfileScreen extends StatelessWidget {
                   context,
                   AppRouts.loginScreen,
                 );
-              },
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CustomButton(
-              text: AppString.products,
-              color: AppColors.whiteColor,
-              textColor: AppColors.primaryColor,
-              onTap: () async {
-                await HomeCubit.get(context).getHomeData();
               },
             ),
           ],

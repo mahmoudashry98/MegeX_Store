@@ -6,6 +6,9 @@ class HomeInitialState extends HomeState {}
 //Change TabBar
 class ChangeTabBarState extends HomeState {}
 
+//Change TabBar
+class ChangeBottomNavBarState extends HomeState {}
+
 ///GetHomeDataState
 class GetHomeDataLoadingState extends HomeState {}
 

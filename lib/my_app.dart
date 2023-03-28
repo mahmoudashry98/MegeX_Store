@@ -11,13 +11,14 @@ import 'config/theme/app_theme.dart';
 import 'features/auth/presentation/cubit/cubit.dart';
 import 'features/caregories/presentation/cubit/cubit.dart';
 
-
 class MyApp extends StatelessWidget {
   MyApp.internal();
 
   static final MyApp instance = MyApp.internal();
 
   factory MyApp() => instance;
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return MaterialApp(
             useInheritedMediaQuery: true,
-             builder: DevicePreview.appBuilder,
+            builder: DevicePreview.appBuilder,
             locale: DevicePreview.locale(context),
             debugShowCheckedModeBanner: false,
             theme: appTheme(),

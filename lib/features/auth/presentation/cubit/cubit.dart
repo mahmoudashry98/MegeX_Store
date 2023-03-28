@@ -27,7 +27,7 @@ class AuthCubit extends Cubit<AuthState> {
     required this.registerUseCase,
     required this.logoutUseCase,
     required this.getProfileUseCase,
-     //this.sharedPreferencesRepository
+    //this.sharedPreferencesRepository
   }) : super(AuthInitialState());
 
   static AuthCubit get(context) => BlocProvider.of<AuthCubit>(context);
@@ -35,16 +35,6 @@ class AuthCubit extends Cubit<AuthState> {
   IconData suffix = Icons.visibility_outlined;
 
   bool isPassword = true;
-
-  //SharedPreferences
-
-  // Future<void> saveData(String data) async {
-  //   await sharedPreferencesRepository.saveString('data_key', data);
-  // }
-
-  // Future<String?> loadData() async {
-  //   return sharedPreferencesRepository.getString('data_key');
-  // }
 
   void changePasswordVisibility() {
     isPassword = !isPassword;
@@ -60,6 +50,7 @@ class AuthCubit extends Cubit<AuthState> {
   GoogleSignInAccount? _user;
   GoogleSignInAccount get user => _user!;
 
+  // ignore: prefer_typing_uninitialized_variables
   var facebookUser;
 
   Future signInWithGoogle(context) async {
@@ -76,9 +67,12 @@ class AuthCubit extends Cubit<AuthState> {
         accessToken: gooleAuth.accessToken,
       );
       await FirebaseAuth.instance.signInWithCredential(credential);
+      await saveUserToken(gooleAuth.idToken!);
+      HomeCubit.get(context).bottomNavCurrentIndex = 0;
+
       Navigator.pushReplacementNamed(
         context,
-        AppRouts.homeScreen,
+        AppRouts.layoutScreen,
       );
       emit(LoginWithGoogleLoadedState());
     } catch (e) {
@@ -104,18 +98,19 @@ class AuthCubit extends Cubit<AuthState> {
 
       emit(LoginWithFacebookLoadedState());
       FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+      await saveUserToken(loginResult.accessToken!.token);
+      HomeCubit.get(context).bottomNavCurrentIndex = 0;
       Navigator.pushReplacementNamed(
         context,
-        AppRouts.homeScreen,
+        AppRouts.layoutScreen,
       );
     } catch (e) {
       emit(LoginWithFacebookErrorState(message: e.toString()));
     }
   }
 
+  AuthEntities? userLoginModel;
 
-  AuthEntities? loginModel;
-  
   Future<void> login(
     context, {
     required String email,
@@ -132,17 +127,36 @@ class AuthCubit extends Cubit<AuthState> {
       (l) {
         emit(LoginErrorState(exception: l));
       },
-      (r) async{
-        loginModel = r;
+      (r) async {
+        userLoginModel = r;
+        await saveUserToken(userLoginModel!.userData!.token);
+        HomeCubit.get(context).bottomNavCurrentIndex = 0;
         await HomeCubit.get(context).getHomeData();
         await CategoriesCubit.get(context).getCategoriesData();
         await Navigator.pushReplacementNamed(
           context,
-          AppRouts.homeScreen,
+          AppRouts.layoutScreen,
         );
         emit(LoginLoadedState(message: r.message));
       },
     );
+  }
+
+  String? token;
+
+  Future<void> saveUserToken(String userToken) async {
+    emit(SaveUserTokenLoadingState());
+    try {
+      await CacheHelper.saveData(key: 'token', value: userToken);
+      print('CachData${CacheHelper.getData(key: 'token')}');
+      emit(
+        SaveUserTokenLoadedState(),
+      );
+      token = userToken;
+      print('///////////////////////////$token');
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   Future<void> register(
@@ -163,11 +177,12 @@ class AuthCubit extends Cubit<AuthState> {
       (l) {
         emit(RegisterErrorState(exception: l));
       },
-      (r) {
-        loginModel = r;
+      (r) async {
+        userLoginModel = r;
+        await saveUserToken(userLoginModel!.userData!.token);
         Navigator.pushReplacementNamed(
           context,
-          AppRouts.homeScreen,
+          AppRouts.layoutScreen,
         );
         emit(RegisterLoadedState(message: r.message));
       },
@@ -189,7 +204,7 @@ class AuthCubit extends Cubit<AuthState> {
     } else {
       var response = await logoutUseCase(
         LogoutParameters(
-          token: loginModel!.userData!.token,
+          token: userLoginModel!.userData!.token,
         ),
       );
       response.fold(
@@ -198,10 +213,12 @@ class AuthCubit extends Cubit<AuthState> {
         },
         (r) {
           logoutModel = r;
+          HomeCubit.get(context).bottomNavCurrentIndex = 0;
           Navigator.pushReplacementNamed(
             context,
             AppRouts.loginScreen,
           );
+
           emit(LogoutLoadedState(message: r.message));
         },
       );
