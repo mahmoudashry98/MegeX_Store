@@ -6,7 +6,6 @@ import 'package:e_commerce_app/core/widgets/custom_text.dart';
 import 'package:e_commerce_app/features/auth/presentation/cubit/cubit.dart';
 import 'package:e_commerce_app/features/auth/presentation/screens/login.dart';
 import 'package:e_commerce_app/features/caregories/presentation/cubit/cubit.dart';
-import 'package:e_commerce_app/features/home/presentation/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -65,6 +64,7 @@ class SplashScreen extends StatelessWidget {
                   await CategoriesCubit.get(context).getCategoriesData();
 
                   if (token == null) {
+                    // ignore: use_build_context_synchronously
                     await Navigator.of(context).pushReplacement(
                       PageRouteBuilder(
                         pageBuilder: (context, animation, secondaryAnimation) {
@@ -74,6 +74,9 @@ class SplashScreen extends StatelessWidget {
                       ),
                     );
                   } else {
+                    await AuthCubit.get(context).getProfile(
+                      token: CacheHelper.getData(key: 'token'),
+                    );
                     await Navigator.of(context).pushReplacement(
                       PageRouteBuilder(
                         pageBuilder: (context, animation, secondaryAnimation) {

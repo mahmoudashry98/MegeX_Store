@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../../../config/router/app_rout.dart';
 import '../../../../core/network/local/shared/shared_preferences.dart';
 import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/app_string.dart';
 import '../../../../core/widgets/custom_button.dart';
+import '../../../auth/presentation/cubit/cubit.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -14,15 +17,22 @@ class CartScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 200,
-            width: 200,
-            child: CustomButton(
-              text: 'Sign Out',
-              color: AppColors.primaryColor,
-              textColor: AppColors.whiteColor,
-              onTap: () => CacheHelper.removeData,
-            ),
+         CustomButton(
+            text: AppString.logOut,
+            color: AppColors.whiteColor,
+            textColor: AppColors.primaryColor,
+            onTap: () async {
+              await CacheHelper.removeData(key: 'token');
+
+              await AuthCubit.get(context).logout(
+                context,
+              );
+
+              await Navigator.pushReplacementNamed(
+                context,
+                AppRouts.loginScreen,
+              );
+            },
           ),
         ],
       ),

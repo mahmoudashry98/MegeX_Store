@@ -131,6 +131,7 @@ class AuthCubit extends Cubit<AuthState> {
         userLoginModel = r;
         await saveUserToken(userLoginModel!.userData!.token);
         HomeCubit.get(context).bottomNavCurrentIndex = 0;
+        await getProfile(token: CacheHelper.getData(key: 'token'));
         await HomeCubit.get(context).getHomeData();
         await CategoriesCubit.get(context).getCategoriesData();
         await Navigator.pushReplacementNamed(
@@ -149,9 +150,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await CacheHelper.saveData(key: 'token', value: userToken);
       print('CachData${CacheHelper.getData(key: 'token')}');
-      emit(
-        SaveUserTokenLoadedState(),
-      );
+      emit(SaveUserTokenLoadedState());
       token = userToken;
       print('///////////////////////////$token');
     } catch (e) {
@@ -204,15 +203,16 @@ class AuthCubit extends Cubit<AuthState> {
     } else {
       var response = await logoutUseCase(
         LogoutParameters(
-          token: userLoginModel!.userData!.token,
+          token: profileModel!.userData!.token,
         ),
       );
       response.fold(
         (l) {
           emit(LogoutErrorState(exception: l));
         },
-        (r) {
+        (r) async {
           logoutModel = r;
+          await CacheHelper.removeData(key: 'token');
           HomeCubit.get(context).bottomNavCurrentIndex = 0;
           Navigator.pushReplacementNamed(
             context,
@@ -242,6 +242,7 @@ class AuthCubit extends Cubit<AuthState> {
       },
       (r) {
         profileModel = r;
+        print('UserModel: $r');
         emit(GetProfileLoadedState(message: r.message.toString()));
       },
     );

@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:e_commerce_app/core/network/local/shared/shared_preferences.dart';
 import 'package:e_commerce_app/core/utils/app_colors.dart';
 import 'package:e_commerce_app/core/widgets/custom_text.dart';
 import 'package:e_commerce_app/features/auth/presentation/cubit/cubit.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../config/router/app_rout.dart';
+import '../../../../core/network/local/shared/shared_preferences.dart';
 import '../../../../core/utils/app_string.dart';
 import '../../../../core/widgets/custom_button.dart';
 
@@ -17,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userModel = AuthCubit.get(context).userLoginModel;
+    var profileModel = AuthCubit.get(context).profileModel;
     var facebookUser = AuthCubit.get(context).facebookUser;
     var googleUser = FirebaseAuth.instance.currentUser;
 
@@ -73,10 +73,11 @@ class ProfileScreen extends StatelessWidget {
                         text: facebookUser['name'],
                         color: AppColors.whiteColor,
                       )
-                    : CustomText(
-                        text:  userModel!.userData!.name,
-                        color: AppColors.whiteColor,
-                      ),
+                    :
+            CustomText(
+              text: profileModel!.userData!.name,
+              color: AppColors.whiteColor,
+            ),
             googleUser != null
                 ? CustomText(
                     text: googleUser.email!,
@@ -87,10 +88,11 @@ class ProfileScreen extends StatelessWidget {
                         text: facebookUser['email'],
                         color: AppColors.whiteColor,
                       )
-                    : CustomText(
-                        text: userModel!.userData!.email,
-                        color: AppColors.whiteColor,
-                      ),
+                    :
+            CustomText(
+              text: profileModel!.userData!.email,
+              color: AppColors.whiteColor,
+            ),
             const SizedBox(
               height: 50,
             ),
@@ -99,8 +101,6 @@ class ProfileScreen extends StatelessWidget {
               color: AppColors.whiteColor,
               textColor: AppColors.primaryColor,
               onTap: () async {
-                await CacheHelper.removeData(key: 'token');
-
                 await AuthCubit.get(context).logout(
                   context,
                 );
