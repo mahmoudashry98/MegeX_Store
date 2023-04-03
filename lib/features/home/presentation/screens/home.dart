@@ -358,22 +358,30 @@ class ShimmerCategoryWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      color: AppColors.grey.withOpacity(0.2),
+                      decoration: BoxDecoration(
+                        color: AppColors.grey.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(
+                          10,
+                        ),
+                      ),
                       child: ShimmerWidget(
                         width: context.width * 0.22,
                         height: context.height * 0.023,
-                        color: AppColors.primaryColor,
                       ),
                     ),
                     SizedBox(
                       height: context.height * 0.01,
                     ),
                     Container(
-                      color: AppColors.grey.withOpacity(0.2),
+                      decoration: BoxDecoration(
+                        color: AppColors.grey.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(
+                          10,
+                        ),
+                      ),
                       child: ShimmerWidget(
                         width: context.width * 0.19,
                         height: context.height * 0.02,
-                        color: AppColors.primaryColor,
                       ),
                     )
                   ],
@@ -543,29 +551,36 @@ class ShimmerProductWidget extends StatelessWidget {
                 ],
               ),
               Container(
-                color: AppColors.grey.withOpacity(0.2),
+                decoration: BoxDecoration(
+                  color: AppColors.grey.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: ShimmerWidget(
                   width: context.width * 0.43,
                   height: context.height * 0.025,
-                  color: AppColors.primaryColor,
                 ),
               ),
               SizedBox(
                 height: context.height * 0.01,
               ),
               Container(
-                color: AppColors.grey.withOpacity(0.2),
+                decoration: BoxDecoration(
+                  color: AppColors.grey.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: ShimmerWidget(
                   width: context.width * 0.3,
                   height: context.height * 0.015,
-                  color: AppColors.primaryColor,
                 ),
               ),
               SizedBox(
                 height: context.height * 0.03,
               ),
               Container(
-                color: AppColors.grey.withOpacity(0.2),
+                decoration: BoxDecoration(
+                  color: AppColors.grey.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: ShimmerWidget(
                   height: context.height * 0.025,
                   width: context.width * 0.19,

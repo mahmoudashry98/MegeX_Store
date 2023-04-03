@@ -133,8 +133,6 @@ class AuthCubit extends Cubit<AuthState> {
         HomeCubit homeCubit = HomeCubit.get(context);
         homeCubit.bottomNavCurrentIndex = 0;
         await getProfile(token: CacheHelper.getData(key: 'token'));
-        await homeCubit.getHomeData();
-        await CategoriesCubit.get(context).getCategoriesData();
         Navigator.pushReplacementNamed(
           context,
           AppRouts.layoutScreen,
