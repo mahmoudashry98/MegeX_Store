@@ -130,11 +130,12 @@ class AuthCubit extends Cubit<AuthState> {
       (r) async {
         userLoginModel = r;
         await saveUserToken(userLoginModel!.userData!.token);
-        HomeCubit.get(context).bottomNavCurrentIndex = 0;
+        HomeCubit homeCubit = HomeCubit.get(context);
+        homeCubit.bottomNavCurrentIndex = 0;
         await getProfile(token: CacheHelper.getData(key: 'token'));
-        await HomeCubit.get(context).getHomeData();
+        await homeCubit.getHomeData();
         await CategoriesCubit.get(context).getCategoriesData();
-        await Navigator.pushReplacementNamed(
+        Navigator.pushReplacementNamed(
           context,
           AppRouts.layoutScreen,
         );

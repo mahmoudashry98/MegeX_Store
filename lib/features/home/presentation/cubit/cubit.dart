@@ -36,8 +36,9 @@ class HomeCubit extends Cubit<HomeState> {
   List<Widget> bottomScreens = [
     const HomeScreen(),
     const FavouriteScreen(),
+     const CartScreen(),
     const ProfileScreen(),
-    const CartScreen(),
+   
   ];
 
   //BottomNav

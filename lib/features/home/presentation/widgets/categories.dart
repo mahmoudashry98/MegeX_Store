@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_colors.dart';
 
-Widget buildSpecialOfferCard({
+ 
+
+Widget shimmerCategoryWidget({
   required final String category,
   required final String image,
   required final int numOfBrands,
@@ -16,24 +18,6 @@ Widget buildSpecialOfferCard({
           onTap: press,
           child: Row(
             children: [
-              // Column(
-              //   children: [
-              //     Shimmer(
-              //       height: 140,
-              //       width: 100,
-              //       color: Colors.black.withOpacity(0.04),
-              //     ),
-              //     Column(
-              //       children: [
-              //         Shimmer(
-              //           height: 40,
-              //           width: 50,
-              //           color: AppColors.errorColor,
-              //         ),
-              //       ],
-              //     ),
-              //   ],
-              // ),
               Stack(
                 children: [
                   CachedNetworkImage(
@@ -89,21 +73,3 @@ Widget buildSpecialOfferCard({
         ),
       ),
     );
-
-class Shimmer extends StatelessWidget {
-  double? height;
-  double? width;
-  Color? color;
-  Shimmer({Key? key, this.height, this.width, this.color}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
-      padding: const EdgeInsets.all(8),
-      decoration:
-          BoxDecoration(color: color, borderRadius: BorderRadius.circular(16)),
-    );
-  }
-}
