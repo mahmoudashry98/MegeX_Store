@@ -13,13 +13,11 @@ import 'features/auth/presentation/cubit/cubit.dart';
 import 'features/caregories/presentation/cubit/cubit.dart';
 
 class MyApp extends StatelessWidget {
-  MyApp.internal();
+  const MyApp.internal();
 
-  static final MyApp instance = MyApp.internal();
+  static const MyApp instance = MyApp.internal();
 
   factory MyApp() => instance;
-
-  
 
   @override
   Widget build(BuildContext context) {

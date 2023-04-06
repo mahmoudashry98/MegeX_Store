@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import '../../../../config/router/app_rout.dart';
 import '../../../../core/network/local/shared/shared_preferences.dart';
-import '../../../caregories/presentation/cubit/cubit.dart';
 import '../../../home/presentation/cubit/cubit.dart';
 import '../../data/model/logout.dart';
 import '../../domain/usecase/login.dart';
@@ -133,10 +132,7 @@ class AuthCubit extends Cubit<AuthState> {
         HomeCubit homeCubit = HomeCubit.get(context);
         homeCubit.bottomNavCurrentIndex = 0;
         await getProfile(token: CacheHelper.getData(key: 'token'));
-        Navigator.pushReplacementNamed(
-          context,
-          AppRouts.layoutScreen,
-        );
+        
         emit(LoginLoadedState(message: r.message));
       },
     );

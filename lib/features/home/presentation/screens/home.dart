@@ -1,15 +1,17 @@
-import 'package:e_commerce_app/core/utils/app_asstes_path.dart';
 import 'package:e_commerce_app/core/utils/media_query_values.dart';
 import 'package:e_commerce_app/core/widgets/custom_text.dart';
 import 'package:e_commerce_app/features/caregories/presentation/cubit/state.dart';
 import 'package:e_commerce_app/features/home/presentation/cubit/cubit.dart';
 import 'package:e_commerce_app/features/home/presentation/cubit/state.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce_app/features/home/presentation/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../../config/router/app_rout.dart';
+import '../../../../core/utils/app_asstes_path.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_fonts.dart';
 import '../../../../core/utils/app_values.dart';
@@ -34,54 +36,26 @@ class HomeScreen extends StatelessWidget {
         var tabCurrentIndex = homeCubit.tabCurrentIndex;
         return Scaffold(
           backgroundColor: AppColors.backgroundColor,
-          body:
-              //  state is GetHomeDataLoadingState
-              //     ? Center(
-              //         child: CircularProgressIndicator(
-              //           valueColor:
-              //               AlwaysStoppedAnimation<Color>(AppColors.primaryColor),
-              //         ),
-              //       )
-              //     :
-              Column(
+          body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //cubit.bottomScreens[bottomNavCurrentIndex],
               Padding(
                 padding:
                     EdgeInsets.only(top: 30.sp, left: 40.sp, bottom: 10.sp),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: Image.asset(menuIcons),
-                    ),
+                    Image.asset(menuIcons),
                     SizedBox(
                       width: context.width / 20,
                     ),
-                    Expanded(
-                      child: SizedBox(
-                        width: context.width * 0.66,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: const BorderSide(width: 0.8),
-                            ),
-                            hintText: 'Search',
-                            hintStyle: TextStyle(
-                              color: AppColors.lightGrey,
-                              fontSize: AppFontSize.s18,
-                            ),
-                            prefixIcon: const Icon(
-                              Icons.search,
-                              size: 30,
-                            ),
-                          ),
-                        ),
+                    SearchWidget(
+                      isKeyboardOped: true,
+                      width: context.width * 0.66,
+                      press: () => Navigator.pushNamed(
+                        context,
+                        AppRouts.searchScreen,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -286,12 +260,10 @@ class CategoryWidget extends StatelessWidget {
                   ),
                   placeholder: (context, url) => Center(
                     child: ShimmerWidget(
-                      // height: context.height * 0.19,
-                      // width: context.width * 0.43,
                       color: AppColors.whiteColor,
                       widget: Shimmer.fromColors(
                         baseColor: Colors.grey.shade50,
-                        highlightColor: Colors.grey.shade200,
+                        highlightColor: AppColors.lightGrey.withOpacity(0.2),
                         child: Container(
                           color: AppColors.whiteColor,
                         ),
@@ -346,8 +318,8 @@ class ShimmerCategoryWidget extends StatelessWidget {
                 width: context.width * 0.53,
                 color: AppColors.whiteColor,
                 widget: Shimmer.fromColors(
-                  baseColor: Colors.grey.shade50,
-                  highlightColor: Colors.grey.shade200,
+                  baseColor: Colors.grey.shade100,
+                  highlightColor: AppColors.lightGrey.withOpacity(0.2),
                   child: Container(
                     color: AppColors.whiteColor,
                   ),
@@ -450,7 +422,8 @@ class ProductWidget extends StatelessWidget {
                             color: AppColors.whiteColor,
                             widget: Shimmer.fromColors(
                               baseColor: Colors.grey.shade50,
-                              highlightColor: Colors.grey.shade200,
+                              highlightColor:
+                                  AppColors.lightGrey.withOpacity(0.2),
                               child: CircleAvatar(
                                 backgroundColor: AppColors.whiteColor,
                                 radius: 25,
@@ -540,7 +513,7 @@ class ShimmerProductWidget extends StatelessWidget {
                       color: AppColors.whiteColor,
                       widget: Shimmer.fromColors(
                         baseColor: Colors.grey.shade50,
-                        highlightColor: Colors.grey.shade200,
+                        highlightColor: AppColors.lightGrey.withOpacity(0.2),
                         child: CircleAvatar(
                           backgroundColor: AppColors.whiteColor,
                           radius: 25,

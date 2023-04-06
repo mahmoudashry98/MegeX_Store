@@ -42,6 +42,7 @@ class AppString {
   static const String description = 'description';
   static const String inCart = 'in_cart';
   static const String inFavorites = 'in_favorites';
+  static const String search = 'Search';
 
 
 }

@@ -158,8 +158,15 @@ class LoginBody extends StatelessWidget {
                         Center(
                           child: Column(
                             children: [
-                              state is! LoginLoadingState
-                                  ? CustomButton(
+                              state is LoginLoadingState
+                                  ? Center(
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                AppColors.primaryColor),
+                                      ),
+                                    )
+                                  : CustomButton(
                                       text: AppString.login,
                                       color: AppColors.primaryColor,
                                       textColor: AppColors.whiteColor,
@@ -170,15 +177,14 @@ class LoginBody extends StatelessWidget {
                                             password: passwordController.text,
                                             context,
                                           );
+
+                                          // ignore: use_build_context_synchronously
+                                          await Navigator.pushReplacementNamed(
+                                            context,
+                                            AppRouts.layoutScreen,
+                                          );
                                         }
                                       },
-                                    )
-                                  : Center(
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                                AppColors.primaryColor),
-                                      ),
                                     ),
                               SizedBox(
                                 height: context.height / 60,
