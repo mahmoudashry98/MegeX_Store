@@ -170,16 +170,15 @@ class LoginBody extends StatelessWidget {
                                       text: AppString.login,
                                       color: AppColors.primaryColor,
                                       textColor: AppColors.whiteColor,
-                                      onTap: () async {
+                                      onTap: () {
                                         if (formKey.currentState!.validate()) {
-                                          await AuthCubit.get(context).login(
+                                          AuthCubit.get(context).login(
                                             email: emailController.text,
                                             password: passwordController.text,
                                             context,
                                           );
 
-                                          // ignore: use_build_context_synchronously
-                                          await Navigator.pushReplacementNamed(
+                                          Navigator.pushReplacementNamed(
                                             context,
                                             AppRouts.layoutScreen,
                                           );

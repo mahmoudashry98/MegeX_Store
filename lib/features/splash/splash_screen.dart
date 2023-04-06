@@ -3,7 +3,6 @@ import 'package:e_commerce_app/core/network/local/shared/shared_preferences.dart
 import 'package:e_commerce_app/core/utils/app_string.dart';
 import 'package:e_commerce_app/core/utils/media_query_values.dart';
 import 'package:e_commerce_app/core/widgets/custom_text.dart';
-import 'package:e_commerce_app/features/auth/presentation/cubit/cubit.dart';
 import 'package:e_commerce_app/features/auth/presentation/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -70,9 +69,7 @@ class SplashScreen extends StatelessWidget {
                       ),
                     );
                   } else {
-                    AuthCubit.get(context).getProfile(
-                      token: CacheHelper.getData(key: 'token'),
-                    );
+                    print('CachDataSplash${CacheHelper.getData(key: 'token')}');
                     Navigator.of(context).pushReplacement(
                       PageRouteBuilder(
                         pageBuilder: (context, animation, secondaryAnimation) {

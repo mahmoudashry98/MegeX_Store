@@ -131,8 +131,8 @@ class AuthCubit extends Cubit<AuthState> {
         await saveUserToken(userLoginModel!.userData!.token);
         HomeCubit homeCubit = HomeCubit.get(context);
         homeCubit.bottomNavCurrentIndex = 0;
-        await getProfile(token: CacheHelper.getData(key: 'token'));
-        
+        //await getProfile(token: CacheHelper.getData(key: 'token'));
+
         emit(LoginLoadedState(message: r.message));
       },
     );
@@ -222,13 +222,11 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthEntities? profileModel;
 
-  Future<void> getProfile({
-    required String token,
-  }) async {
+  Future<void> getProfile() async {
     emit(GetProfileLoadingState());
     var response = await getProfileUseCase(
       ProfileParameters(
-        token: token,
+        token: CacheHelper.getData(key: 'token'),
       ),
     );
     response.fold(
