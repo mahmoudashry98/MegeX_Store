@@ -31,7 +31,7 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.whiteColor,
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -73,44 +73,38 @@ class ProfileScreen extends StatelessWidget {
                       googleUser != null
                           ? CustomText(
                               text: googleUser.displayName!,
-                              color: AppColors.whiteColor,
+                              color: AppColors.balckColor,
                             )
                           : facebookUser != null
                               ? CustomText(
                                   text: facebookUser['name'],
-                                  color: AppColors.whiteColor,
+                                  color: AppColors.balckColor,
                                 )
                               : CustomText(
-                                  text: cubit
-                                      .profileModel!
-                                      .userData!
-                                      .name,
-                                  color: AppColors.whiteColor,
+                                  text: cubit.profileModel!.userData!.name,
+                                  color: AppColors.balckColor,
                                 ),
                       googleUser != null
                           ? CustomText(
                               text: googleUser.email!,
-                              color: AppColors.whiteColor,
+                              color: AppColors.balckColor,
                             )
                           : facebookUser != null
                               ? CustomText(
                                   text: facebookUser['email'],
-                                  color: AppColors.whiteColor,
+                                  color: AppColors.balckColor,
                                 )
                               : CustomText(
-                                  text: cubit
-                                      .profileModel!
-                                      .userData!
-                                      .email,
-                                  color: AppColors.whiteColor,
+                                  text: cubit.profileModel!.userData!.email,
+                                  color: AppColors.balckColor,
                                 ),
                       const SizedBox(
                         height: 50,
                       ),
                       CustomButton(
                         text: AppString.logOut,
-                        color: AppColors.whiteColor,
-                        textColor: AppColors.primaryColor,
+                        color: AppColors.primaryColor,
+                        textColor: AppColors.whiteColor,
                         onTap: () async {
                           await AuthCubit.get(context).logout(
                             context,

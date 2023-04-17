@@ -178,10 +178,6 @@ class LoginBody extends StatelessWidget {
                                             context,
                                           );
 
-                                          Navigator.pushReplacementNamed(
-                                            context,
-                                            AppRouts.layoutScreen,
-                                          );
                                         }
                                       },
                                     ),

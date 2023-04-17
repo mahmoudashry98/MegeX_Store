@@ -21,5 +21,5 @@ final routes = {
   AppRouts.registerScreen: (context) => const RegisterScreen(),
   AppRouts.layoutScreen: (context) => const LayoutScreen(),
   AppRouts.homeScreen: (context) => const HomeScreen(),
-  AppRouts.searchScreen: (context) => const SearchScreen(),
+  AppRouts.searchScreen: (context) =>  SearchScreen(),
 };

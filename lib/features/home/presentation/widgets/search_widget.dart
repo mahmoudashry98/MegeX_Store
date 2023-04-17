@@ -8,8 +8,19 @@ class SearchWidget extends StatelessWidget {
   final double? height, width;
   final bool? isKeyboardOped;
   final VoidCallback? press;
-  const SearchWidget(
-      {this.press, super.key, this.height, this.width, this.isKeyboardOped});
+  final ValueChanged? onChange;
+  final ValueChanged? onSubimt;
+  final TextEditingController? textEditingController;
+  const SearchWidget({
+    this.press,
+    super.key,
+    this.height,
+    this.width,
+    this.isKeyboardOped,
+    this.textEditingController,
+    this.onChange,
+    this.onSubimt,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +28,9 @@ class SearchWidget extends StatelessWidget {
       child: SizedBox(
         width: width,
         child: TextField(
+          onSubmitted: onSubimt,
+          onChanged: onChange,
+          controller: textEditingController,
           readOnly: isKeyboardOped!,
           cursorColor: AppColors.primaryColor,
           onTap: press,

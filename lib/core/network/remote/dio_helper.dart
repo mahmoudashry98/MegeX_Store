@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 
-import 'package:e_commerce_app/core/network/end_point.dart';
 import 'package:e_commerce_app/core/utils/app_string.dart';
 import 'package:flutter/material.dart';
 import '../../errors/exceptions.dart';

@@ -36,9 +36,8 @@ class HomeCubit extends Cubit<HomeState> {
   List<Widget> bottomScreens = [
     const HomeScreen(),
     const FavouriteScreen(),
-     const CartScreen(),
+    const CartScreen(),
     const ProfileScreen(),
-   
   ];
 
   //BottomNav
@@ -54,7 +53,30 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeEntities? homeDataModel;
 
-  ProductEntities? productModel;
+  List<ProductEntities> allProduct = [];
+  List<ProductEntities> searchResults = [];
+
+  void searchProducts(String searchController) {
+    emit(GetSearchProductsLoadingState());
+
+    searchResults = allProduct
+        .where((product) =>
+            product.name.toLowerCase().startsWith(searchController))
+        .toList();
+
+    print('searchResults$searchResults');
+    emit(GetSearchProductsLoadingState());
+  }
+
+  void isSearching(bool isSearching) {
+    emit(IsSearchingLoadingState());
+
+    if (searchResults.isEmpty) {
+      isSearching = false;
+    }
+    emit(IsSearchingLoadedState());
+  }
+
 
   void shuffleList(List<ProductModel> list) {
     final random = Random();
@@ -78,6 +100,7 @@ class HomeCubit extends Cubit<HomeState> {
       },
       (r) {
         homeDataModel = r;
+        allProduct = r.data.products;
         //print('ProductModel $homeDataModel');
         emit(GetHomeDataLoadedState());
       },

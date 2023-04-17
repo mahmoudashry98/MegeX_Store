@@ -19,3 +19,16 @@ class GetHomeDataErrorState extends HomeState {
 }
 
 class GetHomeDataLoadedState extends HomeState {}
+
+//SearchProductsState
+
+class GetSearchProductsLoadingState extends HomeState {}
+
+class GetSearchProductsErrorState extends HomeState {}
+
+class GetSearchProductsLoadedState extends HomeState {}
+
+//IsSearchingState
+class IsSearchingLoadingState extends HomeState {}
+
+class IsSearchingLoadedState extends HomeState {}

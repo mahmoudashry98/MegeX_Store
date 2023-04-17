@@ -131,9 +131,15 @@ class AuthCubit extends Cubit<AuthState> {
         await saveUserToken(userLoginModel!.userData!.token);
         HomeCubit homeCubit = HomeCubit.get(context);
         homeCubit.bottomNavCurrentIndex = 0;
+
         //await getProfile(token: CacheHelper.getData(key: 'token'));
 
         emit(LoginLoadedState(message: r.message));
+      //  getProfile();
+        Navigator.pushReplacementNamed(
+          context,
+          AppRouts.layoutScreen,
+        );
       },
     );
   }

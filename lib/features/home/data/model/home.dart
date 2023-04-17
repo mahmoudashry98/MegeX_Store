@@ -15,8 +15,6 @@ class HomeModel extends HomeEntities {
       );
 }
 
-final random = Random();
-
 class HomeDataModel extends HomeDataEntities {
   const HomeDataModel({
     required super.products,
