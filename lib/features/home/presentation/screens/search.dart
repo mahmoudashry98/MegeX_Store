@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce_app/core/utils/app_asstes_path.dart';
 import 'package:e_commerce_app/core/utils/app_colors.dart';
 import 'package:e_commerce_app/core/utils/media_query_values.dart';
 import 'package:e_commerce_app/features/home/presentation/cubit/state.dart';
@@ -60,21 +61,23 @@ class SearchScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  height: context.height * 0.02,
+                  height: context.height * 0.01,
                 ),
-                Center(
-                  child: BlocBuilder<HomeCubit, HomeState>(
-                    builder: (context, state) {
-                      return CustomText(
-                        text:
-                            'Found  ${searchController.text.isEmpty ? '0' : cubit.searchResults.length} results',
-                        color: AppColors.balckColor,
-                        fontWeight: AppFontWeight.semiBold,
-                        size: AppFontSize.s28,
-                      );
-                    },
-                  ),
-                ),
+                searchController.text.isEmpty
+                    ? const NotFoundWidget()
+                    : Center(
+                        child: BlocBuilder<HomeCubit, HomeState>(
+                          builder: (context, state) {
+                            return CustomText(
+                              text:
+                                  'Found  ${searchController.text.isEmpty ? '0' : cubit.searchResults.length} results',
+                              color: AppColors.balckColor,
+                              fontWeight: AppFontWeight.semiBold,
+                              size: AppFontSize.s28,
+                            );
+                          },
+                        ),
+                      ),
                 SearchProductWidget(
                   cubit: cubit,
                   searchController: searchController,
@@ -83,6 +86,40 @@ class SearchScreen extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class NotFoundWidget extends StatelessWidget {
+  const NotFoundWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: Column(
+        children: [
+          Image.asset(notFoundImage),
+          CustomText(
+            text: 'Item not found',
+            color: AppColors.balckColor,
+            fontWeight: AppFontWeight.semiBold,
+            size: AppFontSize.s28,
+          ),
+          SizedBox(
+            height: context.height * 0.02,
+          ),
+          CustomText(
+            textAlign: TextAlign.center,
+            text:
+                'Try a more generic search term or try\n looking for alternative products.',
+            color: AppColors.balckColor,
+            fontWeight: AppFontWeight.regular,
+            size: AppFontSize.s17,
+          ),
+        ],
       ),
     );
   }
@@ -106,6 +143,7 @@ class SearchProductWidget extends StatelessWidget {
         crossAxisCount: 2,
       ),
       itemCount: cubit.searchResults.length,
+      physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         return searchController.text.isEmpty
             ? Container()

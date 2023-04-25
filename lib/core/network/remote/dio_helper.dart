@@ -29,7 +29,6 @@ abstract class DioHelper {
 class DioImpl extends DioHelper {
   final Dio dio = Dio(
     BaseOptions(
-      //baseUrl: EndPoint.baseUrl1,
       receiveDataWhenStatusError: true,
       connectTimeout: 5000,
     ),
