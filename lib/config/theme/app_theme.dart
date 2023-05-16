@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 ThemeData appTheme() {
   return ThemeData(
+    useMaterial3: false,
     //main Colors
     primaryColor: AppColors.primaryColor,
     hintColor: AppColors.hintColor,

@@ -24,6 +24,7 @@ String profileIcons = _getAssetsIconPath('Profile.png');
 String faceBookIcons = _getAssetsIconPath('facebook-256.png');
 String googleIcons = _getAssetsIconPath('google-icon.svg');
 String menuIcons = _getAssetsIconPath('Vector.png');
+String favouriteIcons = _getAssetsIconPath('Heart.png');
 
 
 String _getAssetsImagePath(String fileName) {

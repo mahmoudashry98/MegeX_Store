@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthCubit>(
-          create: (context) => sl<AuthCubit>()..getProfile(),
+          create: (context) => sl<AuthCubit>(),
         ),
         BlocProvider<HomeCubit>(
           create: (context) => sl<HomeCubit>()..getHomeData(),
@@ -40,8 +40,8 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return MaterialApp(
             useInheritedMediaQuery: true,
-            builder: DevicePreview.appBuilder,
-            locale: DevicePreview.locale(context),
+            //builder: DevicePreview.appBuilder,
+            //locale: DevicePreview.locale(context),
             debugShowCheckedModeBanner: false,
             theme: appTheme(),
             routes: routes,

@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/features/auth/presentation/screens/login.dart';
 import 'package:e_commerce_app/features/auth/presentation/screens/register.dart';
 import 'package:e_commerce_app/features/home/presentation/screens/home.dart';
+import 'package:e_commerce_app/features/home/presentation/screens/product_details.dart';
 import 'package:e_commerce_app/features/home/presentation/screens/search.dart';
 
 import '../../features/home/presentation/screens/layout.dart';
@@ -13,6 +14,7 @@ class AppRouts {
   static const String layoutScreen = '/layoutScreen';
   static const String homeScreen = '/homeScreen';
   static const String searchScreen = '/search';
+  static const String productDetailsScreen = '/productDetalisScreen';
 }
 
 final routes = {
@@ -21,5 +23,6 @@ final routes = {
   AppRouts.registerScreen: (context) => const RegisterScreen(),
   AppRouts.layoutScreen: (context) => const LayoutScreen(),
   AppRouts.homeScreen: (context) => const HomeScreen(),
-  AppRouts.searchScreen: (context) =>  SearchScreen(),
+  AppRouts.searchScreen: (context) => SearchScreen(),
+  AppRouts.productDetailsScreen: (context) => const ProductDetalisScreen(),
 };

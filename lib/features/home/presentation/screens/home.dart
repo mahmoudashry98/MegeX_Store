@@ -59,50 +59,8 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
-                child: SizedBox(
-                  height: 60,
-                  width: context.width,
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          homeCubit.changeTabBar(index);
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.all(AppMargin.m12),
-                          width: context.width * 0.2,
-                          height: context.height * 0.2,
-                          decoration: BoxDecoration(
-                              border: tabCurrentIndex == index
-                                  ? Border(
-                                      bottom: BorderSide(
-                                        color: AppColors.primaryColor,
-                                        width: 3,
-                                        style: BorderStyle.solid,
-                                      ),
-                                    )
-                                  : const Border()),
-                          child: Center(
-                            child: CustomText(
-                              text: homeCubit.items[index],
-                              color: tabCurrentIndex == index
-                                  ? AppColors.primaryColor
-                                  : AppColors.lightGrey,
-                              size: AppSize.s18,
-                              fontWeight: AppFontWeight.semiBold,
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                    itemCount: homeCubit.items.length,
-                  ),
-                ),
-              ),
+              TopNavgtationBar(
+                  homeCubit: homeCubit, tabCurrentIndex: tabCurrentIndex),
               SizedBox(
                 height: context.height / 45,
               ),
@@ -129,41 +87,7 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: context.height / 40,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: SizedBox(
-                  height: context.height * 0.17,
-                  child: BlocConsumer<CategoriesCubit, CategoriesState>(
-                    listener: (context, state) {},
-                    builder: (context, state) {
-                      var categoriesCubit = CategoriesCubit.get(context);
-                      late int? itemCount =
-                          categoriesCubit.categoryModel!.data.length;
-                      return ListView.separated(
-                        physics: const BouncingScrollPhysics(),
-                        separatorBuilder: (context, index) => SizedBox(
-                          width: context.width * 0.03,
-                        ),
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Row(
-                            children: [
-                              state is GetCategoriesLoadingState
-                                  ? const ShimmerCategoryWidget()
-                                  : CategoryWidget(
-                                      categoryCubit: categoriesCubit,
-                                      index: index,
-                                    ),
-                            ],
-                          );
-                        },
-                        itemCount:
-                            state is GetCategoriesLoadingState ? 5 : itemCount,
-                      );
-                    },
-                  ),
-                ),
-              ),
+              const ItemsOfCategoryWidget(),
               SizedBox(
                 height: context.height / 25,
               ),
@@ -187,42 +111,159 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: SizedBox(
-                  height: context.height * 0.35,
-                  child: BlocConsumer<HomeCubit, HomeState>(
-                    listener: (context, state) {},
-                    builder: (context, state) {
-                      late int? itemCount =
-                          homeCubit.homeDataModel!.data.products.length;
-                      return ListView.separated(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Row(
-                            children: [
-                              state is GetHomeDataLoadingState
-                                  ? const ShimmerProductWidget()
-                                  : ProductWidget(
-                                      cubit: homeCubit,
-                                      index: index,
-                                    )
-                            ],
-                          );
-                        },
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(width: 5),
-                        itemCount:
-                            state is GetHomeDataLoadingState ? 5 : itemCount,
-                      );
-                    },
-                  ),
-                ),
-              ),
+              ItemsOfPoductWidget(homeCubit: homeCubit),
             ],
           ),
         );
       },
+    );
+  }
+}
+
+class ItemsOfPoductWidget extends StatelessWidget {
+  const ItemsOfPoductWidget({
+    Key? key,
+    required this.homeCubit,
+  }) : super(key: key);
+
+  final HomeCubit homeCubit;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => Navigator.pushNamed(
+        context,
+        AppRouts.productDetailsScreen,
+      ),
+      child: SizedBox(
+        height: context.height * 0.35,
+        child: BlocConsumer<HomeCubit, HomeState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            late int? itemCount = homeCubit.homeDataModel!.data.products.length;
+            return ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Row(
+                  children: [
+                    state is GetHomeDataLoadingState
+                        ? const ShimmerProductWidget()
+                        : ProductWidget(
+                            cubit: homeCubit,
+                            index: index,
+                          )
+                  ],
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(width: 5),
+              itemCount: state is GetHomeDataLoadingState ? 5 : itemCount,
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class ItemsOfCategoryWidget extends StatelessWidget {
+  const ItemsOfCategoryWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: SizedBox(
+        height: context.height * 0.17,
+        child: BlocConsumer<CategoriesCubit, CategoriesState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            var categoriesCubit = CategoriesCubit.get(context);
+            late int? itemCount = categoriesCubit.categoryModel!.data.length;
+            return ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              separatorBuilder: (context, index) => SizedBox(
+                width: context.width * 0.03,
+              ),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Row(
+                  children: [
+                    state is GetCategoriesLoadingState
+                        ? const ShimmerCategoryWidget()
+                        : CategoryWidget(
+                            categoryCubit: categoriesCubit,
+                            index: index,
+                          ),
+                  ],
+                );
+              },
+              itemCount: state is GetCategoriesLoadingState ? 5 : itemCount,
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class TopNavgtationBar extends StatelessWidget {
+  const TopNavgtationBar({
+    Key? key,
+    required this.homeCubit,
+    required this.tabCurrentIndex,
+  }) : super(key: key);
+
+  final HomeCubit homeCubit;
+  final int tabCurrentIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
+      child: SizedBox(
+        height: 60,
+        width: context.width,
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                homeCubit.changeTabBar(index);
+              },
+              child: Container(
+                margin: const EdgeInsets.all(AppMargin.m12),
+                width: context.width * 0.2,
+                height: context.height * 0.2,
+                decoration: BoxDecoration(
+                    border: tabCurrentIndex == index
+                        ? Border(
+                            bottom: BorderSide(
+                              color: AppColors.primaryColor,
+                              width: 3,
+                              style: BorderStyle.solid,
+                            ),
+                          )
+                        : const Border()),
+                child: Center(
+                  child: CustomText(
+                    text: homeCubit.items[index],
+                    color: tabCurrentIndex == index
+                        ? AppColors.primaryColor
+                        : AppColors.lightGrey,
+                    size: AppSize.s18,
+                    fontWeight: AppFontWeight.semiBold,
+                  ),
+                ),
+              ),
+            );
+          },
+          itemCount: homeCubit.items.length,
+        ),
+      ),
     );
   }
 }

@@ -24,12 +24,12 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: AppColors.whiteColor,
+      statusBarColor: AppColors.backgroundColor,
       statusBarBrightness: Brightness.light,
       statusBarIconBrightness: Brightness.light,
     ));
     return Scaffold(
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.backgroundColor,
       body: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -45,7 +45,10 @@ class SearchScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: const Icon(Icons.arrow_back),
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: AppColors.balckColor,
+                      ),
                     ),
                     SearchWidget(
                       onChange: (value) {
@@ -165,7 +168,7 @@ class SearchProductWidget extends StatelessWidget {
                               ),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
-                                color: AppColors.grey.withOpacity(0.2),
+                                color: AppColors.whiteColor,
                               ),
                             ),
                             Column(

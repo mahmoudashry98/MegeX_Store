@@ -88,6 +88,8 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+  
+
   Future<void> getHomeData() async {
     emit(GetHomeDataLoadingState());
 
