@@ -10,6 +10,7 @@ const String iconAssetsRoot = "assets/icons/";
  String categoryElctronics = _getAssetsImagePath('Elctronics.png');
  String prodectImage = _getAssetsImagePath('product.png');
  String notFoundImage = _getAssetsImagePath('not_found.png');
+ String maskGroupImage = _getAssetsImagePath('Mask Group.png');
 
 
 

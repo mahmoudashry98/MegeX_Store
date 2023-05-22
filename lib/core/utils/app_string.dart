@@ -33,6 +33,9 @@ class AppString {
   static const String fotgotPassword = 'Forgot password?';
   static const String createAccount = 'Create account';
   static const String signWithSocialAccount = 'Or via social media';
+  static const String specialForYou = 'Special for You';
+  static const String seeMore = 'See more';
+  static const String popularProduct = 'Popular Product';
 
 
   static const String products = 'products';

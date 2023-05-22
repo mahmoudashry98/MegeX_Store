@@ -11,6 +11,7 @@ environment:
 dependencies:
   animate_do: ^3.0.2
   cached_network_image: ^3.2.3
+  carousel_slider: ^4.2.1
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   device_preview: ^1.1.0

@@ -4,6 +4,7 @@ import 'package:e_commerce_app/features/caregories/presentation/cubit/state.dart
 import 'package:e_commerce_app/features/home/presentation/cubit/cubit.dart';
 import 'package:e_commerce_app/features/home/presentation/cubit/state.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce_app/features/home/presentation/screens/product_details.dart';
 import 'package:e_commerce_app/features/home/presentation/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +15,7 @@ import '../../../../config/router/app_rout.dart';
 import '../../../../core/utils/app_asstes_path.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_fonts.dart';
+import '../../../../core/utils/app_string.dart';
 import '../../../../core/utils/app_values.dart';
 import '../../../caregories/presentation/cubit/cubit.dart';
 
@@ -32,6 +34,8 @@ class HomeScreen extends StatelessWidget {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {},
       builder: (context, state) {
+        late int? itemCount =
+            HomeCubit.get(context).homeDataModel!.data.products.length;
         var homeCubit = HomeCubit.get(context);
         var tabCurrentIndex = homeCubit.tabCurrentIndex;
         return Scaffold(
@@ -69,14 +73,14 @@ class HomeScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     CustomText(
-                      text: "Special for You",
+                      text: AppString.specialForYou,
                       size: AppFontSize.s20,
                       color: AppColors.balckColor,
                       fontWeight: AppFontWeight.semiBold,
                     ),
                     const Spacer(),
                     CustomText(
-                      text: "See more",
+                      text: AppString.seeMore,
                       size: AppFontSize.s15,
                       color: AppColors.primaryColor,
                       fontWeight: AppFontWeight.extraSemiBold,
@@ -87,7 +91,34 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: context.height / 40,
               ),
-              const ItemsOfCategoryWidget(),
+              SizedBox(
+                height: context.height * 0.17,
+                child: BlocConsumer<CategoriesCubit, CategoriesState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    var categoriesCubit = CategoriesCubit.get(context);
+                    late int? itemCount =
+                        categoriesCubit.categoryModel!.data.length;
+                    return ListView.separated(
+                      itemCount:
+                          state is GetCategoriesLoadingState ? 5 : itemCount,
+                      physics: const BouncingScrollPhysics(),
+                      separatorBuilder: (context, index) => SizedBox(
+                        width: context.width * 0.03,
+                      ),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return state is GetCategoriesLoadingState
+                            ? const ShimmerCategoryWidget()
+                            : CategoryWidget(
+                                categoryCubit: categoriesCubit,
+                                index: index,
+                              );
+                      },
+                    );
+                  },
+                ),
+              ),
               SizedBox(
                 height: context.height / 25,
               ),
@@ -96,14 +127,14 @@ class HomeScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     CustomText(
-                      text: "Popular Product",
+                      text: AppString.popularProduct,
                       size: AppFontSize.s20,
                       color: AppColors.balckColor,
                       fontWeight: AppFontWeight.semiBold,
                     ),
                     const Spacer(),
                     CustomText(
-                      text: "See more",
+                      text: AppString.seeMore,
                       size: AppFontSize.s15,
                       color: AppColors.primaryColor,
                       fontWeight: AppFontWeight.extraSemiBold,
@@ -111,7 +142,36 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              ItemsOfPoductWidget(homeCubit: homeCubit),
+              SizedBox(
+                height: context.height * 0.35,
+                child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return state is GetHomeDataLoadingState
+                        ? const ShimmerProductWidget()
+                        : InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductDetalisScreen(
+                                    index1: index,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: ItemsOfPoductWidget(
+                              homeCubit: homeCubit,
+                              index: index,
+                            ),
+                          );
+                  },
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 5),
+                  itemCount: state is GetHomeDataLoadingState ? 5 : itemCount,
+                ),
+              ),
             ],
           ),
         );
@@ -124,87 +184,17 @@ class ItemsOfPoductWidget extends StatelessWidget {
   const ItemsOfPoductWidget({
     Key? key,
     required this.homeCubit,
+    required this.index,
   }) : super(key: key);
 
   final HomeCubit homeCubit;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => Navigator.pushNamed(
-        context,
-        AppRouts.productDetailsScreen,
-      ),
-      child: SizedBox(
-        height: context.height * 0.35,
-        child: BlocConsumer<HomeCubit, HomeState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            late int? itemCount = homeCubit.homeDataModel!.data.products.length;
-            return ListView.separated(
-              physics: const BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Row(
-                  children: [
-                    state is GetHomeDataLoadingState
-                        ? const ShimmerProductWidget()
-                        : ProductWidget(
-                            cubit: homeCubit,
-                            index: index,
-                          )
-                  ],
-                );
-              },
-              separatorBuilder: (context, index) => const SizedBox(width: 5),
-              itemCount: state is GetHomeDataLoadingState ? 5 : itemCount,
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class ItemsOfCategoryWidget extends StatelessWidget {
-  const ItemsOfCategoryWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: SizedBox(
-        height: context.height * 0.17,
-        child: BlocConsumer<CategoriesCubit, CategoriesState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            var categoriesCubit = CategoriesCubit.get(context);
-            late int? itemCount = categoriesCubit.categoryModel!.data.length;
-            return ListView.separated(
-              physics: const BouncingScrollPhysics(),
-              separatorBuilder: (context, index) => SizedBox(
-                width: context.width * 0.03,
-              ),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Row(
-                  children: [
-                    state is GetCategoriesLoadingState
-                        ? const ShimmerCategoryWidget()
-                        : CategoryWidget(
-                            categoryCubit: categoriesCubit,
-                            index: index,
-                          ),
-                  ],
-                );
-              },
-              itemCount: state is GetCategoriesLoadingState ? 5 : itemCount,
-            );
-          },
-        ),
-      ),
+    return ProductWidget(
+      cubit: homeCubit,
+      index: index,
     );
   }
 }
