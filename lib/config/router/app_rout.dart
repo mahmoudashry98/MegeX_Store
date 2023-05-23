@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/features/auth/presentation/screens/login.dart';
 import 'package:e_commerce_app/features/auth/presentation/screens/register.dart';
+import 'package:e_commerce_app/features/home/presentation/cubit/cubit.dart';
 import 'package:e_commerce_app/features/home/presentation/screens/home.dart';
 import 'package:e_commerce_app/features/home/presentation/screens/product_details.dart';
 import 'package:e_commerce_app/features/home/presentation/screens/search.dart';
@@ -24,5 +25,5 @@ final routes = {
   AppRouts.layoutScreen: (context) => const LayoutScreen(),
   AppRouts.homeScreen: (context) => const HomeScreen(),
   AppRouts.searchScreen: (context) => SearchScreen(),
-  AppRouts.productDetailsScreen: (context) => const ProductDetalisScreen(),
+  AppRouts.productDetailsScreen: (context) =>  ProductDetalisScreen(argIndex: HomeCubit.get(context).argIndex,),
 };

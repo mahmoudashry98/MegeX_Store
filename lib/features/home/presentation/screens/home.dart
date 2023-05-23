@@ -39,142 +39,152 @@ class HomeScreen extends StatelessWidget {
         var homeCubit = HomeCubit.get(context);
         var tabCurrentIndex = homeCubit.tabCurrentIndex;
         return Scaffold(
-          backgroundColor: AppColors.backgroundColor,
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding:
-                    EdgeInsets.only(top: 30.sp, left: 40.sp, bottom: 10.sp),
-                child: Row(
-                  children: [
-                    Image.asset(menuIcons),
-                    SizedBox(
-                      width: context.width / 20,
-                    ),
-                    SearchWidget(
-                      isKeyboardOped: true,
-                      width: context.width * 0.66,
-                      press: () => Navigator.pushNamed(
-                        context,
-                        AppRouts.searchScreen,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              TopNavgtationBar(
-                  homeCubit: homeCubit, tabCurrentIndex: tabCurrentIndex),
-              SizedBox(
-                height: context.height / 45,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    CustomText(
-                      text: AppString.specialForYou,
-                      size: AppFontSize.s20,
-                      color: AppColors.balckColor,
-                      fontWeight: AppFontWeight.semiBold,
-                    ),
-                    const Spacer(),
-                    CustomText(
-                      text: AppString.seeMore,
-                      size: AppFontSize.s15,
-                      color: AppColors.primaryColor,
-                      fontWeight: AppFontWeight.extraSemiBold,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: context.height / 40,
-              ),
-              SizedBox(
-                height: context.height * 0.17,
-                child: BlocConsumer<CategoriesCubit, CategoriesState>(
-                  listener: (context, state) {},
-                  builder: (context, state) {
-                    var categoriesCubit = CategoriesCubit.get(context);
-                    late int? itemCount =
-                        categoriesCubit.categoryModel!.data.length;
-                    return ListView.separated(
-                      itemCount:
-                          state is GetCategoriesLoadingState ? 5 : itemCount,
-                      physics: const BouncingScrollPhysics(),
-                      separatorBuilder: (context, index) => SizedBox(
-                        width: context.width * 0.03,
-                      ),
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return state is GetCategoriesLoadingState
-                            ? const ShimmerCategoryWidget()
-                            : CategoryWidget(
-                                categoryCubit: categoriesCubit,
-                                index: index,
-                              );
-                      },
-                    );
-                  },
-                ),
-              ),
-              SizedBox(
-                height: context.height / 25,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    CustomText(
-                      text: AppString.popularProduct,
-                      size: AppFontSize.s20,
-                      color: AppColors.balckColor,
-                      fontWeight: AppFontWeight.semiBold,
-                    ),
-                    const Spacer(),
-                    CustomText(
-                      text: AppString.seeMore,
-                      size: AppFontSize.s15,
-                      color: AppColors.primaryColor,
-                      fontWeight: AppFontWeight.extraSemiBold,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: context.height * 0.35,
-                child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return state is GetHomeDataLoadingState
-                        ? const ShimmerProductWidget()
-                        : InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ProductDetalisScreen(
-                                    index1: index,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: ItemsOfPoductWidget(
-                              homeCubit: homeCubit,
-                              index: index,
+            backgroundColor: AppColors.backgroundColor,
+            body: state is GetHomeDataLoadedState
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 30.sp, left: 40.sp, bottom: 10.sp),
+                        child: Row(
+                          children: [
+                            Image.asset(menuIcons),
+                            SizedBox(
+                              width: context.width / 20,
                             ),
-                          );
-                  },
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 5),
-                  itemCount: state is GetHomeDataLoadingState ? 5 : itemCount,
-                ),
-              ),
-            ],
-          ),
-        );
+                            SearchWidget(
+                              isKeyboardOped: true,
+                              width: context.width * 0.66,
+                              press: () => Navigator.pushNamed(
+                                context,
+                                AppRouts.searchScreen,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      TopNavgtationBar(
+                          homeCubit: homeCubit,
+                          tabCurrentIndex: tabCurrentIndex),
+                      SizedBox(
+                        height: context.height / 45,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          children: [
+                            CustomText(
+                              text: AppString.specialForYou,
+                              size: AppFontSize.s20,
+                              color: AppColors.balckColor,
+                              fontWeight: AppFontWeight.semiBold,
+                            ),
+                            const Spacer(),
+                            CustomText(
+                              text: AppString.seeMore,
+                              size: AppFontSize.s15,
+                              color: AppColors.primaryColor,
+                              fontWeight: AppFontWeight.extraSemiBold,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: context.height / 40,
+                      ),
+                      SizedBox(
+                        height: context.height * 0.17,
+                        child: BlocConsumer<CategoriesCubit, CategoriesState>(
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            var categoriesCubit = CategoriesCubit.get(context);
+                            late int? itemCount =
+                                categoriesCubit.categoryModel!.data.length;
+                            return ListView.separated(
+                              itemCount: state is GetCategoriesLoadingState
+                                  ? 5
+                                  : itemCount,
+                              physics: const BouncingScrollPhysics(),
+                              separatorBuilder: (context, index) => SizedBox(
+                                width: context.width * 0.03,
+                              ),
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return state is GetCategoriesLoadingState
+                                    ? const ShimmerCategoryWidget()
+                                    : CategoryWidget(
+                                        categoryCubit: categoriesCubit,
+                                        index: index,
+                                      );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: context.height / 25,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          children: [
+                            CustomText(
+                              text: AppString.popularProduct,
+                              size: AppFontSize.s20,
+                              color: AppColors.balckColor,
+                              fontWeight: AppFontWeight.semiBold,
+                            ),
+                            const Spacer(),
+                            CustomText(
+                              text: AppString.seeMore,
+                              size: AppFontSize.s15,
+                              color: AppColors.primaryColor,
+                              fontWeight: AppFontWeight.extraSemiBold,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: context.height * 0.35,
+                        child: ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            homeCubit.argIndex = index;
+                            return state is GetHomeDataLoadingState
+                                ? const ShimmerProductWidget()
+                                : InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductDetalisScreen(
+                                            argIndex: homeCubit.argIndex,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: ItemsOfPoductWidget(
+                                      homeCubit: homeCubit,
+                                      index: index,
+                                    ),
+                                  );
+                          },
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(width: 5),
+                          itemCount:
+                              state is GetHomeDataLoadingState ? 5 : itemCount,
+                        ),
+                      ),
+                    ],
+                  )
+                : Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.primaryColor,
+                    ),
+                  ));
       },
     );
   }
