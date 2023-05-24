@@ -1,8 +1,5 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:e_commerce_app/config/router/app_rout.dart';
-import 'package:e_commerce_app/core/network/local/shared/shared_preferences.dart';
 import 'package:e_commerce_app/features/home/presentation/cubit/cubit.dart';
-import 'package:e_commerce_app/features/home/presentation/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +10,7 @@ import 'features/auth/presentation/cubit/cubit.dart';
 import 'features/caregories/presentation/cubit/cubit.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp.internal();
+  const MyApp.internal({super.key});
 
   static const MyApp instance = MyApp.internal();
 

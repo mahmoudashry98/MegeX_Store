@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../config/router/app_rout.dart';
 import '../../../../core/utils/app_asstes_path.dart';
@@ -31,161 +32,197 @@ class HomeScreen extends StatelessWidget {
         statusBarIconBrightness: Brightness.light,
       ),
     );
-    return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        late int? itemCount =
-            HomeCubit.get(context).homeDataModel!.data.products.length;
-        var homeCubit = HomeCubit.get(context);
-        var tabCurrentIndex = homeCubit.tabCurrentIndex;
-        return Scaffold(
-            backgroundColor: AppColors.backgroundColor,
-            body: state is GetHomeDataLoadedState
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 30.sp, left: 40.sp, bottom: 10.sp),
-                        child: Row(
-                          children: [
-                            Image.asset(menuIcons),
-                            SizedBox(
-                              width: context.width / 20,
-                            ),
-                            SearchWidget(
-                              isKeyboardOped: true,
-                              width: context.width * 0.66,
-                              press: () => Navigator.pushNamed(
-                                context,
-                                AppRouts.searchScreen,
+
+    late int? itemCount =
+        HomeCubit.get(context).homeDataModel!.data.products.length;
+    var homeCubit = HomeCubit.get(context);
+    var tabCurrentIndex = homeCubit.tabCurrentIndex;
+
+    return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
+      body: BlocConsumer<HomeCubit, HomeState>(
+        // buildWhen: (previous, current) => true,
+        listenWhen: (previous, current) => false,
+        listener: (context, state) {},
+        builder: (context, state) {
+          return state is GetHomeDataLoadingState
+              ? Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.primaryColor,
+                  ),
+                )
+              : state is GetHomeDataLoadedState
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 30.sp, left: 40.sp, bottom: 10.sp),
+                          child: Row(
+                            children: [
+                              Image.asset(menuIcons),
+                              SizedBox(
+                                width: context.width / 20,
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      TopNavgtationBar(
-                          homeCubit: homeCubit,
-                          tabCurrentIndex: tabCurrentIndex),
-                      SizedBox(
-                        height: context.height / 45,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          children: [
-                            CustomText(
-                              text: AppString.specialForYou,
-                              size: AppFontSize.s20,
-                              color: AppColors.balckColor,
-                              fontWeight: AppFontWeight.semiBold,
-                            ),
-                            const Spacer(),
-                            CustomText(
-                              text: AppString.seeMore,
-                              size: AppFontSize.s15,
-                              color: AppColors.primaryColor,
-                              fontWeight: AppFontWeight.extraSemiBold,
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: context.height / 40,
-                      ),
-                      SizedBox(
-                        height: context.height * 0.17,
-                        child: BlocConsumer<CategoriesCubit, CategoriesState>(
-                          listener: (context, state) {},
-                          builder: (context, state) {
-                            var categoriesCubit = CategoriesCubit.get(context);
-                            late int? itemCount =
-                                categoriesCubit.categoryModel!.data.length;
-                            return ListView.separated(
-                              itemCount: state is GetCategoriesLoadingState
-                                  ? 5
-                                  : itemCount,
-                              physics: const BouncingScrollPhysics(),
-                              separatorBuilder: (context, index) => SizedBox(
-                                width: context.width * 0.03,
+                              SearchWidget(
+                                isKeyboardOped: true,
+                                width: context.width * 0.66,
+                                press: () => Navigator.pushNamed(
+                                  context,
+                                  AppRouts.searchScreen,
+                                ),
                               ),
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return state is GetCategoriesLoadingState
-                                    ? const ShimmerCategoryWidget()
-                                    : CategoryWidget(
-                                        categoryCubit: categoriesCubit,
-                                        index: index,
-                                      );
-                              },
-                            );
-                          },
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: context.height / 25,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          children: [
-                            CustomText(
-                              text: AppString.popularProduct,
-                              size: AppFontSize.s20,
-                              color: AppColors.balckColor,
-                              fontWeight: AppFontWeight.semiBold,
-                            ),
-                            const Spacer(),
-                            CustomText(
-                              text: AppString.seeMore,
-                              size: AppFontSize.s15,
-                              color: AppColors.primaryColor,
-                              fontWeight: AppFontWeight.extraSemiBold,
-                            ),
-                          ],
+                        TopNavgtationBar(
+                            homeCubit: homeCubit,
+                            tabCurrentIndex: tabCurrentIndex),
+                        SizedBox(
+                          height: context.height / 45,
                         ),
-                      ),
-                      SizedBox(
-                        height: context.height * 0.35,
-                        child: ListView.separated(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            homeCubit.argIndex = index;
-                            return state is GetHomeDataLoadingState
-                                ? const ShimmerProductWidget()
-                                : InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductDetalisScreen(
-                                            argIndex: homeCubit.argIndex,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              CustomText(
+                                text: AppString.specialForYou,
+                                size: AppFontSize.s20,
+                                color: AppColors.balckColor,
+                                fontWeight: AppFontWeight.semiBold,
+                              ),
+                              const Spacer(),
+                              CustomText(
+                                text: AppString.seeMore,
+                                size: AppFontSize.s15,
+                                color: AppColors.primaryColor,
+                                fontWeight: AppFontWeight.extraSemiBold,
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: context.height / 40,
+                        ),
+                        SizedBox(
+                          height: context.height * 0.17,
+                          child: BlocConsumer<CategoriesCubit, CategoriesState>(
+                            listener: (context, state) {},
+                            builder: (context, state) {
+                              var categoriesCubit =
+                                  CategoriesCubit.get(context);
+                              late int? itemCount =
+                                  categoriesCubit.categoryModel!.data.length;
+                              return ListView.separated(
+                                itemCount: state is GetCategoriesLoadingState
+                                    ? 5
+                                    : itemCount,
+                                physics: const BouncingScrollPhysics(),
+                                separatorBuilder: (context, index) => SizedBox(
+                                  width: context.width * 0.03,
+                                ),
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return state is GetCategoriesLoadingState
+                                      ? const ShimmerCategoryWidget()
+                                      : CategoryWidget(
+                                          categoryCubit: categoriesCubit,
+                                          index: index,
+                                        );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: context.height / 25,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              CustomText(
+                                text: AppString.popularProduct,
+                                size: AppFontSize.s20,
+                                color: AppColors.balckColor,
+                                fontWeight: AppFontWeight.semiBold,
+                              ),
+                              const Spacer(),
+                              CustomText(
+                                text: AppString.seeMore,
+                                size: AppFontSize.s15,
+                                color: AppColors.primaryColor,
+                                fontWeight: AppFontWeight.extraSemiBold,
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: context.height * 0.35,
+                          child: ListView.separated(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return state is GetHomeDataLoadingState
+                                  ? const ShimmerProductWidget()
+                                  : InkWell(
+                                      onTap: () {
+                                        print('index$index');
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductDetalisScreen(
+                                              indexProduct: index,
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                    child: ItemsOfPoductWidget(
-                                      homeCubit: homeCubit,
-                                      index: index,
-                                    ),
-                                  );
-                          },
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(width: 5),
-                          itemCount:
-                              state is GetHomeDataLoadingState ? 5 : itemCount,
+                                        );
+                                      },
+                                      child: ItemsOfPoductWidget(
+                                        homeCubit: homeCubit,
+                                        index: index,
+                                      ),
+                                    );
+                            },
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(width: 5),
+                            itemCount: state is GetHomeDataLoadingState
+                                ? 5
+                                : itemCount,
+                          ),
                         ),
-                      ),
-                    ],
-                  )
-                : Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.primaryColor,
-                    ),
-                  ));
-      },
+                      ],
+                    )
+                  : state is GetHomeDataErrorState
+                      ? Center(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(errorIcons),
+                              CustomText(
+                                text: 'Oops...!',
+                                size: 35.sp,
+                                fontWeight: AppFontWeight.meduim,
+                                color: AppColors.primaryColor,
+                              ),
+                              SizedBox(
+                                height: context.height * 0.01,
+                              ),
+                              CustomText(
+                                text:
+                                    'Something Went Worng. Please try again later.',
+                                size: 16.sp,
+                                fontWeight: AppFontWeight.meduim,
+                                color: AppColors.primaryColor,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        )
+                      : const AboutDialog();
+        },
+      ),
     );
   }
 }
@@ -224,7 +261,7 @@ class TopNavgtationBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
       child: SizedBox(
-        height: 60,
+        height: context.height * 0.06,
         width: context.width,
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),
@@ -427,8 +464,8 @@ class ProductWidget extends StatelessWidget {
           Container(
             height: context.height * 0.3,
             width: context.width * 0.5,
-            margin: const EdgeInsets.only(
-              top: 60,
+            margin: EdgeInsets.only(
+              top: 55.sp,
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),

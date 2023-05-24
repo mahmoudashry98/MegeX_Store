@@ -19,11 +19,14 @@ class AppRouts {
 }
 
 final routes = {
+  
   AppRouts.initialRoute: (context) => const SplashScreen(),
   AppRouts.loginScreen: (context) => const LoginScreen(),
   AppRouts.registerScreen: (context) => const RegisterScreen(),
   AppRouts.layoutScreen: (context) => const LayoutScreen(),
   AppRouts.homeScreen: (context) => const HomeScreen(),
   AppRouts.searchScreen: (context) => SearchScreen(),
-  AppRouts.productDetailsScreen: (context) =>  ProductDetalisScreen(argIndex: HomeCubit.get(context).argIndex,),
+  AppRouts.productDetailsScreen: (context) => const  ProductDetalisScreen(),
 };
+
+

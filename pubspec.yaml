@@ -30,7 +30,6 @@ dependencies:
   google_sign_in: ^5.4.2
   shared_preferences: ^2.0.18
   shimmer: ^2.0.0
-  smooth_page_indicator: ^1.1.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

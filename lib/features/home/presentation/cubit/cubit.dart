@@ -22,9 +22,6 @@ class HomeCubit extends Cubit<HomeState> {
 //tabCurrentIndex
   int tabCurrentIndex = 0;
 
-//argIndex
-  int argIndex = 0;
-
 //CurrentBottomNavIndex
   int bottomNavCurrentIndex = 0;
 
