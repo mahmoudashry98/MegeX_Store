@@ -21,7 +21,7 @@ ThemeData appTheme() {
     //appBar theme
     appBarTheme: AppBarTheme(
       centerTitle: true,
-      color: AppColors.balckColor,
+      color: AppColors.blackColor,
       elevation: AppSize.s4,
       shadowColor: AppColors.primaryColor,
     ),

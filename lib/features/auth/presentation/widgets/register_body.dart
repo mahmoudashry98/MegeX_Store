@@ -89,7 +89,7 @@ class RegisterBody extends StatelessWidget {
                               keyboardType: TextInputType.name,
                               hintText: AppString.hintName,
                               hintStyle: TextStyle(
-                                color: AppColors.balckColor,
+                                color: AppColors.blackColor,
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -127,7 +127,7 @@ class RegisterBody extends StatelessWidget {
                               keyboardType: TextInputType.emailAddress,
                               hintText: AppString.hintEmail,
                               hintStyle: TextStyle(
-                                color: AppColors.balckColor,
+                                color: AppColors.blackColor,
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -167,7 +167,7 @@ class RegisterBody extends StatelessWidget {
                               keyboardType: TextInputType.number,
                               hintText: AppString.hintPhone,
                               hintStyle: TextStyle(
-                                color: AppColors.balckColor,
+                                color: AppColors.blackColor,
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -209,7 +209,7 @@ class RegisterBody extends StatelessWidget {
                               controller: passwordController,
                               hintText: '********',
                               hintStyle: TextStyle(
-                                color: AppColors.balckColor,
+                                color: AppColors.blackColor,
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w700,
                               ),

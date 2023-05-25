@@ -81,7 +81,7 @@ class LoginBody extends StatelessWidget {
                           keyboardType: TextInputType.emailAddress,
                           hintText: AppString.hintEmail,
                           hintStyle: TextStyle(
-                            color: AppColors.balckColor,
+                            color: AppColors.blackColor,
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w700,
                           ),
@@ -133,7 +133,7 @@ class LoginBody extends StatelessWidget {
                           controller: passwordController,
                           hintText: '********',
                           hintStyle: TextStyle(
-                            color: AppColors.balckColor,
+                            color: AppColors.blackColor,
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w700,
                           ),
@@ -177,7 +177,6 @@ class LoginBody extends StatelessWidget {
                                             password: passwordController.text,
                                             context,
                                           );
-
                                         }
                                       },
                                     ),

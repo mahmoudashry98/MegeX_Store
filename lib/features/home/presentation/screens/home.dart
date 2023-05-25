@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                               CustomText(
                                 text: AppString.specialForYou,
                                 size: AppFontSize.s20,
-                                color: AppColors.balckColor,
+                                color: AppColors.blackColor,
                                 fontWeight: AppFontWeight.semiBold,
                               ),
                               const Spacer(),
@@ -144,7 +144,7 @@ class HomeScreen extends StatelessWidget {
                               CustomText(
                                 text: AppString.popularProduct,
                                 size: AppFontSize.s20,
-                                color: AppColors.balckColor,
+                                color: AppColors.blackColor,
                                 fontWeight: AppFontWeight.semiBold,
                               ),
                               const Spacer(),
@@ -521,7 +521,7 @@ class ProductWidget extends StatelessWidget {
                 child: CustomText(
                   text: cubit.homeDataModel!.data.products[index].name,
                   size: 22,
-                  color: AppColors.balckColor,
+                  color: AppColors.blackColor,
                   fontWeight: AppFontWeight.semiBold,
                   maxLines: 1,
                   textOverflow: TextOverflow.ellipsis,
@@ -540,12 +540,13 @@ class ProductWidget extends StatelessWidget {
               SizedBox(
                 height: context.height * 0.03,
               ),
-              CustomText(
-                text: '\$ ${cubit.homeDataModel!.data.products[index].price}',
-                size: 17,
-                color: AppColors.primaryColor,
-                fontWeight: AppFontWeight.bold,
-                textAlign: TextAlign.center,
+              Text(
+                'EGP ${cubit.homeDataModel!.data.products[index].price}',
+                style: TextStyle(
+                  fontSize: 17.sp,
+                  fontWeight: AppFontWeight.bold,
+                  color: AppColors.primaryColor,
+                ),
               ),
             ],
           ),

@@ -35,8 +35,9 @@ class AppString {
   static const String signWithSocialAccount = 'Or via social media';
   static const String specialForYou = 'Special for You';
   static const String seeMore = 'See more';
+  static const String readMore = 'Read More';
+  static const String readless = 'Read less';
   static const String popularProduct = 'Popular Product';
-
 
   static const String products = 'products';
   static const String price = 'price';
@@ -46,6 +47,8 @@ class AppString {
   static const String inCart = 'in_cart';
   static const String inFavorites = 'in_favorites';
   static const String search = 'Search';
-
-
+  static const String colors = 'Colors';
+  static const String discountText = 'Get Apple TV+ free for a year';
+  static const String totalPrice = 'Total:';
+  static const String addToBasket= 'Add to basket';
 }

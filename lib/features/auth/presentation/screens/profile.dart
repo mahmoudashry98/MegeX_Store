@@ -73,30 +73,30 @@ class ProfileScreen extends StatelessWidget {
                       googleUser != null
                           ? CustomText(
                               text: googleUser.displayName!,
-                              color: AppColors.balckColor,
+                              color: AppColors.blackColor,
                             )
                           : facebookUser != null
                               ? CustomText(
                                   text: facebookUser['name'],
-                                  color: AppColors.balckColor,
+                                  color: AppColors.blackColor,
                                 )
                               : CustomText(
                                   text: cubit.profileModel!.userData!.name,
-                                  color: AppColors.balckColor,
+                                  color: AppColors.blackColor,
                                 ),
                       googleUser != null
                           ? CustomText(
                               text: googleUser.email!,
-                              color: AppColors.balckColor,
+                              color: AppColors.blackColor,
                             )
                           : facebookUser != null
                               ? CustomText(
                                   text: facebookUser['email'],
-                                  color: AppColors.balckColor,
+                                  color: AppColors.blackColor,
                                 )
                               : CustomText(
                                   text: cubit.profileModel!.userData!.email,
-                                  color: AppColors.balckColor,
+                                  color: AppColors.blackColor,
                                 ),
                       const SizedBox(
                         height: 50,

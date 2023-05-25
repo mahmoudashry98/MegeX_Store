@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce_app/core/utils/app_colors.dart';
 import 'package:e_commerce_app/core/utils/app_fonts.dart';
+import 'package:e_commerce_app/core/utils/app_string.dart';
 import 'package:e_commerce_app/core/utils/media_query_values.dart';
 import 'package:e_commerce_app/core/widgets/custom_text.dart';
 import 'package:e_commerce_app/features/home/presentation/cubit/cubit.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/utils/app_asstes_path.dart';
+import '../../../../core/widgets/custom_button.dart';
 import '../../data/model/items_color.dart';
 import '../widgets/smooth_page_indector.dart';
 import 'home.dart';
@@ -26,7 +28,7 @@ class ProductDetalisScreen extends StatefulWidget {
 }
 
 class _ProductDetalisScreenState extends State<ProductDetalisScreen> {
-  bool isExpanded = false;
+  bool isExpanded = true;
   int indexIndector = 0;
   final List<ItemsColor> itemsColor = [
     ItemsColor(
@@ -45,7 +47,6 @@ class _ProductDetalisScreenState extends State<ProductDetalisScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     var cubit = HomeCubit.get(context);
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -53,7 +54,7 @@ class _ProductDetalisScreenState extends State<ProductDetalisScreen> {
         backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         iconTheme: IconThemeData(
-          color: AppColors.balckColor,
+          color: AppColors.blackColor,
         ),
         actions: [
           Image.asset(favouriteIcons),
@@ -89,7 +90,7 @@ class _ProductDetalisScreenState extends State<ProductDetalisScreen> {
                           highlightColor:
                               AppColors.backgroundColor.withOpacity(0.2),
                           child: Container(
-                            color: AppColors.errorColor,
+                            color: AppColors.backgroundColor,
                           ),
                         ),
                       ),
@@ -139,7 +140,7 @@ class _ProductDetalisScreenState extends State<ProductDetalisScreen> {
             ),
           ),
           Expanded(
-            flex: 10,
+            flex: 11,
             child: Container(
               width: context.width,
               decoration: BoxDecoration(
@@ -170,7 +171,7 @@ class _ProductDetalisScreenState extends State<ProductDetalisScreen> {
                       height: context.height * 0.02,
                     ),
                     CustomText(
-                      text: 'Colors',
+                      text: AppString.colors,
                       size: 20.sp,
                       fontWeight: AppFontWeight.bold,
                       textAlign: TextAlign.start,
@@ -196,6 +197,77 @@ class _ProductDetalisScreenState extends State<ProductDetalisScreen> {
                     ),
                     SizedBox(
                       height: context.height * 0.02,
+                    ),
+                    CustomText(
+                      text: AppString.discountText,
+                      size: 17.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    SizedBox(
+                      height: context.height * 0.014,
+                    ),
+                    CustomText(
+                      text: cubit.allProduct[widget.indexProduct!].description,
+                      color: AppColors.blackColor.withOpacity(0.5),
+                      maxLines: isExpanded ? null : 5,
+                      textOverflow: TextOverflow.ellipsis,
+                      fontWeight: AppFontWeight.regular,
+                      size: 15.sp,
+                    ),
+                    SizedBox(
+                      height: context.height * 0.005,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isExpanded = !isExpanded;
+                        });
+                      },
+                      child: CustomText(
+                        text: isExpanded
+                            ? AppString.readMore
+                            : AppString.readless,
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.bold,
+                        size: AppFontSize.s14,
+                      ),
+                    ),
+                    SizedBox(
+                      height: context.height * 0.05,
+                    ),
+                    Row(
+                      children: [
+                        CustomText(
+                          text: AppString.totalPrice,
+                          size: 22.sp,
+                          fontWeight: AppFontWeight.regular,
+                          color: AppColors.blackColor,
+                        ),
+                        const Spacer(),
+                        Text(
+                          'EGP ${cubit.allProduct[widget.indexProduct!].price}',
+                          style: TextStyle(
+                            fontSize: 17.sp,
+                            fontWeight: AppFontWeight.bold,
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                        SizedBox(
+                          width: context.width * 0.04,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: context.height * 0.03,
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: CustomButton(
+                        text: AppString.addToBasket,
+                        color: AppColors.primaryColor,
+                        textColor: AppColors.whiteColor,
+                        onTap: () {},
+                      ),
                     ),
                   ],
                 ),

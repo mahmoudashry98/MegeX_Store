@@ -42,10 +42,9 @@ Widget defaultTextFormField({
       hintText: hintText,
       hintStyle: hintStyle,
       errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.errorColor, width: AppSize.s1_5),
-          borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8) )
-        ),
-
+          borderSide:
+              BorderSide(color: AppColors.errorColor, width: AppSize.s1_5),
+          borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
       enabledBorder: UnderlineInputBorder(
         borderSide: BorderSide(
           color: AppColors.grey,
@@ -64,7 +63,7 @@ Widget defaultTextFormField({
     style: TextStyle(
       fontSize: 12.sp,
       fontWeight: FontWeight.w700,
-      color: AppColors.balckColor,
+      color: AppColors.blackColor,
     ),
   );
 }

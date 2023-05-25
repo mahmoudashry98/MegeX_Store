@@ -42,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     CustomText(
                       text: 'Invalid Data',
-                      color: AppColors.balckColor,
+                      color: AppColors.blackColor,
                       fontWeight: FontWeight.bold,
                       size: 18.sp,
                     ),
@@ -51,7 +51,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     CustomText(
                       text: state.exception.message,
-                      color: AppColors.balckColor,
+                      color: AppColors.blackColor,
                       size: 18.sp,
                     ),
                     SizedBox(

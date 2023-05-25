@@ -47,7 +47,7 @@ class SearchScreen extends StatelessWidget {
                       },
                       icon: Icon(
                         Icons.arrow_back,
-                        color: AppColors.balckColor,
+                        color: AppColors.blackColor,
                       ),
                     ),
                     SearchWidget(
@@ -74,7 +74,7 @@ class SearchScreen extends StatelessWidget {
                             return CustomText(
                               text:
                                   'Found  ${searchController.text.isEmpty ? '0' : cubit.searchResults.length} results',
-                              color: AppColors.balckColor,
+                              color: AppColors.blackColor,
                               fontWeight: AppFontWeight.semiBold,
                               size: AppFontSize.s28,
                             );
@@ -107,7 +107,7 @@ class NotFoundWidget extends StatelessWidget {
           Image.asset(notFoundImage),
           CustomText(
             text: 'Item not found',
-            color: AppColors.balckColor,
+            color: AppColors.blackColor,
             fontWeight: AppFontWeight.semiBold,
             size: AppFontSize.s28,
           ),
@@ -118,7 +118,7 @@ class NotFoundWidget extends StatelessWidget {
             textAlign: TextAlign.center,
             text:
                 'Try a more generic search term or try\n looking for alternative products.',
-            color: AppColors.balckColor,
+            color: AppColors.blackColor,
             fontWeight: AppFontWeight.regular,
             size: AppFontSize.s17,
           ),
@@ -223,7 +223,7 @@ class SearchProductWidget extends StatelessWidget {
                                   child: CustomText(
                                     text: cubit.searchResults[index].name,
                                     size: 18,
-                                    color: AppColors.balckColor,
+                                    color: AppColors.blackColor,
                                     fontWeight: AppFontWeight.semiBold,
                                     maxLines: 1,
                                     textOverflow: TextOverflow.ellipsis,
