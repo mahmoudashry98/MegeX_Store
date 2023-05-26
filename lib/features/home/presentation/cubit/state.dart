@@ -12,13 +12,27 @@ class ChangeBottomNavBarState extends HomeState {}
 ///GetHomeDataState
 class GetHomeDataLoadingState extends HomeState {}
 
+class GetHomeDataLoadedState extends HomeState {}
+
 class GetHomeDataErrorState extends HomeState {
   final String messageError;
 
   GetHomeDataErrorState({required this.messageError});
 }
 
-class GetHomeDataLoadedState extends HomeState {}
+///GetGetProductWithIdState
+class GetProductWithIdLoadingState extends HomeState {}
+
+class GetProductWithIdLoadedState extends HomeState {}
+
+class GetProductWithIdErrorState extends HomeState {
+  final String messageError;
+
+  GetProductWithIdErrorState({required this.messageError});
+}
+
+
+
 
 //SearchProductsState
 

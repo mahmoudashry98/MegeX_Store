@@ -56,9 +56,10 @@ class HomeCubit extends Cubit<HomeState> {
   List<ProductEntities> allProduct = [];
   List<ProductEntities> searchResults = [];
 
+  //final int? id;
+
   void searchProducts(String searchController) {
     emit(GetSearchProductsLoadingState());
-
     searchResults = allProduct
         .where((product) =>
             product.name.toLowerCase().startsWith(searchController))
@@ -77,7 +78,6 @@ class HomeCubit extends Cubit<HomeState> {
     emit(IsSearchingLoadedState());
   }
 
-
   void shuffleList(List<ProductModel> list) {
     final random = Random();
     for (var i = list.length - 1; i > 0; i--) {
@@ -88,7 +88,9 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  
+  Future<void> getProductWithId() async {
+    emit(GetProductWithIdLoadingState());
+  }
 
   Future<void> getHomeData() async {
     emit(GetHomeDataLoadingState());

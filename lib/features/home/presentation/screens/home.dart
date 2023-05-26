@@ -41,186 +41,177 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: BlocConsumer<HomeCubit, HomeState>(
-        // buildWhen: (previous, current) => true,
-        listenWhen: (previous, current) => false,
         listener: (context, state) {},
         builder: (context, state) {
-          return state is GetHomeDataLoadingState
-              ? Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.primaryColor,
-                  ),
-                )
-              : state is GetHomeDataLoadedState
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: 30.sp, left: 40.sp, bottom: 10.sp),
-                          child: Row(
-                            children: [
-                              Image.asset(menuIcons),
-                              SizedBox(
-                                width: context.width / 20,
-                              ),
-                              SearchWidget(
-                                isKeyboardOped: true,
-                                width: context.width * 0.66,
-                                press: () => Navigator.pushNamed(
-                                  context,
-                                  AppRouts.searchScreen,
-                                ),
-                              ),
-                            ],
+          return state is! GetHomeDataErrorState
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 30.sp,
+                        left: 40.sp,
+                        bottom: 10.sp,
+                      ),
+                      child: Row(
+                        children: [
+                          Image.asset(menuIcons),
+                          SizedBox(
+                            width: context.width / 20,
                           ),
-                        ),
-                        TopNavgtationBar(
-                            homeCubit: homeCubit,
-                            tabCurrentIndex: tabCurrentIndex),
-                        SizedBox(
-                          height: context.height / 45,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            children: [
-                              CustomText(
-                                text: AppString.specialForYou,
-                                size: AppFontSize.s20,
-                                color: AppColors.blackColor,
-                                fontWeight: AppFontWeight.semiBold,
-                              ),
-                              const Spacer(),
-                              CustomText(
-                                text: AppString.seeMore,
-                                size: AppFontSize.s15,
-                                color: AppColors.primaryColor,
-                                fontWeight: AppFontWeight.extraSemiBold,
-                              ),
-                            ],
+                          SearchWidget(
+                            isKeyboardOped: true,
+                            width: context.width * 0.66,
+                            press: () => Navigator.pushNamed(
+                              context,
+                              AppRouts.searchScreen,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: context.height / 40,
-                        ),
-                        SizedBox(
-                          height: context.height * 0.17,
-                          child: BlocConsumer<CategoriesCubit, CategoriesState>(
-                            listener: (context, state) {},
-                            builder: (context, state) {
-                              var categoriesCubit =
-                                  CategoriesCubit.get(context);
-                              late int? itemCount =
-                                  categoriesCubit.categoryModel!.data.length;
-                              return ListView.separated(
-                                itemCount: state is GetCategoriesLoadingState
-                                    ? 5
-                                    : itemCount,
-                                physics: const BouncingScrollPhysics(),
-                                separatorBuilder: (context, index) => SizedBox(
-                                  width: context.width * 0.03,
-                                ),
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return state is GetCategoriesLoadingState
-                                      ? const ShimmerCategoryWidget()
-                                      : CategoryWidget(
-                                          categoryCubit: categoriesCubit,
-                                          index: index,
-                                        );
-                                },
-                              );
-                            },
+                        ],
+                      ),
+                    ),
+                    TopNavgtationBar(
+                      homeCubit: homeCubit,
+                      tabCurrentIndex: tabCurrentIndex,
+                    ),
+                    SizedBox(
+                      height: context.height / 45,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          CustomText(
+                            text: AppString.specialForYou,
+                            size: AppFontSize.s20,
+                            color: AppColors.blackColor,
+                            fontWeight: AppFontWeight.semiBold,
                           ),
-                        ),
-                        SizedBox(
-                          height: context.height / 25,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            children: [
-                              CustomText(
-                                text: AppString.popularProduct,
-                                size: AppFontSize.s20,
-                                color: AppColors.blackColor,
-                                fontWeight: AppFontWeight.semiBold,
-                              ),
-                              const Spacer(),
-                              CustomText(
-                                text: AppString.seeMore,
-                                size: AppFontSize.s15,
-                                color: AppColors.primaryColor,
-                                fontWeight: AppFontWeight.extraSemiBold,
-                              ),
-                            ],
+                          const Spacer(),
+                          CustomText(
+                            text: AppString.seeMore,
+                            size: AppFontSize.s15,
+                            color: AppColors.primaryColor,
+                            fontWeight: AppFontWeight.extraSemiBold,
                           ),
-                        ),
-                        SizedBox(
-                          height: context.height * 0.35,
-                          child: ListView.separated(
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return state is GetHomeDataLoadingState
-                                  ? const ShimmerProductWidget()
-                                  : InkWell(
-                                      onTap: () {
-                                        print('index$index');
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductDetalisScreen(
-                                              indexProduct: index,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: ItemsOfPoductWidget(
-                                        homeCubit: homeCubit,
-                                        index: index,
-                                      ),
-                                    );
-                            },
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(width: 5),
-                            itemCount: state is GetHomeDataLoadingState
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: context.height / 40,
+                    ),
+                    SizedBox(
+                      height: context.height * 0.17,
+                      child: BlocConsumer<CategoriesCubit, CategoriesState>(
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          var categoriesCubit = CategoriesCubit.get(context);
+                          late int? itemCount =
+                              categoriesCubit.categoryModel!.data.length;
+                          return ListView.separated(
+                            itemCount: state is GetCategoriesLoadingState
                                 ? 5
                                 : itemCount,
+                            physics: const BouncingScrollPhysics(),
+                            separatorBuilder: (context, index) => SizedBox(
+                              width: context.width * 0.03,
+                            ),
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return state is GetCategoriesLoadingState
+                                  ? const ShimmerCategoryWidget()
+                                  : CategoryWidget(
+                                      categoryCubit: categoriesCubit,
+                                      index: index,
+                                    );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: context.height / 25,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          CustomText(
+                            text: AppString.popularProduct,
+                            size: AppFontSize.s20,
+                            color: AppColors.blackColor,
+                            fontWeight: AppFontWeight.semiBold,
                           ),
-                        ),
-                      ],
-                    )
-                  : state is GetHomeDataErrorState
-                      ? Center(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(errorIcons),
-                              CustomText(
-                                text: 'Oops...!',
-                                size: 35.sp,
-                                fontWeight: AppFontWeight.meduim,
-                                color: AppColors.primaryColor,
-                              ),
-                              SizedBox(
-                                height: context.height * 0.01,
-                              ),
-                              CustomText(
-                                text:
-                                    'Something Went Worng. Please try again later.',
-                                size: 16.sp,
-                                fontWeight: AppFontWeight.meduim,
-                                color: AppColors.primaryColor,
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                          const Spacer(),
+                          CustomText(
+                            text: AppString.seeMore,
+                            size: AppFontSize.s15,
+                            color: AppColors.primaryColor,
+                            fontWeight: AppFontWeight.extraSemiBold,
                           ),
-                        )
-                      : const AboutDialog();
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: context.height * 0.35,
+                      child: ListView.separated(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return state is GetHomeDataLoadingState
+                              ? const ShimmerProductWidget()
+                              : GestureDetector(
+                                  onTap: () {
+                                    print('index$index');
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ProductDetalisScreen(
+                                          indexProduct: index,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: ItemsOfPoductWidget(
+                                    homeCubit: homeCubit,
+                                    index: index,
+                                  ),
+                                );
+                        },
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(width: 5),
+                        itemCount:
+                            state is GetHomeDataLoadingState ? 5 : itemCount,
+                      ),
+                    ),
+                  ],
+                )
+              : Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(errorIcons),
+                      CustomText(
+                        text: 'Oops...!',
+                        size: 35.sp,
+                        fontWeight: AppFontWeight.meduim,
+                        color: AppColors.primaryColor,
+                      ),
+                      SizedBox(
+                        height: context.height * 0.01,
+                      ),
+                      CustomText(
+                        text: 'Something Went Worng. Please try again later.',
+                        size: 16.sp,
+                        fontWeight: AppFontWeight.meduim,
+                        color: AppColors.primaryColor,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                );
         },
       ),
     );
@@ -276,15 +267,16 @@ class TopNavgtationBar extends StatelessWidget {
                 width: context.width * 0.2,
                 height: context.height * 0.2,
                 decoration: BoxDecoration(
-                    border: tabCurrentIndex == index
-                        ? Border(
-                            bottom: BorderSide(
-                              color: AppColors.primaryColor,
-                              width: 3,
-                              style: BorderStyle.solid,
-                            ),
-                          )
-                        : const Border()),
+                  border: tabCurrentIndex == index
+                      ? Border(
+                          bottom: BorderSide(
+                            color: AppColors.primaryColor,
+                            width: 3,
+                            style: BorderStyle.solid,
+                          ),
+                        )
+                      : const Border(),
+                ),
                 child: Center(
                   child: CustomText(
                     text: homeCubit.items[index],
@@ -448,10 +440,12 @@ class ShimmerCategoryWidget extends StatelessWidget {
 class ProductWidget extends StatelessWidget {
   final HomeCubit cubit;
   final int index;
+  // final int id;
   const ProductWidget({
     Key? key,
     required this.cubit,
     required this.index,
+    // required this.id,
   }) : super(key: key);
 
   @override
@@ -532,7 +526,7 @@ class ProductWidget extends StatelessWidget {
                 height: context.height * 0.01,
               ),
               CustomText(
-                text: 'Series 6 . Red',
+                text: '${cubit.homeDataModel!.data.products[index].id}',
                 size: 16,
                 color: AppColors.grey,
                 fontWeight: AppFontWeight.semiBold,
