@@ -47,7 +47,6 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void changeTabBar(int index) {
-   
     tabCurrentIndex = index;
     emit(ChangeTabBarState());
   }
@@ -57,18 +56,17 @@ class HomeCubit extends Cubit<HomeState> {
   List<ProductEntities> allProduct = [];
   List<ProductEntities> searchResults = [];
 
-  //final int? id;
-
   void searchProducts(String searchController) {
     emit(GetSearchProductsLoadingState());
-    searchResults = allProduct
-        .where((product) =>
-            product.name.toLowerCase().startsWith(searchController))
-        .toList();
+
+    searchResults = allProduct.where((product) {
+      return product.name.toLowerCase().startsWith(searchController);
+    }).toList();
 
     print('searchResults$searchResults');
     emit(GetSearchProductsLoadingState());
   }
+
 
   void isSearching(bool isSearching) {
     emit(IsSearchingLoadingState());
@@ -89,10 +87,6 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  Future<void> getProductWithId() async {
-    emit(GetProductWithIdLoadingState());
-  }
-
   Future<void> getHomeData() async {
     emit(GetHomeDataLoadingState());
 
@@ -106,7 +100,6 @@ class HomeCubit extends Cubit<HomeState> {
       (r) {
         homeDataModel = r;
         allProduct = r.data.products;
-        //print('ProductModel $homeDataModel');
         emit(GetHomeDataLoadedState());
       },
     );

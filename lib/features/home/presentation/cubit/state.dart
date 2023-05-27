@@ -20,19 +20,6 @@ class GetHomeDataErrorState extends HomeState {
   GetHomeDataErrorState({required this.messageError});
 }
 
-///GetGetProductWithIdState
-class GetProductWithIdLoadingState extends HomeState {}
-
-class GetProductWithIdLoadedState extends HomeState {}
-
-class GetProductWithIdErrorState extends HomeState {
-  final String messageError;
-
-  GetProductWithIdErrorState({required this.messageError});
-}
-
-
-
 
 //SearchProductsState
 

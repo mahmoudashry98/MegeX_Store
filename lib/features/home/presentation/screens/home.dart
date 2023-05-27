@@ -167,7 +167,8 @@ class HomeScreen extends StatelessWidget {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             ProductDetalisScreen(
-                                          indexProduct: index,
+                                          productEntities:
+                                              homeCubit.allProduct[index],
                                         ),
                                       ),
                                     );
@@ -525,7 +526,7 @@ class ProductWidget extends StatelessWidget {
                 height: context.height * 0.01,
               ),
               CustomText(
-                text: '${cubit.homeDataModel!.data.products[index].id}',
+                text: 'Series 6 . Red',
                 size: 16,
                 color: AppColors.grey,
                 fontWeight: AppFontWeight.semiBold,
@@ -533,6 +534,7 @@ class ProductWidget extends StatelessWidget {
               SizedBox(
                 height: context.height * 0.03,
               ),
+              //i use text here because the font don't like me
               Text(
                 'EGP ${cubit.homeDataModel!.data.products[index].price}',
                 style: TextStyle(

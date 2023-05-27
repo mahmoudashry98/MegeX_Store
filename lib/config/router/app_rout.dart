@@ -26,7 +26,7 @@ final routes = {
   AppRouts.layoutScreen: (context) => const LayoutScreen(),
   AppRouts.homeScreen: (context) => const HomeScreen(),
   AppRouts.searchScreen: (context) => SearchScreen(),
-  AppRouts.productDetailsScreen: (context) => const  ProductDetalisScreen(),
+  AppRouts.productDetailsScreen: (context) =>   ProductDetalisScreen(),
 };
 
 

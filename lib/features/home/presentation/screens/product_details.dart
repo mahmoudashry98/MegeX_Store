@@ -13,21 +13,20 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../core/utils/app_asstes_path.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../data/model/items_color.dart';
+import '../../domain/entities/home.dart';
 import '../widgets/smooth_page_indector.dart';
 import 'home.dart';
 
-class ProductDetalisScreen extends StatefulWidget {
-  final int? indexProduct;
-  const ProductDetalisScreen({
+class ProductDetalisScreen extends StatelessWidget {
+  
+  final ProductEntities? productEntities;
+   ProductDetalisScreen({
     super.key,
-    this.indexProduct,
+  
+    this.productEntities,
   });
 
-  @override
-  State<ProductDetalisScreen> createState() => _ProductDetalisScreenState();
-}
 
-class _ProductDetalisScreenState extends State<ProductDetalisScreen> {
   bool isExpanded = true;
   int indexIndector = 0;
   final List<ItemsColor> itemsColor = [
@@ -68,12 +67,12 @@ class _ProductDetalisScreenState extends State<ProductDetalisScreen> {
           Expanded(
             flex: 4,
             child: CarouselSlider.builder(
-              itemCount: cubit.allProduct[widget.indexProduct!].images.length,
+              itemCount: productEntities!.images.length,
               itemBuilder: (context, index, realIndex) {
                 return SizedBox(
                   child: CachedNetworkImage(
                     imageUrl:
-                        cubit.allProduct[widget.indexProduct!].images[index],
+                        productEntities!.images[index],
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -109,11 +108,11 @@ class _ProductDetalisScreenState extends State<ProductDetalisScreen> {
                 pageSnapping: false,
                 enableInfiniteScroll: false,
                 onPageChanged: (index, reason) {
-                  setState(
-                    () {
-                      indexIndector = index;
-                    },
-                  );
+                  // setState(
+                  //   () {
+                  //     indexIndector = index;
+                  //   },
+                  // );
                 },
               ),
             ),
@@ -128,7 +127,7 @@ class _ProductDetalisScreenState extends State<ProductDetalisScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SmoothPageIndicator(
-                    count: cubit.allProduct[widget.indexProduct!].images.length,
+                    count: productEntities!.images.length,
                     activeIndex: indexIndector.toDouble(),
                     activeColor: AppColors.primaryColor,
                     inactiveColor: AppColors.grey,
@@ -142,143 +141,190 @@ class _ProductDetalisScreenState extends State<ProductDetalisScreen> {
           Expanded(
             flex: 11,
             child: Container(
-              width: context.width,
-              decoration: BoxDecoration(
-                color: AppColors.whiteColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(25),
-                  topRight: Radius.circular(25),
+                width: context.width,
+                decoration: BoxDecoration(
+                  color: AppColors.whiteColor,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25),
+                  ),
                 ),
-              ),
-              child: Padding(
-                padding:
-                    EdgeInsets.symmetric(vertical: 20.sp, horizontal: 10.sp),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: CustomText(
-                        text: cubit.allProduct[widget.indexProduct!].name,
-                        size: 25.sp,
-                        fontWeight: AppFontWeight.semiBold,
-                        maxLines: 1,
-                        textAlign: TextAlign.center,
-                        textOverflow: TextOverflow.clip,
-                      ),
-                    ),
-                    SizedBox(
-                      height: context.height * 0.02,
-                    ),
-                    CustomText(
-                      text: AppString.colors,
-                      size: 20.sp,
-                      fontWeight: AppFontWeight.bold,
-                      textAlign: TextAlign.start,
-                    ),
-                    SizedBox(
-                      height: context.height * 0.02,
-                    ),
-                    SizedBox(
-                      height: context.height * 0.06,
-                      child: ListView.separated(
-                        separatorBuilder: (context, index) => SizedBox(
-                          width: context.width * 0.02,
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 20.sp, horizontal: 10.sp),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: CustomText(
+                          text: productEntities!.name,
+                          size: 25.sp,
+                          fontWeight: AppFontWeight.semiBold,
+                          maxLines: 1,
+                          textAlign: TextAlign.center,
+                          textOverflow: TextOverflow.clip,
                         ),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: itemsColor.length,
-                        itemBuilder: (context, index) {
-                          return SectionOfColor(
-                            index: index,
-                            itemsColor: itemsColor,
-                          );
-                        },
                       ),
-                    ),
-                    SizedBox(
-                      height: context.height * 0.02,
-                    ),
-                    CustomText(
-                      text: AppString.discountText,
-                      size: 17.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    SizedBox(
-                      height: context.height * 0.014,
-                    ),
-                    CustomText(
-                      text: cubit.allProduct[widget.indexProduct!].description,
-                      color: AppColors.blackColor.withOpacity(0.5),
-                      maxLines: isExpanded ? null : 5,
-                      textOverflow: TextOverflow.ellipsis,
-                      fontWeight: AppFontWeight.regular,
-                      size: 15.sp,
-                    ),
-                    SizedBox(
-                      height: context.height * 0.005,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isExpanded = !isExpanded;
-                        });
-                      },
-                      child: CustomText(
-                        text: isExpanded
-                            ? AppString.readMore
-                            : AppString.readless,
-                        color: AppColors.primaryColor,
-                        fontWeight: FontWeight.bold,
-                        size: AppFontSize.s14,
+                      SizedBox(
+                        height: context.height * 0.02,
                       ),
-                    ),
-                    SizedBox(
-                      height: context.height * 0.05,
-                    ),
-                    Row(
-                      children: [
-                        CustomText(
-                          text: AppString.totalPrice,
-                          size: 22.sp,
-                          fontWeight: AppFontWeight.regular,
-                          color: AppColors.blackColor,
-                        ),
-                        const Spacer(),
-                        Text(
-                          'EGP ${cubit.allProduct[widget.indexProduct!].price}',
-                          style: TextStyle(
-                            fontSize: 17.sp,
-                            fontWeight: AppFontWeight.bold,
-                            color: AppColors.primaryColor,
+                      CustomText(
+                        text: AppString.colors,
+                        size: 20.sp,
+                        fontWeight: AppFontWeight.bold,
+                        textAlign: TextAlign.start,
+                      ),
+                      SizedBox(
+                        height: context.height * 0.02,
+                      ),
+                      SizedBox(
+                        height: context.height * 0.06,
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) => SizedBox(
+                            width: context.width * 0.02,
                           ),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: itemsColor.length,
+                          itemBuilder: (context, index) {
+                            return SectionOfColor(
+                              index: index,
+                              itemsColor: itemsColor,
+                            );
+                          },
                         ),
-                        SizedBox(
-                          width: context.width * 0.04,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: context.height * 0.03,
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: CustomButton(
-                        text: AppString.addToBasket,
-                        color: AppColors.primaryColor,
-                        textColor: AppColors.whiteColor,
-                        onTap: () {},
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                      SizedBox(
+                        height: context.height * 0.02,
+                      ),
+                      CustomText(
+                        text: AppString.discountText,
+                        size: 17.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      SizedBox(
+                        height: context.height * 0.014,
+                      ),
+                      CustomText(
+                        text:
+                            productEntities!.description,
+                        color: AppColors.blackColor.withOpacity(0.5),
+                        maxLines: isExpanded ? null : 5,
+                        textOverflow: TextOverflow.ellipsis,
+                        fontWeight: AppFontWeight.regular,
+                        size: 15.sp,
+                      ),
+                      SizedBox(
+                        height: context.height * 0.005,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          // setState(() {
+                          //   isExpanded = !isExpanded;
+                          // });
+                        },
+                        child: CustomText(
+                          text: isExpanded
+                              ? AppString.readMore
+                              : AppString.readless,
+                          color: AppColors.primaryColor,
+                          fontWeight: FontWeight.bold,
+                          size: AppFontSize.s14,
+                        ),
+                      ),
+                      SizedBox(
+                        height: context.height * 0.05,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          CustomText(
+                            text: AppString.totalPrice,
+                            size: 22.sp,
+                            fontWeight: AppFontWeight.regular,
+                            color: AppColors.blackColor,
+                          ),
+                          const Spacer(),
+                          Text.rich(
+                            TextSpan(
+                              style: TextStyle(
+                                fontSize: 22.sp,
+                                color: AppColors.primaryColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              children: [
+                                const TextSpan(text: 'EGP '),
+                                TextSpan(
+                                  text:
+                                      '${productEntities!.price.round()} ',
+                                  style: TextStyle(
+                                    fontSize: 22.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5.0,
+                          ),
+                          if (productEntities!.discount !=
+                              0)
+                            Text(
+                              '${productEntities!.oldPrice.round()}',
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: AppColors.lightGrey,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                            ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: context.height * 0.03,
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: CustomButton(
+                          text: AppString.addToBasket,
+                          color: AppColors.primaryColor,
+                          textColor: AppColors.whiteColor,
+                          onTap: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
           ),
         ],
       ),
     );
   }
 }
+
+//  Row(
+//                       children: [
+//                         CustomText(
+//                           text: AppString.totalPrice,
+//                           size: 22.sp,
+//                           fontWeight: AppFontWeight.regular,
+//                           color: AppColors.blackColor,
+//                         ),
+//                         const Spacer(),
+//                         Text(
+//                           'EGP ${cubit.allProduct[widget.indexProduct!].price}',
+//                           style: TextStyle(
+//                             fontSize: 17.sp,
+//                             fontWeight: AppFontWeight.bold,
+//                             color: AppColors.primaryColor,
+//                           ),
+//                         ),
+//                         SizedBox(
+//                           width: context.width * 0.04,
+//                         ),
+//                       ],
+//                     ),
 
 class SectionOfColor extends StatelessWidget {
   final List<ItemsColor> itemsColor;

@@ -54,7 +54,7 @@ class SearchScreen extends StatelessWidget {
                     SearchWidget(
                       onChange: (value) {
                         if (value.isNotEmpty) {
-                          cubit.searchProducts(searchController.text);
+                          cubit.searchProducts(searchController.text,);
                         }
                         cubit.isSearching(isSearching);
                       },
@@ -82,7 +82,7 @@ class SearchScreen extends StatelessWidget {
                           },
                         ),
                       ),
-                SearchProductWidget(
+                ResultProductWidget(
                   cubit: cubit,
                   searchController: searchController,
                 ),
@@ -129,8 +129,8 @@ class NotFoundWidget extends StatelessWidget {
   }
 }
 
-class SearchProductWidget extends StatelessWidget {
-  const SearchProductWidget({
+class ResultProductWidget extends StatelessWidget {
+  const ResultProductWidget({
     Key? key,
     required this.cubit,
     required this.searchController,
@@ -157,7 +157,7 @@ class SearchProductWidget extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => ProductDetalisScreen(
-                        indexProduct: index,
+                        productEntities: cubit.searchResults[index],
                       ),
                     ),
                   );
