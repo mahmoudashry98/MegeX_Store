@@ -33,16 +33,15 @@ class HomeScreen extends StatelessWidget {
       ),
     );
 
-    late int? itemCount =
-        HomeCubit.get(context).homeDataModel!.data.products.length;
-    var homeCubit = HomeCubit.get(context);
-    var tabCurrentIndex = homeCubit.tabCurrentIndex;
-
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {},
         builder: (context, state) {
+          late int? itemCount =
+              HomeCubit.get(context).homeDataModel!.data.products.length;
+          var homeCubit = HomeCubit.get(context);
+          var tabCurrentIndex = homeCubit.tabCurrentIndex;
           return state is! GetHomeDataErrorState
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

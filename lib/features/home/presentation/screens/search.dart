@@ -3,6 +3,7 @@ import 'package:e_commerce_app/core/utils/app_asstes_path.dart';
 import 'package:e_commerce_app/core/utils/app_colors.dart';
 import 'package:e_commerce_app/core/utils/media_query_values.dart';
 import 'package:e_commerce_app/features/home/presentation/cubit/state.dart';
+import 'package:e_commerce_app/features/home/presentation/screens/product_details.dart';
 import 'package:e_commerce_app/features/home/presentation/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -150,115 +151,127 @@ class SearchProductWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         return searchController.text.isEmpty
             ? Container()
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: context.height * 0.38,
-                    child: Row(
-                      children: [
-                        Stack(
-                          alignment: AlignmentDirectional.topCenter,
-                          children: [
-                            Container(
-                              height: context.height * 0.25,
-                              width: context.width * 0.4,
-                              margin: const EdgeInsets.only(
-                                top: 60,
+            : GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetalisScreen(
+                        indexProduct: index,
+                      ),
+                    ),
+                  );
+              },
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: context.height * 0.38,
+                      child: Row(
+                        children: [
+                          Stack(
+                            alignment: AlignmentDirectional.topCenter,
+                            children: [
+                              Container(
+                                height: context.height * 0.25,
+                                width: context.width * 0.4,
+                                margin: const EdgeInsets.only(
+                                  top: 60,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: AppColors.whiteColor,
+                                ),
                               ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: AppColors.whiteColor,
-                              ),
-                            ),
-                            Column(
-                              children: [
-                                Stack(
-                                  alignment: AlignmentDirectional.topCenter,
-                                  children: [
-                                    SizedBox(
-                                      height: context.height * 0.19,
-                                      width: context.width * 0.33,
-                                      child: CachedNetworkImage(
-                                        imageUrl:
-                                            cubit.searchResults[index].image,
-                                        imageBuilder:
-                                            (context, imageProvider) =>
-                                                Container(
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.contain,
-                                            ),
-                                          ),
-                                        ),
-                                        placeholder: (context, url) => Center(
-                                          child: ShimmerWidget(
-                                            height: context.height * 0.19,
-                                            width: context.width * 0.43,
-                                            color: AppColors.whiteColor,
-                                            widget: Shimmer.fromColors(
-                                              baseColor: Colors.grey.shade50,
-                                              highlightColor: AppColors
-                                                  .lightGrey
-                                                  .withOpacity(0.2),
-                                              child: CircleAvatar(
-                                                backgroundColor:
-                                                    AppColors.whiteColor,
-                                                radius: 15,
+                              Column(
+                                children: [
+                                  Stack(
+                                    alignment: AlignmentDirectional.topCenter,
+                                    children: [
+                                      SizedBox(
+                                        height: context.height * 0.19,
+                                        width: context.width * 0.33,
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              cubit.searchResults[index].image,
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.contain,
                                               ),
                                             ),
                                           ),
+                                          placeholder: (context, url) => Center(
+                                            child: ShimmerWidget(
+                                              height: context.height * 0.19,
+                                              width: context.width * 0.43,
+                                              color: AppColors.whiteColor,
+                                              widget: Shimmer.fromColors(
+                                                baseColor: Colors.grey.shade50,
+                                                highlightColor: AppColors
+                                                    .lightGrey
+                                                    .withOpacity(0.2),
+                                                child: CircleAvatar(
+                                                  backgroundColor:
+                                                      AppColors.whiteColor,
+                                                  radius: 15,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
                                         ),
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
                                       ),
+                                    ],
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                        left: 10.sp, right: 10.sp),
+                                    width: context.width * 0.42,
+                                    child: CustomText(
+                                      text: cubit.searchResults[index].name,
+                                      size: 18,
+                                      color: AppColors.blackColor,
+                                      fontWeight: AppFontWeight.semiBold,
+                                      maxLines: 1,
+                                      textOverflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
                                     ),
-                                  ],
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(
-                                      left: 10.sp, right: 10.sp),
-                                  width: context.width * 0.42,
-                                  child: CustomText(
-                                    text: cubit.searchResults[index].name,
-                                    size: 18,
-                                    color: AppColors.blackColor,
+                                  ),
+                                  SizedBox(
+                                    height: context.height * 0.01,
+                                  ),
+                                  CustomText(
+                                    text: 'Series 6 . Red',
+                                    size: 16,
+                                    color: AppColors.grey,
                                     fontWeight: AppFontWeight.semiBold,
-                                    maxLines: 1,
-                                    textOverflow: TextOverflow.ellipsis,
+                                  ),
+                                  SizedBox(
+                                    height: context.height * 0.03,
+                                  ),
+                                  CustomText(
+                                    text:
+                                        '\$ ${cubit.searchResults[index].price}',
+                                    size: 17,
+                                    color: AppColors.primaryColor,
+                                    fontWeight: AppFontWeight.bold,
                                     textAlign: TextAlign.center,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: context.height * 0.01,
-                                ),
-                                CustomText(
-                                  text: 'Series 6 . Red',
-                                  size: 16,
-                                  color: AppColors.grey,
-                                  fontWeight: AppFontWeight.semiBold,
-                                ),
-                                SizedBox(
-                                  height: context.height * 0.03,
-                                ),
-                                CustomText(
-                                  text:
-                                      '\$ ${cubit.searchResults[index].price}',
-                                  size: 17,
-                                  color: AppColors.primaryColor,
-                                  fontWeight: AppFontWeight.bold,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              );
+                  ],
+                ),
+            );
       },
     ));
   }

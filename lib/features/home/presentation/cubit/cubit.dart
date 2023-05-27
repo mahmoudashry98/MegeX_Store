@@ -47,6 +47,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void changeTabBar(int index) {
+   
     tabCurrentIndex = index;
     emit(ChangeTabBarState());
   }
