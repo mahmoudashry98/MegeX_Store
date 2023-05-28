@@ -49,6 +49,12 @@ class ProductDetalisScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              cubit.isExpanded = true;
+              Navigator.pop(context);
+            }),
         backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         iconTheme: IconThemeData(
