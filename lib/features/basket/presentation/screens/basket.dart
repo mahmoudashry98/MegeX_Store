@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/config/router/app_rout.dart';
 import 'package:e_commerce_app/core/utils/app_fonts.dart';
 import 'package:e_commerce_app/core/utils/app_string.dart';
 import 'package:e_commerce_app/core/utils/media_query_values.dart';
@@ -20,7 +21,7 @@ class BasketScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: CustomText(
-          text: 'Basket',
+          text: AppString.basket,
           color: AppColors.blackColor,
           size: 18.sp,
           fontWeight: AppFontWeight.bold,
@@ -42,29 +43,7 @@ class BasketScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              height: context.height * 0.05,
-              margin: const EdgeInsets.only(left: 25, right: 25),
-              decoration: BoxDecoration(
-                color: AppColors.paleBlueColor,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(notificationIcons),
-                  SizedBox(
-                    width: context.width * 0.02,
-                  ),
-                  CustomText(
-                    text: 'Delivery for FREE until the end of the month',
-                    size: 10.sp,
-                    color: AppColors.blackColor,
-                    fontWeight: AppFontWeight.semiBold,
-                  ),
-                ],
-              ),
-            ),
+            const NotficitionOfferMessageWidget(),
             SizedBox(
               height: context.height * 0.02,
             ),
@@ -94,7 +73,9 @@ class BasketScreen extends StatelessWidget {
                 text: AppString.checkout,
                 color: AppColors.primaryColor,
                 textColor: AppColors.whiteColor,
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, AppRouts.checkOutScreen);
+                },
               ),
             ),
             SizedBox(
@@ -102,6 +83,39 @@ class BasketScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class NotficitionOfferMessageWidget extends StatelessWidget {
+  const NotficitionOfferMessageWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: context.height * 0.05,
+      margin: const EdgeInsets.only(left: 25, right: 25),
+      decoration: BoxDecoration(
+        color: AppColors.paleBlueColor,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(notificationIcons),
+          SizedBox(
+            width: context.width * 0.02,
+          ),
+          CustomText(
+            text: 'Delivery for FREE until the end of the month',
+            size: 10.sp,
+            color: AppColors.blackColor,
+            fontWeight: AppFontWeight.semiBold,
+          ),
+        ],
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:e_commerce_app/features/home/presentation/screens/product_detail
 import 'package:e_commerce_app/features/home/presentation/screens/search.dart';
 
 import '../../features/basket/presentation/screens/basket.dart';
+import '../../features/basket/presentation/screens/checkout.dart';
 import '../../features/home/presentation/screens/layout.dart';
 import '../../features/splash/splash_screen.dart';
 
@@ -18,6 +19,7 @@ class AppRouts {
   static const String searchScreen = '/search';
   static const String productDetailsScreen = '/productDetalisScreen';
   static const String basketScreen = '/basketScreen';
+  static const String checkOutScreen = '/checkOutScreen';
 }
 
 final routes = {
@@ -29,4 +31,5 @@ final routes = {
   AppRouts.searchScreen: (context) => SearchScreen(),
   AppRouts.productDetailsScreen: (context) => ProductDetalisScreen(),
   AppRouts.basketScreen: (context) => const BasketScreen(),
+  AppRouts.checkOutScreen: (context) => const CheckOutScreen(),
 };

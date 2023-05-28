@@ -29,8 +29,7 @@ String favouriteIcons = _getAssetsIconPath('Heart.png');
 String deleteIcons = _getAssetsIconPath('Delete.png');
 String notificationIcons = _getAssetsIconPath('Notification.png');
 String errorIcons = _getAssetsIconPath('Slice 1.svg');
-String plusIcons = _getAssetsIconPath('plus.png');
-String minusIcons = _getAssetsIconPath('minus.png');
+String locationIcons = _getAssetsIconPath('Location.png');  
 
 
 String _getAssetsImagePath(String fileName) {
