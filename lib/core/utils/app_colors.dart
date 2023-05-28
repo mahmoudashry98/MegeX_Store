@@ -18,4 +18,5 @@ class AppColors {
   static Color skyBlueColor = const Color(0xff7485C1);
   static Color roseGoldColor = const Color(0xffC9A19C);
   static Color greenColor = const Color(0xffA1C89B);
+  static Color paleBlueColor = const Color(0xffD3F2FF);
 }

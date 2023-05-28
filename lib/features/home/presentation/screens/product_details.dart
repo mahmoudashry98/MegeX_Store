@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_commerce_app/config/router/app_rout.dart';
 import 'package:e_commerce_app/core/utils/app_colors.dart';
 import 'package:e_commerce_app/core/utils/app_fonts.dart';
 import 'package:e_commerce_app/core/utils/app_string.dart';
@@ -14,6 +15,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/utils/app_asstes_path.dart';
 import '../../../../core/widgets/custom_button.dart';
+import '../../../../core/widgets/total_price.dart';
 import '../../data/model/items_color.dart';
 import '../../domain/entities/home.dart';
 import '../widgets/smooth_page_indector.dart';
@@ -183,6 +185,7 @@ class ProductDetalisScreen extends StatelessWidget {
                           SizedBox(
                             height: context.height * 0.06,
                             child: ListView.separated(
+                              physics: const BouncingScrollPhysics(),
                               separatorBuilder: (context, index) => SizedBox(
                                 width: context.width * 0.02,
                               ),
@@ -234,50 +237,11 @@ class ProductDetalisScreen extends StatelessWidget {
                           SizedBox(
                             height: context.height * 0.05,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              CustomText(
-                                text: AppString.totalPrice,
-                                size: 22.sp,
-                                fontWeight: AppFontWeight.regular,
-                                color: AppColors.blackColor,
-                              ),
-                              const Spacer(),
-                              Text.rich(
-                                TextSpan(
-                                  style: TextStyle(
-                                    fontSize: 22.sp,
-                                    color: AppColors.primaryColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  children: [
-                                    const TextSpan(text: 'EGP '),
-                                    TextSpan(
-                                      text:
-                                          '${productEntities!.price.round()} ',
-                                      style: TextStyle(
-                                        fontSize: 22.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.primaryColor,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 5.0,
-                              ),
-                              if (productEntities!.discount != 0)
-                                Text(
-                                  '${productEntities!.oldPrice.round()}',
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    color: AppColors.lightGrey,
-                                    decoration: TextDecoration.lineThrough,
-                                  ),
-                                ),
-                            ],
+                          TotalPriceWidget(
+                            isUseDiscount: true,
+                            price: productEntities!.price.toString(),
+                            oldPrice: productEntities!.oldPrice.toString(),
+                            discount: productEntities!.discount,
                           ),
                           SizedBox(
                             height: context.height * 0.03,
@@ -288,7 +252,12 @@ class ProductDetalisScreen extends StatelessWidget {
                               text: AppString.addToBasket,
                               color: AppColors.primaryColor,
                               textColor: AppColors.whiteColor,
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  AppRouts.basketScreen,
+                                );
+                              },
                             ),
                           ),
                         ],

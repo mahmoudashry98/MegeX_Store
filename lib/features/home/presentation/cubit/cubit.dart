@@ -5,13 +5,13 @@ import 'package:e_commerce_app/features/home/data/model/home.dart';
 import 'package:e_commerce_app/features/home/domain/entities/home.dart';
 import 'package:e_commerce_app/features/home/domain/usecase/home.dart';
 import 'package:e_commerce_app/features/home/presentation/cubit/state.dart';
-import 'package:e_commerce_app/features/home/presentation/screens/cart.dart';
 import 'package:e_commerce_app/features/home/presentation/screens/favourite.dart';
 import 'package:e_commerce_app/features/home/presentation/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../auth/presentation/screens/profile.dart';
+import '../../../basket/presentation/screens/basket.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final GetHomeDataUseCase getHomeDataUseCase;
@@ -39,7 +39,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<Widget> bottomScreens = [
     const HomeScreen(),
     const FavouriteScreen(),
-    const CartScreen(),
+    const BasketScreen(),
     const ProfileScreen(),
   ];
 

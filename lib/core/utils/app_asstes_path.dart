@@ -26,7 +26,11 @@ String faceBookIcons = _getAssetsIconPath('facebook-256.png');
 String googleIcons = _getAssetsIconPath('google-icon.svg');
 String menuIcons = _getAssetsIconPath('Vector.png');
 String favouriteIcons = _getAssetsIconPath('Heart.png');
+String deleteIcons = _getAssetsIconPath('Delete.png');
+String notificationIcons = _getAssetsIconPath('Notification.png');
 String errorIcons = _getAssetsIconPath('Slice 1.svg');
+String plusIcons = _getAssetsIconPath('plus.png');
+String minusIcons = _getAssetsIconPath('minus.png');
 
 
 String _getAssetsImagePath(String fileName) {

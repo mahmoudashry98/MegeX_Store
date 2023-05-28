@@ -51,4 +51,5 @@ class AppString {
   static const String discountText = 'Get Apple TV+ free for a year';
   static const String totalPrice = 'Total:';
   static const String addToBasket= 'Add to basket';
+  static const String checkout= 'Checkout';
 }
