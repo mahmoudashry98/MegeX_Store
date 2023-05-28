@@ -22,7 +22,6 @@ class LayoutScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
-        //var tabCurrentIndex = cubit.tabCurrentIndex;
         var bottomNavCurrentIndex = cubit.bottomNavCurrentIndex;
         return Scaffold(
           backgroundColor: AppColors.backgroundColor,

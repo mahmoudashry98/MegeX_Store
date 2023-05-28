@@ -25,6 +25,9 @@ class HomeCubit extends Cubit<HomeState> {
 //CurrentBottomNavIndex
   int bottomNavCurrentIndex = 0;
 
+//CurrentCarouselIndector
+  int carouselCurrentIndex = 0;
+
 //List of Item in TabBar
   List<String> items = [
     'Wearable',
@@ -40,10 +43,25 @@ class HomeCubit extends Cubit<HomeState> {
     const ProfileScreen(),
   ];
 
+  //using in the product detail in read more and more lees in description
+  bool isExpanded = true;
+
+  void changeExpanded(bool expande) {
+    isExpanded = !expande;
+    print(isExpanded);
+    emit(ChangeExpandedState());
+  }
+
   //BottomNav
   void changeBottomNav(int index) {
     bottomNavCurrentIndex = index;
     emit(ChangeBottomNavBarState());
+  }
+
+  //changeCarouselIndector
+  void changeCarouselIndector(int index) {
+    carouselCurrentIndex = index;
+    emit(ChangeCarouselIndectorState());
   }
 
   void changeTabBar(int index) {
@@ -66,7 +84,6 @@ class HomeCubit extends Cubit<HomeState> {
     print('searchResults$searchResults');
     emit(GetSearchProductsLoadingState());
   }
-
 
   void isSearching(bool isSearching) {
     emit(IsSearchingLoadingState());

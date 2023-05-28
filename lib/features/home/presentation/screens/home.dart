@@ -40,9 +40,10 @@ class HomeScreen extends StatelessWidget {
         builder: (context, state) {
           late int? itemCount =
               HomeCubit.get(context).homeDataModel!.data.products.length;
-          var homeCubit = HomeCubit.get(context);
-          var tabCurrentIndex = homeCubit.tabCurrentIndex;
-          return state is! GetHomeDataErrorState
+          final homeCubit = HomeCubit.get(context);
+          final tabCurrentIndex = homeCubit.tabCurrentIndex;
+          return state is! GetHomeDataErrorState &&
+                  state is! GetCategoriesDataErrorState
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -534,15 +535,36 @@ class ProductWidget extends StatelessWidget {
               SizedBox(
                 height: context.height * 0.03,
               ),
-              //i use text here because the font don't like me
-              Text(
-                'EGP ${cubit.homeDataModel!.data.products[index].price}',
-                style: TextStyle(
-                  fontSize: 17.sp,
-                  fontWeight: AppFontWeight.bold,
-                  color: AppColors.primaryColor,
+              Text.rich(
+                TextSpan(
+                  style: TextStyle(
+                    fontSize: 17.sp,
+                    color: AppColors.primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  children: [
+                    const TextSpan(text: 'EGP '),
+                    TextSpan(
+                      text:
+                          '${cubit.homeDataModel!.data.products[index].price.round()} ',
+                      style: TextStyle(
+                        fontSize: 17.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  ],
                 ),
               ),
+              if (cubit.homeDataModel!.data.products[index].discount != 0)
+                Text(
+                  '${cubit.homeDataModel!.data.products[index].oldPrice.round()}',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: AppColors.lightGrey,
+                    decoration: TextDecoration.lineThrough,
+                  ),
+                ),
             ],
           ),
         ],

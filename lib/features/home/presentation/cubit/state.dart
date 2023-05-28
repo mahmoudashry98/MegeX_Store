@@ -9,7 +9,13 @@ class ChangeTabBarState extends HomeState {}
 //Change TabBar
 class ChangeBottomNavBarState extends HomeState {}
 
-///GetHomeDataState
+//Change Expanded
+class ChangeExpandedState extends HomeState {}
+
+//Change CarouselIndector
+class ChangeCarouselIndectorState extends HomeState {}
+
+//Get HomeDataState
 class GetHomeDataLoadingState extends HomeState {}
 
 class GetHomeDataLoadedState extends HomeState {}
@@ -21,7 +27,7 @@ class GetHomeDataErrorState extends HomeState {
 }
 
 
-//SearchProductsState
+//Search ProductsState
 
 class GetSearchProductsLoadingState extends HomeState {}
 
@@ -29,7 +35,7 @@ class GetSearchProductsErrorState extends HomeState {}
 
 class GetSearchProductsLoadedState extends HomeState {}
 
-//IsSearchingState
+//Is SearchingState
 class IsSearchingLoadingState extends HomeState {}
 
 class IsSearchingLoadedState extends HomeState {}
