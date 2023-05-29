@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 ThemeData appTheme() {
   return ThemeData(
+    unselectedWidgetColor: AppColors.borderColor,
     useMaterial3: false,
     //main Colors
     primaryColor: AppColors.primaryColor,
