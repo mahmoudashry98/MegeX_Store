@@ -160,7 +160,9 @@ class CheckOutScreen extends StatelessWidget {
                       builder: (context) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 40),
+                            horizontal: 30,
+                            vertical: 40,
+                          ),
                           child: Column(
                             children: [
                               Row(
@@ -181,43 +183,95 @@ class CheckOutScreen extends StatelessWidget {
                                 ],
                               ),
                               SizedBox(
-                                height: context.height * 0.02,
+                                height: context.height * 0.04,
                               ),
                               Container(
-                                height: context.height * 0.25,
                                 decoration: BoxDecoration(
                                   color: AppColors.grey.withOpacity(0.3),
                                   borderRadius: BorderRadius.circular(
                                     10,
                                   ),
                                 ),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        CustomText(
-                                          text: 'My credit card',
-                                          size: 17.sp,
-                                          color: AppColors.blackColor,
-                                          fontWeight: AppFontWeight.regular,
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.all(8),
-                                          height: 40.sp,
-                                          width: 62.sp,
-                                          decoration: BoxDecoration(
-                                            color:
-                                                AppColors.grey.withOpacity(0.3),
-                                            borderRadius:
-                                                BorderRadius.circular(15),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20.sp, vertical: 25.sp),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          CustomText(
+                                            text: 'My credit card',
+                                            size: 17.sp,
+                                            color: AppColors.blackColor,
+                                            fontWeight: AppFontWeight.semiBold,
                                           ),
-                                          child: Image.asset(visaImage),
-                                        ),
-                                      ],
-                                    )
-                                  ],
+                                          const Spacer(),
+                                          Container(
+                                            padding: const EdgeInsets.all(8),
+                                            height: 40.sp,
+                                            width: 62.sp,
+                                            decoration: BoxDecoration(
+                                              color: AppColors.whiteColor
+                                                  .withOpacity(0.4),
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            child: Image.asset(visaImage),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: context.height * 0.02,
+                                      ),
+                                      CustomText(
+                                        text: '**** **** **** 1234',
+                                        color: AppColors.blackColor,
+                                        fontWeight: AppFontWeight.regular,
+                                        size: 37.sp,
+                                      ),
+                                      SizedBox(
+                                        height: context.height * 0.02,
+                                      ),
+                                      Row(
+                                        children: [
+                                          CustomText(
+                                            text: 'Rosina Doe',
+                                            color: AppColors.grey,
+                                            size: 15.sp,
+                                            fontWeight: AppFontWeight.semiBold,
+                                          ),
+                                          const Spacer(),
+                                          CustomText(
+                                            text: '04/26',
+                                            color: AppColors.grey,
+                                            size: 15.sp,
+                                            fontWeight: AppFontWeight.semiBold,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: context.height * 0.04,
+                              ),
+                              const TotalPriceWidget(
+                                isUseDiscount: false,
+                                price: '522',
+                              ),
+                              SizedBox(
+                                height: context.height * 0.02,
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: CustomButton(
+                                  text: AppString.payNow,
+                                  color: AppColors.primaryColor,
+                                  textColor: AppColors.whiteColor,
+                                  onTap: () {},
                                 ),
                               ),
                             ],

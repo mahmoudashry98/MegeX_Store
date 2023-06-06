@@ -53,6 +53,7 @@ class AppString {
   static const String addToBasket= 'Add to basket';
   static const String basket= 'Basket';
   static const String checkout= 'Checkout';
+  static const String payNow= 'Pay now';
   static const String shippingInformation= 'Shipping information';
   static const String paymentMethod= 'Payment Method';
 }

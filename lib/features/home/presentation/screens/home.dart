@@ -106,12 +106,12 @@ class HomeScreen extends StatelessWidget {
                         listener: (context, state) {},
                         builder: (context, state) {
                           var categoriesCubit = CategoriesCubit.get(context);
-                          late int? itemCount =
+                          late int? itemCountCategory =
                               categoriesCubit.categoryModel!.data.length;
                           return ListView.separated(
                             itemCount: state is GetCategoriesLoadingState
                                 ? 5
-                                : itemCount,
+                                : itemCountCategory,
                             physics: const BouncingScrollPhysics(),
                             separatorBuilder: (context, index) => SizedBox(
                               width: context.width * 0.03,
